@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
+
+/* ─── Variables ─────────────────────────────────────── */
+:root {
+  --negro:       #060810;
+  --negro-medio: #0d1017;
+  --panel:       rgba(255, 255, 255, 0.04);
+  --panel-borde: rgba(255, 255, 255, 0.08);
+
+  --cian:        #00e5ff;
+  --cian-dim:    rgba(0, 229, 255, 0.15);
+  --purpura:     #a855f7;
+  --purpura-dim: rgba(168, 85, 247, 0.15);
+  --blanco:      #f0f4ff;
+  --gris:        rgba(240, 244, 255, 0.45);
+
+  --blur-glass:  12px;
+  --radio:       12px;
+  --radio-lg:    20px;
+
+  --fuente-display: 'Space Grotesk', sans-serif;
+  --fuente-cuerpo:  'Inter', sans-serif;
+  --fuente-mono:    'Space Mono', monospace;
+
+  --transicion:  all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: var(--fuente-cuerpo);
+  background-color: var(--negro);
+  color: var(--blanco);
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─── Sección base (scroll snap) ────────────────────── */
+.seccion {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  width: 100%;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── Cursor personalizado ──────────────────────────── */
+#cursor-punto {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cian);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+}
+
+#cursor-anillo {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.25s, height 0.25s, opacity 0.25s;
+}
+
+/* ─── Glass mixin ───────────────────────────────────── */
+.glass {
+  background: var(--panel);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--panel-borde);
+  border-radius: var(--radio);
+}
+
+/* ─── Utilidades ────────────────────────────────────── */
+.text-cian    { color: var(--cian); }
+.text-purpura { color: var(--purpura); }
+.text-gris    { color: var(--gris); }
+.mono         { font-family: var(--fuente-mono); }

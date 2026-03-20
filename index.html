@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galo — Editor de Video</title>
+  <meta name="description" content="Portafolio de Galo, editor de video especializado en contenido corto de alto impacto.">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/hero.css">
+</head>
+<body>
+
+  <!-- Cursor personalizado -->
+  <div id="cursor-punto"></div>
+  <div id="cursor-anillo"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       SECCIÓN 01 — HERO
+  ═══════════════════════════════════════════════ -->
+  <section class="seccion hero" id="inicio">
+
+    <!-- Fondo -->
+    <div class="hero-malla"></div>
+    <canvas id="canvas-particulas"></canvas>
+
+    <!-- Barra superior tipo software -->
+    <header class="barra-superior">
+      <div class="barra-logo">G<span>.</span>Portfolio <span style="color:var(--gris);font-weight:300;">// v1.0</span></div>
+
+      <div class="barra-controles">
+        <button class="btn-barra">
+          <span class="dot"></span>
+          En línea
+        </button>
+        <button class="btn-barra">Proyectos</button>
+        <button class="btn-barra">Contacto</button>
+      </div>
+
+      <div class="barra-estado">
+        <span class="indicador">Disponible para proyectos</span>
+        <span class="mono" style="color:rgba(240,244,255,0.2);">|</span>
+        <span>Mar 2026</span>
+      </div>
+    </header>
+
+    <!-- Cuerpo principal -->
+    <main class="hero-cuerpo">
+
+      <!-- ── Columna izquierda: Texto ── -->
+      <div class="hero-texto">
+        <span class="hero-etiqueta">Editor de Video · Short-Form</span>
+
+        <h1 class="hero-nombre">
+          Creando<br>
+          historias<br>
+          <span class="nombre-acento">en segundos.</span>
+        </h1>
+
+        <p class="hero-tagline">
+          <span id="tagline-texto">Especialista en contenido corto.</span><span class="cursor-texto"></span>
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-numero">+500<span>M</span></div>
+            <div class="stat-label">Views generados</div>
+          </div>
+          <div class="stat">
+            <div class="stat-numero">3<span>s</span></div>
+            <div class="stat-label">Tiempo de enganche</div>
+          </div>
+          <div class="stat">
+            <div class="stat-numero">+80<span></span></div>
+            <div class="stat-label">Proyectos</div>
+          </div>
+        </div>
+
+        <div class="hero-botones">
+          <button class="btn-primario" id="btn-ver-trabajo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Ver trabajo
+          </button>
+          <button class="btn-secundario" id="btn-contactar">
+            Contactar
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Centro: Preview 9:16 ── -->
+      <div class="hero-preview-wrap">
+
+        <!-- Badge flotante superior -->
+        <div class="preview-badge">
+          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          9:16 · Short-Form
+        </div>
+
+        <!-- Herramientas HUD — izquierda -->
+        <div class="preview-hud-izq">
+          <button class="hud-btn activo" title="Cortar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+          </button>
+          <button class="hud-btn" title="Transición">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          </button>
+          <button class="hud-btn" title="Audio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="22" y1="12" x2="16" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><circle cx="14" cy="12" r="4"/></svg>
+          </button>
+          <button class="hud-btn" title="Color">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </button>
+          <button class="hud-btn" title="Efectos">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </button>
+        </div>
+
+        <!-- Video preview -->
+        <div class="hero-preview">
+          <div class="preview-gradiente"></div>
+
+          <!-- Topbar del video -->
+          <div class="preview-topbar">
+            <span class="preview-rec">REC</span>
+            <span class="preview-formato mono">1440p · 60fps</span>
+          </div>
+
+          <!-- Contenido del video -->
+          <div class="preview-contenido">
+            <button class="preview-play" aria-label="Reproducir">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </button>
+          </div>
+
+          <!-- Barra de progreso -->
+          <div class="preview-bottombar">
+            <div class="preview-progress">
+              <div class="preview-progress-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Herramientas HUD — derecha -->
+        <div class="preview-hud-der">
+          <button class="hud-btn" title="Capas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </button>
+          <button class="hud-btn activo" title="Texto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          </button>
+          <button class="hud-btn" title="Exportar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </button>
+          <button class="hud-btn" title="Ajustes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ── Columna derecha: Info ── -->
+      <div class="hero-panel-der">
+
+        <!-- Panel: especialización -->
+        <div class="glass panel-info">
+          <div class="panel-titulo">Especialización</div>
+          <div class="especializacion-item">
+            <span class="esp-dot"></span>
+            Reels &amp; TikToks virales
+          </div>
+          <div class="especializacion-item">
+            <span class="esp-dot purpura"></span>
+            Motion graphics 2D
+          </div>
+          <div class="especializacion-item">
+            <span class="esp-dot"></span>
+            Música &amp; sincronía de beats
+          </div>
+          <div class="especializacion-item">
+            <span class="esp-dot purpura"></span>
+            Color grading cinematográfico
+          </div>
+        </div>
+
+        <!-- Panel: herramientas -->
+        <div class="glass panel-info">
+          <div class="panel-titulo">Herramientas</div>
+          <div class="herramientas">
+            <span class="herramienta-tag">Premiere Pro</span>
+            <span class="herramienta-tag">After Effects</span>
+            <span class="herramienta-tag">DaVinci</span>
+            <span class="herramienta-tag">CapCut</span>
+            <span class="herramienta-tag">Photoshop</span>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Timeline decorativo inferior -->
+    <footer class="hero-timeline">
+      <div class="timeline-topbar">
+        <!-- Controles de reproducción -->
+        <div class="timeline-controles">
+          <button class="tl-btn" aria-label="Inicio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+          </button>
+          <button class="tl-btn play" aria-label="Reproducir">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </button>
+          <button class="tl-btn" aria-label="Fin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+          </button>
+        </div>
+
+        <!-- Info del timeline -->
+        <div class="timeline-info">
+          <div class="tl-badge mono">00:00:18:04</div>
+          <div class="tl-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"></rect></svg>
+            9:16
+          </div>
+          <div class="tl-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path></svg>
+            1440p · 60fps
+          </div>
+        </div>
+      </div>
+
+      <!-- Regla de tiempos -->
+      <div class="timeline-regla" aria-hidden="true">
+        <div class="timeline-cabezal"></div>
+        <div class="regla-marcas" id="regla-marcas"></div>
+      </div>
+
+      <!-- Pistas del timeline -->
+      <div class="timeline-pistas" aria-hidden="true">
+
+        <!-- Pista V1 (video principal) -->
+        <div class="pista">
+          <span class="pista-label">V1</span>
+          <div class="pista-carril">
+            <div class="pista-clip" style="left:0%;width:42%;background:linear-gradient(90deg,rgba(0,229,255,0.5),rgba(0,229,255,0.3));"></div>
+            <div class="pista-clip" style="left:45%;width:30%;background:linear-gradient(90deg,rgba(0,229,255,0.4),rgba(0,229,255,0.25));"></div>
+            <div class="pista-clip" style="left:78%;width:18%;background:linear-gradient(90deg,rgba(0,229,255,0.5),rgba(0,229,255,0.3));"></div>
+          </div>
+        </div>
+
+        <!-- Pista V2 (overlay / motion graphics) -->
+        <div class="pista">
+          <span class="pista-label">V2</span>
+          <div class="pista-carril">
+            <div class="pista-clip" style="left:5%;width:20%;background:linear-gradient(90deg,rgba(168,85,247,0.5),rgba(168,85,247,0.3));"></div>
+            <div class="pista-clip" style="left:30%;width:15%;background:linear-gradient(90deg,rgba(168,85,247,0.45),rgba(168,85,247,0.25));"></div>
+            <div class="pista-clip" style="left:60%;width:28%;background:linear-gradient(90deg,rgba(168,85,247,0.5),rgba(168,85,247,0.3));"></div>
+          </div>
+        </div>
+
+        <!-- Pista A1 (audio) -->
+        <div class="pista">
+          <span class="pista-label" style="color:rgba(168,85,247,0.4);">A1</span>
+          <div class="pista-carril">
+            <div class="pista-clip" style="left:0%;width:96%;background:linear-gradient(90deg,rgba(168,85,247,0.25),rgba(168,85,247,0.15));"></div>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+  </section>
+  <!-- Fin sección Hero -->
+
+  <script src="js/main.js"></script>
+</body>
+</html>
