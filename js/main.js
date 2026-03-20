@@ -427,37 +427,37 @@ function initClientesSection() {
 
   const clientesData = [
     {
-      id: "CL-001",
-      nombre: "Marcos",
-      rol: "Emprendedor & Negocios",
-      texto: "Estrategia de retención para contenido de alto valor. Crecimiento explosivo en conversiones mediante edición dinámica y ganchos visuales efectivos.",
-      kpi1: "+2M Views",
+      id: "ID-01",
+      nombre: "David Otálora",
+      rol: "E-COMMERCE & VIRALIDAD",
+      texto: "Estrategias de viralización orgánica y crecimiento exponencial de comunidades. Enfoque en la retención absoluta del espectador mediante storytelling dinámico, ritmo acelerado y ganchos emocionales para escalar ventas.",
+      kpi1: "+13M Views",
       kpi2: "Reel 9:16",
-      foto: "https://i.pravatar.cc/600?img=11",
-      videoSrc: "videos/Marcos #3.mp4",
-      videoName: "Marcos_Final_Render.mp4"
+      foto: "ClientesVIP/David Otalora.jpeg",
+      videoSrc: "ClientesVIP/Plan de contenido.mp4",
+      videoName: "David_Otalora_Viral_v2.mp4"
     },
     {
-      id: "CL-002",
-      nombre: "Lifestyle Co.",
-      rol: "Creadores de Contenido",
-      texto: "Formatos dinámicos en vertical diseñados para algoritmos de IG y TikTok. Incremento del 40% en watch-time por pacing acelerado.",
-      kpi1: "+1.5M Engaged",
-      kpi2: "TikTok",
-      foto: "https://i.pravatar.cc/600?img=32",
-      videoSrc: "videos/Plan de contenido.mp4",
-      videoName: "PlanContenido_v2.mov"
+      id: "ID-02",
+      nombre: "Marcos Razzetti",
+      rol: "EMPRENDEDOR & E-COMMERCE",
+      texto: "Modelos de negocio de e-commerce a escala global y funnels de conversión avanzados. Optimización de rentabilidad máxima mediante estrategias de marketing automatizadas y logística eficiente.",
+      kpi1: "+35M Views",
+      kpi2: "TikTok 9:16",
+      foto: "ClientesVIP/marcos-razzetti.jpeg",
+      videoSrc: "ClientesVIP/Marcos #3.mp4",
+      videoName: "MR_Ecom_Scale_1080p.mp4"
     },
     {
-      id: "CL-003",
-      nombre: "Top Motor",
-      rol: "Campaña Publicitaria",
-      texto: "Lanzamiento de producto con edición rítmica off-road y motion graphics agresivos que resaltan la robustez del vehículo.",
-      kpi1: "+500K Leads",
-      kpi2: "Promo",
-      foto: "https://images.unsplash.com/photo-1570530752495-9ff2bd22e84d?w=600&fit=crop", 
-      videoSrc: "videos/doble Ranger.mp4",
-      videoName: "Ranger_Promo_9x16.mp4"
+      id: "ID-03",
+      nombre: "Oscar Hinojosa",
+      rol: "MARKETING DIGITAL",
+      texto: "Estrategias de posicionamiento y lanzamientos digitales de alta conversión. Experto en captación de clientes, storytelling y ventas high-ticket, transformando influencia en negocios escalables.",
+      kpi1: "+$1M Reven.",
+      kpi2: "Reel 9:16",
+      foto: "ClientesVIP/Oscar hinojosa.jpg",
+      videoSrc: "ClientesVIP/OH-R0042.mp4",
+      videoName: "Oscar_Launch_HT.mp4"
     }
   ];
 
