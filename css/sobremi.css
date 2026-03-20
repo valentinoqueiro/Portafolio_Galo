@@ -30,7 +30,8 @@
 
 /* Columna Foto */
 .sobremi-col-foto {
-  flex: 0 1 500px;
+  flex: 0 1 360px; /* Reducido sustancialmente para evitar que sature la pantalla */
+  max-height: 550px; /* Clave para monitores chicos (macbooks de 13/14 pulg) */
   display: flex;
   flex-direction: column;
   gap: 20px;
