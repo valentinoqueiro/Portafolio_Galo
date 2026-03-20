@@ -10,29 +10,20 @@
 </head>
 <body>
 
-  <!-- Cursor personalizado -->
   <div id="cursor-punto"></div>
   <div id="cursor-anillo"></div>
 
-  <!-- ═══════════════════════════════════════════════
-       SECCIÓN 01 — HERO  (layout software de edición)
-  ═══════════════════════════════════════════════ -->
   <section class="seccion hero" id="inicio">
 
-    <!-- ── Barra superior tipo menubar ── -->
+    <!-- Barra superior -->
     <header class="barra-superior">
       <div class="barra-logo">G<span>.</span>Edit <span class="barra-version">// v1.0</span></div>
-
       <nav class="barra-controles">
-        <button class="btn-barra">
-          <span class="dot"></span>
-          En línea
-        </button>
+        <button class="btn-barra"><span class="dot"></span>En línea</button>
         <button class="btn-barra">Proyectos</button>
         <button class="btn-barra">Sobre mí</button>
         <button class="btn-barra">Contacto</button>
       </nav>
-
       <div class="barra-estado">
         <span class="indicador">Disponible para proyectos</span>
         <span class="sep">·</span>
@@ -40,50 +31,54 @@
       </div>
     </header>
 
-    <!-- ── Área principal tipo software ── -->
-    <div class="editor-layout">
+    <!-- Visor completo con cards flotantes -->
+    <div class="visor-central">
 
-      <!-- PANEL IZQUIERDO — Identity + herramientas -->
-      <aside class="panel-lateral panel-izq">
+      <!-- Elementos de encuadre -->
+      <div class="corner top-left"></div>
+      <div class="corner top-right"></div>
+      <div class="corner bottom-left"></div>
+      <div class="corner bottom-right"></div>
+      <div class="visor-label visor-label-tl mono">VIEWER · 9:16</div>
+      <div class="visor-label visor-label-tr mono">1440p · 60fps</div>
 
-        <!-- Card identidad del editor -->
+      <!-- ── CARDS FLOTANTES IZQUIERDA ── -->
+      <div class="cards-flotantes cards-izq">
+
+        <!-- Card identidad -->
         <div class="card card-identidad">
           <div class="card-eyebrow">Editor de Video</div>
           <h1 class="card-nombre">
-            Galo<br>
-            <span class="nombre-fino">Medina</span>
+            Galo<br><span class="nombre-fino">Medina</span>
           </h1>
           <p class="card-tagline">
             <span id="tagline-texto">Especialista en short-form.</span><span class="cursor-texto"></span>
           </p>
         </div>
 
-        <!-- Separador de herramientas -->
-        <div class="tools-label mono">Herramientas</div>
-
-        <!-- Barra de tools vertical -->
-        <div class="toolbar-vertical">
-          <button class="tool-btn activo" title="Cortar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-          </button>
-          <button class="tool-btn" title="Transición">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-          </button>
-          <button class="tool-btn" title="Audio">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path></svg>
-          </button>
-          <button class="tool-btn" title="Color">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
-          </button>
-          <button class="tool-btn" title="Efectos">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </button>
-          <button class="tool-btn" title="Capas">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </button>
-          <button class="tool-btn" title="Texto">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-          </button>
+        <!-- Card tools -->
+        <div class="card card-tools">
+          <div class="tools-label mono">Herramientas</div>
+          <div class="toolbar-wrap">
+            <button class="tool-btn activo" title="Cortar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+            </button>
+            <button class="tool-btn" title="Transición">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+            </button>
+            <button class="tool-btn" title="Audio">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path></svg>
+            </button>
+            <button class="tool-btn" title="Color">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+            </button>
+            <button class="tool-btn" title="Efectos">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </button>
+            <button class="tool-btn" title="Texto">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            </button>
+          </div>
         </div>
 
         <!-- Card especialización -->
@@ -97,76 +92,49 @@
           </ul>
         </div>
 
-      </aside>
+      </div>
 
-      <!-- VISOR CENTRAL — Canvas grande -->
-      <main class="visor-central">
-
-        <!-- Esquinas de encuadre del visor -->
-        <div class="corner top-left"></div>
-        <div class="corner top-right"></div>
-        <div class="corner bottom-left"></div>
-        <div class="corner bottom-right"></div>
-
-        <!-- Etiquetas técnicas del visor -->
-        <div class="visor-label visor-label-tl mono">VIEWER · 9:16</div>
-        <div class="visor-label visor-label-tr mono">1440p · 60fps</div>
-
-        <!-- Contenedor del video 9:16 -->
-        <div class="video-wrap">
-          <div class="video-frame">
-
-            <!-- Gradiente interior -->
-            <div class="video-gradiente"></div>
-
-            <!-- Barra top del video -->
-            <div class="video-topbar">
-              <span class="video-rec mono">
-                <span class="rec-dot"></span>
-                REC
-              </span>
-              <span class="video-tiempo mono">00:00:18</span>
+      <!-- ── VIDEO 9:16 CENTRAL ── -->
+      <div class="video-wrap">
+        <div class="video-frame">
+          <div class="video-gradiente"></div>
+          <div class="video-topbar">
+            <span class="video-rec mono"><span class="rec-dot"></span>REC</span>
+            <span class="video-tiempo mono">00:00:18</span>
+          </div>
+          <div class="video-centro">
+            <button class="preview-play" aria-label="Reproducir">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </button>
+          </div>
+          <div class="video-footer">
+            <div class="video-progress">
+              <div class="video-progress-fill"></div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <!-- Botón play centrado -->
-            <div class="video-centro">
-              <button class="preview-play" aria-label="Reproducir">
-                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              </button>
-            </div>
+      <!-- ── CARDS FLOTANTES DERECHA ── -->
+      <div class="cards-flotantes cards-der">
 
-            <!-- Progreso inferior -->
-            <div class="video-footer">
-              <div class="video-progress">
-                <div class="video-progress-fill"></div>
-              </div>
-            </div>
-
+        <!-- Stats: 3 cards pequeñas en fila -->
+        <div class="stats-row">
+          <div class="card card-stat">
+            <div class="stat-valor">+500<span>M</span></div>
+            <div class="stat-etq mono">Views</div>
+          </div>
+          <div class="card card-stat">
+            <div class="stat-valor">3<span>s</span></div>
+            <div class="stat-etq mono">Enganche</div>
+          </div>
+          <div class="card card-stat">
+            <div class="stat-valor">+80</div>
+            <div class="stat-etq mono">Proyectos</div>
           </div>
         </div>
 
-      </main>
-
-      <!-- PANEL DERECHO — Stats + opciones -->
-      <aside class="panel-lateral panel-der">
-
-        <!-- Stats individuales: 3 cards -->
-        <div class="card card-stat">
-          <div class="stat-valor">+500<span>M</span></div>
-          <div class="stat-etq mono">Views generados</div>
-        </div>
-
-        <div class="card card-stat">
-          <div class="stat-valor">3<span>s</span></div>
-          <div class="stat-etq mono">Tiempo de enganche</div>
-        </div>
-
-        <div class="card card-stat">
-          <div class="stat-valor">+80</div>
-          <div class="stat-etq mono">Proyectos entregados</div>
-        </div>
-
-        <!-- Card software -->
+        <!-- Card stack -->
         <div class="card card-software">
           <div class="card-specs-titulo mono">Stack</div>
           <div class="chips">
@@ -178,7 +146,7 @@
           </div>
         </div>
 
-        <!-- Card acciones -->
+        <!-- Botones -->
         <div class="card card-acciones">
           <button class="btn-primario" id="btn-ver-trabajo">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
@@ -187,12 +155,11 @@
           <button class="btn-secundario" id="btn-contactar">Contactar</button>
         </div>
 
-      </aside>
+      </div>
     </div>
 
-    <!-- ── Timeline completo ── -->
+    <!-- Timeline -->
     <footer class="hero-timeline">
-
       <div class="timeline-topbar">
         <div class="timeline-controles">
           <button class="tl-btn" aria-label="Inicio">
@@ -211,14 +178,10 @@
           <div class="tl-badge">1440p · 60fps</div>
         </div>
       </div>
-
-      <!-- Regla -->
       <div class="timeline-regla" aria-hidden="true">
         <div class="timeline-cabezal"></div>
         <div class="regla-marcas" id="regla-marcas"></div>
       </div>
-
-      <!-- Pistas -->
       <div class="timeline-pistas" aria-hidden="true">
         <div class="pista">
           <span class="pista-label">V1</span>
@@ -237,17 +200,15 @@
           </div>
         </div>
         <div class="pista">
-          <span class="pista-label a1">A1</span>
+          <span class="pista-label">A1</span>
           <div class="pista-carril">
             <div class="pista-clip" style="left:0%;width:96%;background:rgba(100,95,82,0.2);"></div>
           </div>
         </div>
       </div>
-
     </footer>
 
   </section>
-  <!-- Fin sección Hero -->
 
   <script src="js/main.js"></script>
 </body>
