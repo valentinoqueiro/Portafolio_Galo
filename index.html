@@ -95,23 +95,38 @@
       </div>
 
       <!-- ── VIDEO 9:16 CENTRAL ── -->
-      <div class="video-wrap">
+      <div class="video-wrap" id="video-wrap">
         <div class="video-frame">
-          <div class="video-gradiente"></div>
+
+          <!-- Canvas oculto para extraer color dominante -->
+          <canvas id="canvas-color" width="80" height="80" style="display:none;"></canvas>
+
+          <!-- Videos superpuestos con crossfade -->
+          <div class="video-layers" id="video-layers">
+            <video class="video-layer activa" id="video-a" src="videos /Marcos #3.mp4"    muted autoplay loop playsinline></video>
+            <video class="video-layer"         id="video-b" src="videos /OH-R0042.mp4"     muted loop playsinline></video>
+          </div>
+
+          <!-- HUD top -->
           <div class="video-topbar">
             <span class="video-rec mono"><span class="rec-dot"></span>REC</span>
-            <span class="video-tiempo mono">00:00:18</span>
+            <span class="video-tiempo mono" id="video-tiempo">00:00:00</span>
           </div>
-          <div class="video-centro">
-            <button class="preview-play" aria-label="Reproducir">
-              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            </button>
-          </div>
+
+          <!-- HUD bottom: miniaturas y progreso -->
           <div class="video-footer">
             <div class="video-progress">
-              <div class="video-progress-fill"></div>
+              <div class="video-progress-fill" id="progreso-fill"></div>
+            </div>
+            <div class="video-miniaturas" id="video-miniaturas">
+              <button class="miniatura activa" data-index="0" aria-label="Video 1"></button>
+              <button class="miniatura" data-index="1" aria-label="Video 2"></button>
+              <button class="miniatura" data-index="2" aria-label="Video 3"></button>
+              <button class="miniatura" data-index="3" aria-label="Video 4"></button>
+              <button class="miniatura" data-index="4" aria-label="Video 5"></button>
             </div>
           </div>
+
         </div>
       </div>
 

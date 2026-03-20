@@ -2,19 +2,184 @@
 //  main.js — Portafolio Editor de Video
 // ═══════════════════════════════════════════════════════
 
+const VIDEOS = [
+  'videos /Marcos #3.mp4',
+  'videos /OH-R0042.mp4',
+  'videos /Plan de contenido.mp4',
+  'videos /Reel 3- ranger 570.mp4',
+  'videos /doble Ranger.mp4',
+];
+
+// Intervalo entre cambio de videos (ms)
+const INTERVALO_VIDEO = 7000;
+
 document.addEventListener('DOMContentLoaded', () => {
   iniciarCursor();
   iniciarParticulas();
   iniciarTypewriter();
   generarMarcasTimeline();
+  iniciarReproductor();
 });
+
+// ─── Reproductor con crossfade y color sampler ────────
+function iniciarReproductor() {
+  const videoA    = document.getElementById('video-a');
+  const videoB    = document.getElementById('video-b');
+  const canvas    = document.getElementById('canvas-color');
+  const ctx       = canvas ? canvas.getContext('2d', { willReadFrequently: true }) : null;
+  const miniaturas = document.querySelectorAll('.miniatura');
+  const progresoFill = document.getElementById('progreso-fill');
+  const tiempoEl  = document.getElementById('video-tiempo');
+
+  if (!videoA || !videoB) return;
+
+  // Estado
+  let indiceActual = 0;
+  let videoActivo  = videoA;  // el que está visible
+  let videoOculto  = videoB;  // el que precarga el siguiente
+  let intervalo;
+  let colorSamplerInterval;
+
+  // Precargar todos los srcs en el oculto se hace dinámicamente
+  videoActivo.src = VIDEOS[0];
+  videoActivo.load();
+  videoActivo.play().catch(() => {});
+
+  // ── Cambiar a un video específico ──
+  function cambiarA(indice) {
+    if (indice === indiceActual) return;
+    indiceActual = indice;
+
+    // Preparar el video oculto con el nuevo src
+    videoOculto.src = VIDEOS[indice];
+    videoOculto.load();
+    videoOculto.currentTime = 0;
+
+    videoOculto.play().then(() => {
+      // Crossfade: mostrar el oculto, ocultar el activo
+      videoOculto.classList.add('activa');
+      videoActivo.classList.remove('activa');
+
+      // Intercambiar referencias
+      const temp = videoActivo;
+      videoActivo = videoOculto;
+      videoOculto = temp;
+
+      // Actualizar miniaturas activas
+      miniaturas.forEach((m, i) => m.classList.toggle('activa', i === indiceActual));
+
+      // Reiniciar intervalo automático
+      reiniciarIntervalo();
+    }).catch(() => {});
+  }
+
+  // ── Avanzar al siguiente ──
+  function siguiente() {
+    cambiarA((indiceActual + 1) % VIDEOS.length);
+  }
+
+  // ── Intervalo automático ──
+  function reiniciarIntervalo() {
+    clearInterval(intervalo);
+    intervalo = setInterval(siguiente, INTERVALO_VIDEO);
+  }
+  reiniciarIntervalo();
+
+  // ── Clicks en miniaturas ──
+  miniaturas.forEach(btn => {
+    btn.addEventListener('click', () => {
+      cambiarA(parseInt(btn.dataset.index));
+    });
+  });
+
+  // ── Progreso del video activo ──
+  function actualizarProgreso() {
+    if (!videoActivo || !videoActivo.duration) return;
+    const pct = (videoActivo.currentTime / videoActivo.duration) * 100;
+    if (progresoFill) progresoFill.style.width = pct + '%';
+
+    // Timecode
+    const seg = Math.floor(videoActivo.currentTime);
+    const mm  = String(Math.floor(seg / 60)).padStart(2, '0');
+    const ss  = String(seg % 60).padStart(2, '0');
+    if (tiempoEl) tiempoEl.textContent = `00:${mm}:${ss}`;
+  }
+
+  setInterval(actualizarProgreso, 500);
+
+  // ── Color sampler ──────────────────────────────────
+  function extraerColorDominante() {
+    if (!ctx || !videoActivo || videoActivo.readyState < 2) return null;
+
+    try {
+      ctx.drawImage(videoActivo, 0, 0, canvas.width, canvas.height);
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+      let r = 0, g = 0, b = 0, count = 0;
+      // Muestrear cada 8 píxeles para rendimiento
+      for (let i = 0; i < data.length; i += 32) {
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+        count++;
+      }
+      if (count === 0) return null;
+      return { r: Math.round(r / count), g: Math.round(g / count), b: Math.round(b / count) };
+    } catch {
+      return null;
+    }
+  }
+
+  // Desaturar un color para que sea sutil en las cards
+  function desaturar(r, g, b, factor = 0.12) {
+    // mezclar con el blanco base de las cards
+    const br = 255, bg = 255, bb = 255;
+    return {
+      r: Math.round(br + (r - br) * factor),
+      g: Math.round(bg + (g - bg) * factor),
+      b: Math.round(bb + (b - bb) * factor),
+    };
+  }
+
+  function aplicarColorACards(color) {
+    if (!color) return;
+    const c = desaturar(color.r, color.g, color.b, 0.14);
+    const fondo  = `rgba(${c.r}, ${c.g}, ${c.b}, 0.62)`;
+    const borde  = `rgba(${c.r}, ${c.g}, ${c.b}, 0.85)`;
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.background    = fondo;
+      card.style.borderColor   = borde;
+    });
+
+    // También el fondo del visor toma el tinte sutilmente
+    const visor = document.querySelector('.visor-central');
+    if (visor) {
+      const cv = desaturar(color.r, color.g, color.b, 0.06);
+      visor.style.backgroundColor = `rgb(${cv.r}, ${cv.g}, ${cv.b})`;
+    }
+  }
+
+  // Samplear cada 2s (cuando el video ya cargó algo)
+  colorSamplerInterval = setInterval(() => {
+    const color = extraerColorDominante();
+    aplicarColorACards(color);
+  }, 2000);
+
+  // Primer sampleo al cargar el video
+  videoActivo.addEventListener('loadeddata', () => {
+    setTimeout(() => {
+      const color = extraerColorDominante();
+      aplicarColorACards(color);
+    }, 300);
+  });
+}
 
 // ─── Marcas de la regla del timeline ─────────────────
 function generarMarcasTimeline() {
   const contenedor = document.getElementById('regla-marcas');
   if (!contenedor) return;
 
-  // 60 marcas pequeñas, cada 5 hay una mayor con número
   for (let i = 0; i <= 60; i++) {
     const marca = document.createElement('div');
     const esMayor = i % 5 === 0;
@@ -36,9 +201,8 @@ function iniciarCursor() {
   const anillo = document.getElementById('cursor-anillo');
   if (!punto || !anillo) return;
 
-  let rX = 0, rY = 0;   // posición del anillo (con lag)
-  let pX = 0, pY = 0;   // posición del punto (inmediata)
-  let animId;
+  let rX = 0, rY = 0;
+  let pX = 0, pY = 0;
 
   document.addEventListener('mousemove', (e) => {
     pX = e.clientX;
@@ -52,11 +216,10 @@ function iniciarCursor() {
     rY += (pY - rY) * 0.12;
     anillo.style.left = rX + 'px';
     anillo.style.top  = rY + 'px';
-    animId = requestAnimationFrame(animarAnillo);
+    requestAnimationFrame(animarAnillo);
   }
   animarAnillo();
 
-  // Agrandar en hover de elementos interactivos
   document.querySelectorAll('button, a, [data-hover]').forEach(el => {
     el.addEventListener('mouseenter', () => {
       punto.style.width  = '3px';
@@ -82,7 +245,7 @@ function iniciarParticulas() {
 
   const ctx = canvas.getContext('2d');
   let particulas = [];
-  const CANTIDAD = 55;
+  const CANTIDAD = 40;
 
   function redimensionar() {
     canvas.width  = window.innerWidth;
@@ -91,13 +254,12 @@ function iniciarParticulas() {
 
   function crearParticula() {
     return {
-      x:   Math.random() * canvas.width,
-      y:   Math.random() * canvas.height,
-      vx:  (Math.random() - 0.5) * 0.25,
-      vy:  (Math.random() - 0.5) * 0.25,
-      r:   Math.random() * 1.0 + 0.2,
-      a:   Math.random() * 0.2 + 0.03,
-      // tonos tierra neutros
+      x:  Math.random() * canvas.width,
+      y:  Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: (Math.random() - 0.5) * 0.22,
+      r:  Math.random() * 1.0 + 0.2,
+      a:  Math.random() * 0.15 + 0.03,
       color: Math.random() > 0.5 ? '44, 42, 37' : '120, 115, 100',
     };
   }
@@ -111,29 +273,23 @@ function iniciarParticulas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     particulas.forEach(p => {
-      // mover
       p.x += p.vx;
       p.y += p.vy;
-
-      // rebote suave en bordes
       if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
       if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-      // dibujar
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${p.color}, ${p.a})`;
       ctx.fill();
     });
 
-    // Líneas entre partículas cercanas
     for (let i = 0; i < particulas.length; i++) {
       for (let j = i + 1; j < particulas.length; j++) {
-        const dx   = particulas[i].x - particulas[j].x;
-        const dy   = particulas[i].y - particulas[j].y;
+        const dx = particulas[i].x - particulas[j].x;
+        const dy = particulas[i].y - particulas[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 90) {
-          const alpha = (1 - dist / 90) * 0.04;
+          const alpha = (1 - dist / 90) * 0.03;
           ctx.beginPath();
           ctx.moveTo(particulas[i].x, particulas[i].y);
           ctx.lineTo(particulas[j].x, particulas[j].y);
@@ -143,7 +299,6 @@ function iniciarParticulas() {
         }
       }
     }
-
     requestAnimationFrame(dibujar);
   }
 
@@ -158,21 +313,17 @@ function iniciarTypewriter() {
   if (!el) return;
 
   const textos = [
-    'Especialista en contenido corto.',
+    'Especialista en short-form.',
     'Reels que generan millones de views.',
-    'Edición que captura en los primeros 3s.',
+    'Edición que engancha en 3 segundos.',
   ];
 
-  let idxTexto  = 0;
-  let idxChar   = 0;
-  let borrando  = false;
-  let pausando  = false;
+  let idxTexto = 0, idxChar = 0;
+  let borrando = false, pausando = false;
 
   function escribir() {
     if (pausando) return;
-
     const texto = textos[idxTexto];
-
     if (!borrando) {
       el.textContent = texto.slice(0, idxChar + 1);
       idxChar++;
@@ -186,15 +337,13 @@ function iniciarTypewriter() {
       el.textContent = texto.slice(0, idxChar - 1);
       idxChar--;
       if (idxChar === 0) {
-        borrando  = false;
-        idxTexto  = (idxTexto + 1) % textos.length;
+        borrando = false;
+        idxTexto = (idxTexto + 1) % textos.length;
         setTimeout(escribir, 300);
       } else {
         setTimeout(escribir, 25);
       }
     }
   }
-
-  // Esperar a que la animación de entrada termine (~1.2s)
   setTimeout(escribir, 1200);
 }
