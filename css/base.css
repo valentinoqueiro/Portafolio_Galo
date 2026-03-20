@@ -77,6 +77,8 @@ body {
   height: 100dvh;
   position: relative;
 }
+.seccion:nth-child(1) { z-index: 10; }
+.seccion:nth-child(2) { z-index: 5; }
 
 /* ─── Card glass ─────────────────────────────────────── */
 .card {
