@@ -623,24 +623,31 @@ function initScrollJacking() {
       actionBar.style.transform = `translate(${sRect.left}px, ${sPos.top}px)`;
       actionBar.style.width = spacer.offsetWidth + 'px';
       actionBar.classList.remove('mode-top');
-    } else {
+    } else if (currentSec === 1) {
       // Estado VIP: Posicionar justo debajo del video y centrado a él
       const videoTarget = document.querySelector('.cliente-col-v');
       if (videoTarget) {
-        // Pre-aplicar estilo VIP para contraer ancho a 'max-content' natural
         actionBar.classList.add('mode-top');
-        
         const vPos = getAbsoluteOffset(videoTarget);
-        const vRect = videoTarget.getBoundingClientRect(); // Seguro para X
+        const vRect = videoTarget.getBoundingClientRect(); 
         
-        // Magia geométrica: El elemento es fixed al viewport. 
-        // Su target Y absoluto (vPos.top) asume que la pág no ha scrolleado.
-        // Pero el wrapper se desplazará hacia arriba (-100vh por section).
-        // Restar el scroll nos da el lugar futuro exacto que ocupará frente al ojo.
         const targetViewportTop = vPos.top - (window.innerHeight * currentSec);
+        const ty = targetViewportTop + videoTarget.offsetHeight + 24;
+        const tx = vRect.left + (videoTarget.offsetWidth / 2) - (actionBar.offsetWidth / 2);
         
-        const ty = targetViewportTop + videoTarget.offsetHeight + 24; // Abajo del vídeo
-        const tx = vRect.left + (videoTarget.offsetWidth / 2) - (actionBar.offsetWidth / 2); // Centrado horizontal
+        actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
+      }
+    } else {
+      // Estado Sobre Mí: Puede esconderse, o acoplarse inteligentemente
+      const infoTarget = document.querySelector('.sobremi-specs');
+      if (infoTarget) {
+        actionBar.classList.add('mode-top');
+        const iPos = getAbsoluteOffset(infoTarget);
+        const iRect = infoTarget.getBoundingClientRect();
+        
+        const targetViewportTop = iPos.top - (window.innerHeight * currentSec);
+        const ty = targetViewportTop + infoTarget.offsetHeight + 30; // 30px abajo del panel spec
+        const tx = iRect.left; // Alinear a la izquierda del spec
         
         actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
       }

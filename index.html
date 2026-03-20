@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galo — Editor de Video</title>
-  <meta name="description" content="Portafolio de Galo, editor de video especializado en contenido corto de alto impacto.">
+  <meta name="description"
+    content="Portafolio de Galo, editor de video especializado en contenido corto de alto impacto.">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/hero.css">
   <link rel="stylesheet" href="css/clientes.css">
+  <link rel="stylesheet" href="css/sobremi.css">
 </head>
+
 <body>
 
   <div id="cursor-punto"></div>
@@ -17,329 +21,432 @@
   <!-- Action Bar Flotante (Global Píldora Desacoplada) -->
   <div class="action-bar-floating" id="global-action-bar">
     <button class="btn-primario" id="btn-ver-trabajo">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 3 19 12 5 21 5 3"></polyline></svg>
-      Ver trabajo
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="5 3 19 12 5 21 5 3"></polyline>
+      </svg>
+      Contactar
     </button>
-    <button class="btn-secundario" id="btn-contactar">Contactar</button>
+    <button class="btn-secundario" id="btn-contactar">Ver trabajos</button>
   </div>
 
   <div class="scroll-container">
     <div class="secciones-wrapper" id="secciones-wrapper">
 
-  <section class="seccion hero" id="inicio">
+      <section class="seccion hero" id="inicio">
 
-    <!-- Barra superior -->
-    <header class="barra-superior">
-      <div class="barra-logo">galo.</div>
-      <nav class="barra-controles">
-        <button class="btn-barra"><span class="dot"></span>En línea</button>
-        <button class="btn-barra">Proyectos</button>
-        <button class="btn-barra">Sobre mí</button>
-        <button class="btn-barra">Contacto</button>
-      </nav>
-      <div class="barra-estado">
-        <span class="indicador">Disponible para proyectos</span>
-        <span class="sep">·</span>
-        <span class="mono">Mar 2026</span>
-      </div>
-    </header>
-
-    <!-- Visor completo con cards flotantes -->
-    <div class="visor-central" id="visor-central">
-
-      <!-- Elementos de encuadre -->
-      <div class="corner top-left"></div>
-      <div class="corner top-right"></div>
-      <div class="corner bottom-left"></div>
-      <div class="corner bottom-right"></div>
-      <div class="visor-label visor-label-tl mono">VIEWER · 9:16</div>
-      <div class="visor-label visor-label-tr mono">1440p · 60fps</div>
-
-      <!-- Container para agrupar y centrar todo el contenido con gap controlado -->
-      <div class="visor-content">
-
-        <!-- ── INFO PROFESIONAL IZQUIERDA (Estilo Inspector) ── -->
-        <div class="panel-izquierdo" id="panel-izquierdo">
-          
-          <div class="panel-top">
-            <h1 class="info-tit">
-              <span id="tagline-texto">Short Content</span><span class="cursor-texto"></span>
-            </h1>
-            <p class="info-desc">
-              Edición de alto impacto en formato vertical (9:16).<br>
-              Especialista en retención, ritmo visual y narrativa.
-            </p>
+        <!-- Barra superior -->
+        <header class="barra-superior">
+          <div class="barra-logo">galo.</div>
+          <nav class="barra-controles">
+            <button class="btn-barra"><span class="dot"></span>En línea</button>
+            <button class="btn-barra">Proyectos</button>
+            <button class="btn-barra">Sobre mí</button>
+            <button class="btn-barra">Contacto</button>
+          </nav>
+          <div class="barra-estado">
+            <span class="indicador">Disponible para proyectos</span>
+            <span class="sep">·</span>
+            <span class="mono">Mar 2026</span>
           </div>
+        </header>
 
-          <div class="card panel-propiedades">
-            <div class="prop-header mono">Propiedades de Secuencia</div>
-            <div class="prop-grid">
-              <div class="prop-item">
-                <span class="prop-label mono">Resolución</span>
-                <span class="prop-val mono">1080 x 1920</span>
+        <!-- Visor completo con cards flotantes -->
+        <div class="visor-central" id="visor-central">
+
+          <!-- Elementos de encuadre -->
+          <div class="corner top-left"></div>
+          <div class="corner top-right"></div>
+          <div class="corner bottom-left"></div>
+          <div class="corner bottom-right"></div>
+          <div class="visor-label visor-label-tl mono">VIEWER · 9:16</div>
+          <div class="visor-label visor-label-tr mono">1440p · 60fps</div>
+
+          <!-- Container para agrupar y centrar todo el contenido con gap controlado -->
+          <div class="visor-content">
+
+            <!-- ── INFO PROFESIONAL IZQUIERDA (Estilo Inspector) ── -->
+            <div class="panel-izquierdo" id="panel-izquierdo">
+
+              <div class="panel-top">
+                <h1 class="info-tit">
+                  <span id="tagline-texto">Short Content</span><span class="cursor-texto"></span>
+                </h1>
+                <p class="info-desc">
+                  Edición de alto impacto en formato vertical (9:16).<br>
+                  Especialista en retención, ritmo visual y narrativa.
+                </p>
               </div>
-              <div class="prop-item">
-                <span class="prop-label mono">Framerate</span>
-                <span class="prop-val mono">59.94 fps</span>
-              </div>
-              <div class="prop-item">
-                <span class="prop-label mono">Color Space</span>
-                <span class="prop-val mono">Rec.709</span>
-              </div>
-              <div class="prop-item">
-                <span class="prop-label mono">Workspace</span>
-                <span class="prop-val mono">Vertical P.</span>
-              </div>
-              <div class="prop-item">
-                <span class="prop-label mono">Renderer</span>
-                <span class="prop-val mono">GPU Accel.</span>
-              </div>
-              <div class="prop-item">
-                <span class="prop-label mono">Audio</span>
-                <span class="prop-val mono">48kHz / Stereo</span>
-              </div>
-            </div>
-            
-            <div class="prop-divider"></div>
-            
-            <div class="prop-header mono">Archivos de Proyecto</div>
-            <ul class="bin-list mono">
-              <li><span class="bin-icon">▾</span>📁 Sequences
-                <ul class="sub-bin">
-                  <li class="activo"><span class="bin-icon">🎬</span>Portfolio_Reel_vFinal</li>
+
+              <div class="card panel-propiedades">
+                <div class="prop-header mono">Propiedades de Secuencia</div>
+                <div class="prop-grid">
+                  <div class="prop-item">
+                    <span class="prop-label mono">Resolución</span>
+                    <span class="prop-val mono">1080 x 1920</span>
+                  </div>
+                  <div class="prop-item">
+                    <span class="prop-label mono">Framerate</span>
+                    <span class="prop-val mono">59.94 fps</span>
+                  </div>
+                  <div class="prop-item">
+                    <span class="prop-label mono">Color Space</span>
+                    <span class="prop-val mono">Rec.709</span>
+                  </div>
+                  <div class="prop-item">
+                    <span class="prop-label mono">Workspace</span>
+                    <span class="prop-val mono">Vertical P.</span>
+                  </div>
+                  <div class="prop-item">
+                    <span class="prop-label mono">Renderer</span>
+                    <span class="prop-val mono">GPU Accel.</span>
+                  </div>
+                  <div class="prop-item">
+                    <span class="prop-label mono">Audio</span>
+                    <span class="prop-val mono">48kHz / Stereo</span>
+                  </div>
+                </div>
+
+                <div class="prop-divider"></div>
+
+                <div class="prop-header mono">Archivos de Proyecto</div>
+                <ul class="bin-list mono">
+                  <li><span class="bin-icon">▾</span>📁 Sequences
+                    <ul class="sub-bin">
+                      <li class="activo"><span class="bin-icon">🎬</span>Portfolio_Reel_vFinal</li>
+                    </ul>
+                  </li>
+                  <li><span class="bin-icon">▸</span>📁 Media RAW</li>
+                  <li><span class="bin-icon">▸</span>📁 SFX & Audio Tracks</li>
+                  <li><span class="bin-icon">▸</span>📁 Export / Renders</li>
                 </ul>
-              </li>
-              <li><span class="bin-icon">▸</span>📁 Media RAW</li>
-              <li><span class="bin-icon">▸</span>📁 SFX & Audio Tracks</li>
-              <li><span class="bin-icon">▸</span>📁 Export / Renders</li>
-            </ul>
-          </div>
-
-        </div>
-
-        <!-- ── VIDEO 9:16 CENTRAL ── -->
-        <div class="video-wrap" id="video-wrap">
-          <div class="video-frame">
-
-            <canvas id="canvas-color" width="80" height="80" style="display:none;"></canvas>
-
-            <div class="video-layers" id="video-layers">
-              <video class="video-layer activa" id="video-a" src="videos/Marcos %233.mp4" muted autoplay loop playsinline></video>
-              <video class="video-layer"        id="video-b" src="videos/OH-R0042.mp4"  muted loop playsinline></video>
-            </div>
-
-            <div class="video-topbar">
-              <span class="video-rec mono"><span class="rec-dot"></span>REC</span>
-              <span class="video-tiempo mono" id="video-tiempo">00:00:00</span>
-            </div>
-
-            <div class="video-footer">
-              <div class="video-progress">
-                <div class="video-progress-fill" id="progreso-fill"></div>
               </div>
-              <div class="video-miniaturas" id="video-miniaturas">
-                <button class="miniatura activa" data-index="0" aria-label="Video 1"></button>
-                <button class="miniatura" data-index="1" aria-label="Video 2"></button>
-                <button class="miniatura" data-index="2" aria-label="Video 3"></button>
-                <button class="miniatura" data-index="3" aria-label="Video 4"></button>
-                <button class="miniatura" data-index="4" aria-label="Video 5"></button>
+
+            </div>
+
+            <!-- ── VIDEO 9:16 CENTRAL ── -->
+            <div class="video-wrap" id="video-wrap">
+              <div class="video-frame">
+
+                <canvas id="canvas-color" width="80" height="80" style="display:none;"></canvas>
+
+                <div class="video-layers" id="video-layers">
+                  <video class="video-layer activa" id="video-a" src="videos/Marcos %233.mp4" muted autoplay loop
+                    playsinline></video>
+                  <video class="video-layer" id="video-b" src="videos/OH-R0042.mp4" muted loop playsinline></video>
+                </div>
+
+                <div class="video-topbar">
+                  <span class="video-rec mono"><span class="rec-dot"></span>REC</span>
+                  <span class="video-tiempo mono" id="video-tiempo">00:00:00</span>
+                </div>
+
+                <div class="video-footer">
+                  <div class="video-progress">
+                    <div class="video-progress-fill" id="progreso-fill"></div>
+                  </div>
+                  <div class="video-miniaturas" id="video-miniaturas">
+                    <button class="miniatura activa" data-index="0" aria-label="Video 1"></button>
+                    <button class="miniatura" data-index="1" aria-label="Video 2"></button>
+                    <button class="miniatura" data-index="2" aria-label="Video 3"></button>
+                    <button class="miniatura" data-index="3" aria-label="Video 4"></button>
+                    <button class="miniatura" data-index="4" aria-label="Video 5"></button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ── CARDS FLOTANTES DERECHA ── -->
+            <div class="cards-flotantes cards-der" id="cards-der">
+
+              <!-- 1. Stats row -->
+              <div class="stats-row">
+                <div class="card card-stat">
+                  <div class="stat-valor">+500<span>M</span></div>
+                  <div class="stat-etq mono">Views</div>
+                </div>
+                <div class="card card-stat">
+                  <div class="stat-valor">3<span>s</span></div>
+                  <div class="stat-etq mono">Enganche</div>
+                </div>
+                <div class="card card-stat">
+                  <div class="stat-valor">+80</div>
+                  <div class="stat-etq mono">Proyectos</div>
+                </div>
+              </div>
+
+              <!-- 2. Card proyecto activo -->
+              <div class="card card-proyecto">
+                <div class="card-specs-titulo mono">En edición ahora</div>
+                <div class="proyecto-nombre" id="proyecto-nombre">Marcos #3.mp4</div>
+                <div class="proyecto-meta">
+                  <span class="mono" id="proyecto-duracion">0:18</span>
+                  <span class="proyecto-badge" id="proyecto-badge"><span class="badge-dot"></span>Procesando</span>
+                </div>
+                <div class="proyecto-progreso">
+                  <div class="proyecto-progreso-fill" id="proyecto-progreso-fill"></div>
+                </div>
+              </div>
+
+              <!-- 3. Card tools -->
+              <div class="card card-tools">
+                <div class="tools-label mono">Herramientas</div>
+                <div class="toolbar-wrap">
+                  <button class="tool-btn activo" title="Cortar"><svg viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1.8">
+                      <circle cx="6" cy="6" r="3" />
+                      <circle cx="6" cy="18" r="3" />
+                      <line x1="20" y1="4" x2="8.12" y2="15.88" />
+                      <line x1="14.47" y1="14.48" x2="20" y2="20" />
+                      <line x1="8.12" y1="8.12" x2="12" y2="12" />
+                    </svg></button>
+                  <button class="tool-btn" title="Transición"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <polyline points="17 1 21 5 17 9" />
+                      <path d="M3 11V9a4 4 0 014-4h14" />
+                      <polyline points="7 23 3 19 7 15" />
+                      <path d="M21 13v2a4 4 0 01-4 4H3" />
+                    </svg></button>
+                  <button class="tool-btn" title="Audio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                      <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path>
+                    </svg></button>
+                  <button class="tool-btn" title="Color"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <path
+                        d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z">
+                      </path>
+                    </svg></button>
+                  <button class="tool-btn" title="Efectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg></button>
+                  <button class="tool-btn" title="Texto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.8">
+                      <polyline points="4 7 4 4 20 4 20 7" />
+                      <line x1="9" y1="20" x2="15" y2="20" />
+                      <line x1="12" y1="4" x2="12" y2="20" />
+                    </svg></button>
+                </div>
+              </div>
+
+              <!-- 4. Card stack -->
+              <div class="card card-software">
+                <div class="card-specs-titulo mono">Stack</div>
+                <div class="chips">
+                  <span class="chip">Premiere Pro</span>
+                  <span class="chip">After Effects</span>
+                  <span class="chip">DaVinci</span>
+                  <span class="chip">CapCut</span>
+                  <span class="chip">Photoshop</span>
+                </div>
+              </div>
+
+              <!-- Dummy Spacer Virtual para JS Tracker -->
+              <div class="card-acciones-spacer" id="action-bar-spacer"
+                style="height: 60px; pointer-events: none; opacity: 0; width: 100%;"></div>
+
+            </div>
+
+          </div> <!-- /visor-content -->
+        </div>
+
+        <!-- Timeline -->
+        <footer class="hero-timeline">
+          <div class="timeline-topbar">
+            <div class="timeline-controles">
+              <button class="tl-btn" aria-label="Inicio">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="19 20 9 12 19 4 19 20" />
+                  <line x1="5" y1="19" x2="5" y2="5" />
+                </svg>
+              </button>
+              <button class="tl-btn play" aria-label="Reproducir">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </button>
+              <button class="tl-btn" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="5 4 15 12 5 20 5 4" />
+                  <line x1="19" y1="5" x2="19" y2="19" />
+                </svg>
+              </button>
+            </div>
+            <div class="timeline-info">
+              <div class="tl-badge mono" id="tl-timecode">00:00:18:04</div>
+              <div class="tl-badge">9:16</div>
+              <div class="tl-badge">1440p · 60fps</div>
+            </div>
+          </div>
+
+          <div class="timeline-regla" aria-hidden="true">
+            <!-- El cabezal se mueve por JS -->
+            <div class="timeline-cabezal" id="timeline-cabezal"></div>
+            <div class="regla-marcas" id="regla-marcas"></div>
+          </div>
+
+          <div class="timeline-pistas" aria-hidden="true">
+            <div class="pista">
+              <span class="pista-label">V1</span>
+              <div class="pista-carril" id="carril-v1">
+                <div class="pista-clip clip-v1" style="left:0%;width:42%;"></div>
+                <div class="pista-clip clip-v1" style="left:45%;width:30%;"></div>
+                <div class="pista-clip clip-v1" style="left:78%;width:18%;"></div>
+              </div>
+            </div>
+            <div class="pista">
+              <span class="pista-label">V2</span>
+              <div class="pista-carril" id="carril-v2">
+                <div class="pista-clip clip-v2" style="left:5%;width:20%;"></div>
+                <div class="pista-clip clip-v2" style="left:30%;width:15%;"></div>
+                <div class="pista-clip clip-v2" style="left:60%;width:28%;"></div>
+              </div>
+            </div>
+            <div class="pista">
+              <span class="pista-label">A1</span>
+              <!-- Las barras de waveform se generan por JS -->
+              <div class="pista-carril pista-audio" id="carril-audio"></div>
+            </div>
+          </div>
+        </footer>
+
+      </section>
+
+      <!-- ── SECCIÓN 02: CLIENTES / PORTFOLIO VIP ── -->
+      <section class="seccion seccion-clientes" id="clientes">
+        <div class="clientes-container">
+          <div class="visor-label visor-label-tl mono">CLIENT ASSETS · 02</div>
+
+          <div class="cliente-grid">
+
+            <!-- INFO Y FOTO (Columna Izquierda 400px) -->
+            <div class="cliente-col-info">
+
+              <!-- Foto Card -->
+              <div class="cliente-foto-card card">
+                <div class="c-foto-wrap">
+                  <img id="c-foto" src="ClientesVIP/David Otalora.jpg" alt="Cliente VIP">
+                </div>
+                <div class="c-foto-meta mono">
+                  ID: <span id="c-id">ID-01</span> | Status: <span style="color:#27ae60">Verified</span>
+                </div>
+              </div>
+
+              <!-- Info Expandida Card -->
+              <div class="cliente-desc-card card">
+                <div class="card-specs-titulo mono">Client Brief</div>
+                <h2 class="c-nombre" id="c-nombre">David Otálora</h2>
+                <h3 class="c-rol mono" id="c-rol">E-COMMERCE & VIRALIDAD</h3>
+                <p class="c-texto" id="c-texto">
+                  Estrategias de viralización orgánica y crecimiento exponencial de comunidades. Enfoque en la retención
+                  absoluta del espectador mediante storytelling dinámico, ritmo acelerado y ganchos emocionales para
+                  escalar ventas.
+                </p>
+
+                <div class="c-kpis">
+                  <div class="c-kpi">
+                    <span class="mono">Impacto</span>
+                    <strong id="c-kpi1">+13M Views</strong>
+                  </div>
+                  <div class="c-kpi">
+                    <span class="mono">Formato</span>
+                    <strong id="c-kpi2">Reel 9:16</strong>
+                  </div>
+                </div>
+
+                <!-- Nuevo Indicador de Stories (Barra de carga unificada) -->
+                <div class="story-indicators" id="story-indicators">
+                  <!-- JS inyectara barras de carga aqui -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- VIDEO DEL CLIENTE (Columna Derecha grande) -->
+            <div class="cliente-col-v card">
+              <div class="c-video-loader" id="c-video-loader">
+                <div class="spinner-ring"></div>
+                <div>Cargando Secuencia...</div>
+              </div>
+
+              <div class="c-video-header mono">
+                <span class="rec-dot"></span><span id="c-video-name">David_Otalora_Viral_v2.mp4</span>
+              </div>
+              <video id="c-video" src="ClientesVIP/Plan de contenido.mp4" muted autoplay playsinline
+                preload="auto"></video>
+
+              <div class="c-video-footer">
+                <div class="c-progress">
+                  <div class="c-progress-fill" id="c-progress-fill"></div>
+                </div>
               </div>
             </div>
 
           </div>
         </div>
+      </section>
 
-        <!-- ── CARDS FLOTANTES DERECHA ── -->
-        <div class="cards-flotantes cards-der" id="cards-der">
+      <!-- ── SECCIÓN 03: SOBRE MÍ ── -->
+      <section class="seccion seccion-sobremi" id="sobre-mi">
+        <div class="sobremi-container">
+          <div class="visor-label visor-label-tl visor-label-dark mono">SYSTEM CONFIG · 03</div>
 
-          <!-- 1. Stats row -->
-          <div class="stats-row">
-            <div class="card card-stat">
-              <div class="stat-valor">+500<span>M</span></div>
-              <div class="stat-etq mono">Views</div>
-            </div>
-            <div class="card card-stat">
-              <div class="stat-valor">3<span>s</span></div>
-              <div class="stat-etq mono">Enganche</div>
-            </div>
-            <div class="card card-stat">
-              <div class="stat-valor">+80</div>
-              <div class="stat-etq mono">Proyectos</div>
-            </div>
-          </div>
-
-          <!-- 2. Card proyecto activo -->
-          <div class="card card-proyecto">
-            <div class="card-specs-titulo mono">En edición ahora</div>
-            <div class="proyecto-nombre" id="proyecto-nombre">Marcos #3.mp4</div>
-            <div class="proyecto-meta">
-              <span class="mono" id="proyecto-duracion">0:18</span>
-              <span class="proyecto-badge" id="proyecto-badge"><span class="badge-dot"></span>Procesando</span>
-            </div>
-            <div class="proyecto-progreso">
-              <div class="proyecto-progreso-fill" id="proyecto-progreso-fill"></div>
-            </div>
-          </div>
-
-          <!-- 3. Card tools -->
-          <div class="card card-tools">
-            <div class="tools-label mono">Herramientas</div>
-            <div class="toolbar-wrap">
-              <button class="tool-btn activo" title="Cortar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></button>
-              <button class="tool-btn" title="Transición"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></button>
-              <button class="tool-btn" title="Audio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path></svg></button>
-              <button class="tool-btn" title="Color"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg></button>
-              <button class="tool-btn" title="Efectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
-              <button class="tool-btn" title="Texto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></button>
-            </div>
-          </div>
-
-          <!-- 4. Card stack -->
-          <div class="card card-software">
-            <div class="card-specs-titulo mono">Stack</div>
-            <div class="chips">
-              <span class="chip">Premiere Pro</span>
-              <span class="chip">After Effects</span>
-              <span class="chip">DaVinci</span>
-              <span class="chip">CapCut</span>
-              <span class="chip">Photoshop</span>
-            </div>
-          </div>
-
-          <!-- Dummy Spacer Virtual para JS Tracker -->
-          <div class="card-acciones-spacer" id="action-bar-spacer" style="height: 60px; pointer-events: none; opacity: 0; width: 100%;"></div>
-
-        </div>
-
-      </div> <!-- /visor-content -->
-    </div>
-
-    <!-- Timeline -->
-    <footer class="hero-timeline">
-      <div class="timeline-topbar">
-        <div class="timeline-controles">
-          <button class="tl-btn" aria-label="Inicio">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
-          </button>
-          <button class="tl-btn play" aria-label="Reproducir">
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          </button>
-          <button class="tl-btn" aria-label="Siguiente">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
-          </button>
-        </div>
-        <div class="timeline-info">
-          <div class="tl-badge mono" id="tl-timecode">00:00:18:04</div>
-          <div class="tl-badge">9:16</div>
-          <div class="tl-badge">1440p · 60fps</div>
-        </div>
-      </div>
-
-      <div class="timeline-regla" aria-hidden="true">
-        <!-- El cabezal se mueve por JS -->
-        <div class="timeline-cabezal" id="timeline-cabezal"></div>
-        <div class="regla-marcas" id="regla-marcas"></div>
-      </div>
-
-      <div class="timeline-pistas" aria-hidden="true">
-        <div class="pista">
-          <span class="pista-label">V1</span>
-          <div class="pista-carril" id="carril-v1">
-            <div class="pista-clip clip-v1" style="left:0%;width:42%;"></div>
-            <div class="pista-clip clip-v1" style="left:45%;width:30%;"></div>
-            <div class="pista-clip clip-v1" style="left:78%;width:18%;"></div>
-          </div>
-        </div>
-        <div class="pista">
-          <span class="pista-label">V2</span>
-          <div class="pista-carril" id="carril-v2">
-            <div class="pista-clip clip-v2" style="left:5%;width:20%;"></div>
-            <div class="pista-clip clip-v2" style="left:30%;width:15%;"></div>
-            <div class="pista-clip clip-v2" style="left:60%;width:28%;"></div>
-          </div>
-        </div>
-        <div class="pista">
-          <span class="pista-label">A1</span>
-          <!-- Las barras de waveform se generan por JS -->
-          <div class="pista-carril pista-audio" id="carril-audio"></div>
-        </div>
-      </div>
-    </footer>
-
-  </section>
-
-  <!-- ── SECCIÓN 02: CLIENTES / PORTFOLIO VIP ── -->
-  <section class="seccion seccion-clientes" id="clientes">
-    <div class="clientes-container">
-      <div class="visor-label visor-label-tl mono">CLIENT ASSETS · 02</div>
-
-      <div class="cliente-grid">
-        
-        <!-- INFO Y FOTO (Columna Izquierda 400px) -->
-        <div class="cliente-col-info">
-          
-          <!-- Foto Card -->
-          <div class="cliente-foto-card card">
-            <div class="c-foto-wrap">
-              <img id="c-foto" src="ClientesVIP/David Otalora.jpg" alt="Cliente VIP">
-            </div>
-            <div class="c-foto-meta mono">
-              ID: <span id="c-id">ID-01</span> | Status: <span style="color:#27ae60">Verified</span>
-            </div>
-          </div>
-
-          <!-- Info Expandida Card -->
-          <div class="cliente-desc-card card">
-            <div class="card-specs-titulo mono">Client Brief</div>
-            <h2 class="c-nombre" id="c-nombre">David Otálora</h2>
-            <h3 class="c-rol mono" id="c-rol">E-COMMERCE & VIRALIDAD</h3>
-            <p class="c-texto" id="c-texto">
-              Estrategias de viralización orgánica y crecimiento exponencial de comunidades. Enfoque en la retención absoluta del espectador mediante storytelling dinámico, ritmo acelerado y ganchos emocionales para escalar ventas.
-            </p>
+          <div class="sobremi-grid">
             
-            <div class="c-kpis">
-              <div class="c-kpi">
-                <span class="mono">Impacto</span>
-                <strong id="c-kpi1">+13M Views</strong>
+            <!-- Foto Wrap -->
+            <div class="sobremi-col-foto">
+              <div class="foto-galo-wrap">
+                <!-- Se reemplazará con la imagen real de Galo -->
+                <img id="foto-galo" src="https://via.placeholder.com/500x600/111111/555555?text=Esperando+Foto..." alt="Galo Medina">
               </div>
-              <div class="c-kpi">
-                <span class="mono">Formato</span>
-                <strong id="c-kpi2">Reel 9:16</strong>
+              <div class="foto-status mono">
+                <span>SRC://GALO_PROFILE_V1.JPG</span>
+                <span>[ONLINE]</span>
               </div>
             </div>
 
-            <!-- Nuevo Indicador de Stories (Barra de carga unificada) -->
-            <div class="story-indicators" id="story-indicators">
-               <!-- JS inyectara barras de carga aqui -->
+            <!-- Bio y Specs -->
+            <div class="sobremi-col-info">
+              
+              <h2 class="sobremi-tit">Galo Medina</h2>
+              <p class="sobremi-desc">
+                Desarrollo estrategias de video vertical pensadas exlcusivamente para hackear la atención. 
+                No hago simples recortes; analizo analíticas, construyo narrativas retentivas y utilizo edición de alto impacto para convertir views en conversiones reales.
+              </p>
+
+              <!-- Panel estilo metadata -->
+              <div class="sobremi-specs mono">
+                <div class="sm-spec-row">
+                  <span class="sm-label">Rol_</span>
+                  <span class="sm-val">Video Editor & Content Strategist</span>
+                </div>
+                <div class="sm-spec-row">
+                  <span class="sm-label">Especialidad_</span>
+                  <span class="sm-val">Retención & Crecimiento Orgánico</span>
+                </div>
+                <div class="sm-spec-row">
+                  <span class="sm-label">Formato Ppal_</span>
+                  <span class="sm-val">9:16 (Shorts, Reels, TikTok)</span>
+                </div>
+                <div class="sm-spec-row">
+                  <span class="sm-label">Status_</span>
+                  <span class="sm-val" style="color:#27ae60;">Aceptando Proyectos Selectos</span>
+                </div>
+              </div>
+
             </div>
-          </div>
 
-        </div>
-
-        <!-- VIDEO DEL CLIENTE (Columna Derecha grande) -->
-        <div class="cliente-col-v card">
-          <div class="c-video-loader" id="c-video-loader">
-            <div class="spinner-ring"></div>
-            <div>Cargando Secuencia...</div>
-          </div>
-          
-          <div class="c-video-header mono">
-            <span class="rec-dot"></span><span id="c-video-name">David_Otalora_Viral_v2.mp4</span>
-          </div>
-          <video id="c-video" src="ClientesVIP/Plan de contenido.mp4" muted autoplay playsinline preload="auto"></video>
-          
-          <div class="c-video-footer">
-            <div class="c-progress"><div class="c-progress-fill" id="c-progress-fill"></div></div>
           </div>
         </div>
-
-      </div>
-    </div>
-  </section>
+      </section>
 
     </div> <!-- /secciones-wrapper -->
   </div> <!-- /scroll-container -->
 
   <script src="js/main.js"></script>
 </body>
+
 </html>
