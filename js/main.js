@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarParticulas();
   iniciarTypewriter();
   generarMarcasTimeline();
+  generarWaveformAudio();
   iniciarReproductor();
 });
 
@@ -30,6 +31,13 @@ function iniciarReproductor() {
   const miniaturas = document.querySelectorAll('.miniatura');
   const progresoFill = document.getElementById('progreso-fill');
   const tiempoEl  = document.getElementById('video-tiempo');
+
+  // Elementos extra para animar el resto de UI
+  const timelineCabezal = document.getElementById('timeline-cabezal');
+  const tlTimecode = document.getElementById('tl-timecode');
+  const proyectoProgresoFill = document.getElementById('proyecto-progreso-fill');
+  const proyectoDuracion = document.getElementById('proyecto-duracion');
+  const proyectoNombre = document.getElementById('proyecto-nombre');
 
   if (!videoA || !videoB) return;
 
@@ -49,6 +57,18 @@ function iniciarReproductor() {
   function cambiarA(indice) {
     if (indice === indiceActual) return;
     indiceActual = indice;
+
+    // Actualizar nombre del proyecto activo
+    if (proyectoNombre) {
+      const parts = VIDEOS[indice].split('/');
+      proyectoNombre.textContent = parts[parts.length - 1]; // Toma solo el nombre del archivo
+    }
+
+    // "Mover" aleatoriamente los clips del timeline al cambiar proyecto
+    document.querySelectorAll('.pista-clip').forEach(clip => {
+      clip.style.left = Math.floor(Math.random() * 60) + '%';
+      clip.style.width = Math.floor(Math.random() * 30 + 10) + '%';
+    });
 
     // Preparar el video oculto con el nuevo src
     videoOculto.src = VIDEOS[indice];
@@ -96,16 +116,28 @@ function iniciarReproductor() {
   function actualizarProgreso() {
     if (!videoActivo || !videoActivo.duration) return;
     const pct = (videoActivo.currentTime / videoActivo.duration) * 100;
+    
+    // Barras de progreso
     if (progresoFill) progresoFill.style.width = pct + '%';
+    if (proyectoProgresoFill) proyectoProgresoFill.style.width = pct + '%';
 
-    // Timecode
+    // Cabezal que avanza en todo el timeline inferior
+    if (timelineCabezal) timelineCabezal.style.left = pct + '%';
+
+    // Timecode global
     const seg = Math.floor(videoActivo.currentTime);
     const mm  = String(Math.floor(seg / 60)).padStart(2, '0');
     const ss  = String(seg % 60).padStart(2, '0');
+    
+    // Calcular "frames" relativos a 60fps
+    const frames = String(Math.floor((videoActivo.currentTime % 1) * 60)).padStart(2, '0');
+    
     if (tiempoEl) tiempoEl.textContent = `00:${mm}:${ss}`;
+    if (proyectoDuracion) proyectoDuracion.textContent = `${mm}:${ss}`;
+    if (tlTimecode) tlTimecode.textContent = `00:${mm}:${ss}:${frames}`;
   }
 
-  setInterval(actualizarProgreso, 500);
+  setInterval(actualizarProgreso, 1000 / 60); // A 60fps para fluidez del timecode y cabezal
 
   // ── Color sampler ──────────────────────────────────
   function extraerColorDominante() {
@@ -158,6 +190,31 @@ function iniciarReproductor() {
       const cv = desaturar(color.r, color.g, color.b, 0.06);
       visor.style.backgroundColor = `rgb(${cv.r}, ${cv.g}, ${cv.b})`;
     }
+
+    // Colorear clips del timeline y onda de audio
+    const cClip   = desaturar(color.r, color.g, color.b, 0.35); // un poco más intensos
+    const cAudio  = desaturar(color.r, color.g, color.b, 0.25);
+    
+    document.querySelectorAll('.clip-v1').forEach(el => el.style.background = `rgba(${cClip.r}, ${cClip.g}, ${cClip.b}, 0.55)`);
+    document.querySelectorAll('.clip-v2').forEach(el => el.style.background = `rgba(${cClip.r}, ${cClip.g}, ${cClip.b}, 0.45)`);
+    document.querySelectorAll('.wave-bar').forEach(el => el.style.background = `rgba(${cAudio.r}, ${cAudio.g}, ${cAudio.b}, 0.45)`);
+
+    // Actualizar la Card de Color Grading con la paleta visual interactiva
+    const paletaHex = document.getElementById('paleta-hex');
+    if (paletaHex) {
+      const hex = '#' + [color.r, color.g, color.b].map(x => x.toString(16).padStart(2, '0')).join('');
+      paletaHex.textContent = hex;
+      
+      // Armar la paleta de 5 tonos iterando variaciones de saturación
+      for (let i = 0; i < 5; i++) {
+        const pBar = document.getElementById('pal-' + i);
+        if (pBar) {
+          const factor = 0.1 + (i * 0.15); // del más puro al más agrisado
+          const t = desaturar(color.r, color.g, color.b, factor);
+          pBar.style.background = `rgb(${t.r}, ${t.g}, ${t.b})`;
+        }
+      }
+    }
   }
 
   // Samplear cada 2s (cuando el video ya cargó algo)
@@ -173,6 +230,26 @@ function iniciarReproductor() {
       aplicarColorACards(color);
     }, 300);
   });
+}
+
+// ─── Generación progresiva de Waveform (Audio) ─────────
+function generarWaveformAudio() {
+  const contenedor = document.getElementById('carril-audio');
+  if (!contenedor) return;
+
+  // Renderiza alrededor de 120 barritas para ocupar toda la superficie interactiva
+  for (let i = 0; i < 120; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'wave-bar';
+    
+    // Aleatoriedad para la duración de la animación y el delay
+    const dur = 0.4 + Math.random() * 0.8;
+    const del = Math.random() * -2; // negativo para que arranquen desfasadas
+    
+    bar.style.setProperty('--dur', dur + 's');
+    bar.style.setProperty('--delay', del + 's');
+    contenedor.appendChild(bar);
+  }
 }
 
 // ─── Marcas de la regla del timeline ─────────────────
