@@ -555,6 +555,23 @@ function initClientesSection() {
         if (cVideoLoader) cVideoLoader.classList.remove('cargando');
         cVideo.style.opacity = '1';
         cVideo.play().catch(e => console.log('Autoplay:', e));
+        
+        // Iniciar transición CSS de la barra de historia de 10 segundos
+        const currentFill = document.getElementById('story-fill-' + indiceCliente);
+        if (currentFill) {
+          currentFill.style.transition = 'none';
+          currentFill.style.width = '0%';
+          setTimeout(() => {
+            currentFill.style.transition = 'width 10s linear';
+            currentFill.style.width = '100%';
+          }, 50); // micro delay para reflow
+        }
+
+        // Configurar timer estricto de 10 segundos para el siguiente cliente
+        if(window.clienteTimer) clearTimeout(window.clienteTimer);
+        window.clienteTimer = setTimeout(() => {
+          cambiarCliente(indiceCliente + 1);
+        }, 10000); // 10s exactos
       };
 
       cVideo.addEventListener('canplay', canPlayHandler, { once: true });
@@ -563,25 +580,12 @@ function initClientesSection() {
     }, 400); // Wait for fade out
   }
 
-  // Synchronizar barra story
-  if (cVideo) {
-    cVideo.addEventListener('timeupdate', () => {
-      if (cVideo.duration) {
-        const p = (cVideo.currentTime / cVideo.duration) * 100;
-        const currentFill = document.getElementById('story-fill-' + indiceCliente);
-        if (currentFill) currentFill.style.width = p + '%';
-        
-        // Mantener la vieja progres bar por redundancia visual abajo
-        const cProgressFill = document.getElementById('c-progress-fill');
-        if (cProgressFill) cProgressFill.style.width = p + '%';
-      }
-    });
+  // Bind Buttons
+  if (btnPrevC) btnPrevC.addEventListener('click', () => cambiarCliente(indiceCliente - 1));
+  if (btnNextC) btnNextC.addEventListener('click', () => cambiarCliente(indiceCliente + 1));
 
-    // Siguiente paso automático cuando acaba
-    cVideo.addEventListener('ended', () => {
-      cambiarCliente(indiceCliente + 1);
-    });
-  }
+  // Iniciar la rotación automática con el primer index
+  setTimeout(() => cambiarCliente(0), 500); 
 }
 
 // ─── SCROLLJACKING SYSTEM ──────────────────────────────
