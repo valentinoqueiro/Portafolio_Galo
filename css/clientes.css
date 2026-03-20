@@ -15,9 +15,10 @@
 }
 
 .cliente-grid {
-  display: grid;
-  grid-template-columns: 440px 1fr; /* Info Izquierda, Video Derecha */
-  gap: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(40px, 8vw, 120px);
   height: 100%;
 }
 
@@ -27,6 +28,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  flex: 0 1 440px; /* Base 440px, encoge si falta espacio */
 }
 
 /* Foto Card */
@@ -97,12 +99,36 @@
 /* Columna del Video (Derecha) */
 .cliente-col-v {
   position: relative;
-  height: 100%;
+  height: 95%; /* Que ocupe casi toda la altura, ideal para celulares */
+  aspect-ratio: 9/16; /* ¡FORZADO SIEMPRE A VERTICAL (SHORTS)! */
+  border-radius: var(--radio-lg); /* Bordes redondeados elegantes */
   padding: 0;
   overflow: hidden;
-  background: #000;
+  background: #0b0b0b;
   display: flex; align-items: center; justify-content: center;
+  flex: 0 0 auto; /* Para que flexbox no lo achate horizontalmente por error */
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15); /* Efecto despegado como celular */
 }
+
+/* Loader de video para dar feedback si tarda en cargar (archivos pesados) */
+.c-video-loader {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: #0b0b0b;
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
+  color: var(--texto-suave); font-family: var(--fuente-mono); font-size: 11px;
+  z-index: 5; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.c-video-loader.cargando {
+  opacity: 1; pointer-events: auto;
+}
+/* Spinner ring */
+.spinner-ring {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1); border-top-color: var(--acento);
+  animation: spinner 1s linear infinite;
+}
+@keyframes spinner { to { transform: rotate(360deg); } }
+
 .c-video-header {
   position: absolute; top: 0; left: 0; right: 0;
   padding: 24px 28px; z-index: 10;

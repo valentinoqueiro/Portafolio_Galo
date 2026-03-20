@@ -322,10 +322,15 @@
 
         <!-- VIDEO DEL CLIENTE (Columna Derecha grande) -->
         <div class="cliente-col-v card">
+          <div class="c-video-loader" id="c-video-loader">
+            <div class="spinner-ring"></div>
+            <div>Cargando Secuencia...</div>
+          </div>
+          
           <div class="c-video-header mono">
             <span class="rec-dot"></span><span id="c-video-name">David_Otalora_Viral_v2.mp4</span>
           </div>
-          <video id="c-video" src="ClientesVIP/Plan de contenido.mp4" muted autoplay playsinline></video>
+          <video id="c-video" src="ClientesVIP/Plan de contenido.mp4" muted autoplay playsinline preload="auto"></video>
           
           <div class="c-video-footer">
             <div class="c-progress"><div class="c-progress-fill" id="c-progress-fill"></div></div>

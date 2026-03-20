@@ -475,6 +475,7 @@ function initClientesSection() {
   const cNavPips = document.getElementById('c-nav-pips');
   const btnPrevC = document.getElementById('btn-prev-c');
   const btnNextC = document.getElementById('btn-next-c');
+  const cVideoLoader = document.getElementById('c-video-loader');
 
   // Construir dots (pips)
   if (cNavPips) {
@@ -488,6 +489,9 @@ function initClientesSection() {
     });
   }
 
+  // Prevenir que el EventListener de canplay se stackee múltiples veces
+  let canPlayHandler = null;
+
   function cambiarCliente(index) {
     if (isTransitioning) return;
     isTransitioning = true;
@@ -497,15 +501,22 @@ function initClientesSection() {
     indiceCliente = index;
     
     const data = clientesData[indiceCliente];
-    const elementosAnimados = [cFoto, cNombre, cRol, cTexto, cKpi1, cKpi2, cVideoName, cVideo];
+    const textosAnimados = [cFoto, cNombre, cRol, cTexto, cKpi1, cKpi2, cVideoName];
     
-    // Fade out
-    elementosAnimados.forEach(el => {
-      el.style.opacity = '0';
-    });
+    // Fade out textos y video
+    textosAnimados.forEach(el => el.style.opacity = '0');
+    cVideo.style.opacity = '0';
+    
+    // Mostrar loader visual
+    if (cVideoLoader) cVideoLoader.classList.add('cargando');
+
+    // Remover listener previo si el usuario hace much clicks rapidos
+    if (canPlayHandler) {
+      cVideo.removeEventListener('canplay', canPlayHandler);
+    }
 
     setTimeout(() => {
-      // Inyectar datos
+      // Inyectar datos textuales
       cFoto.src = data.foto;
       cId.textContent = data.id;
       cNombre.textContent = data.nombre;
@@ -515,25 +526,35 @@ function initClientesSection() {
       cKpi2.textContent = data.kpi2;
       cVideoName.textContent = data.videoName;
       
+      // Cambiar src del video
       cVideo.src = data.videoSrc;
-      cVideo.play().catch(e => console.error(e));
+      cVideo.load(); // forzar recarga
 
       // Actualizar Nav Pips
       document.querySelectorAll('.c-pip').forEach((pip, i) => {
         pip.className = 'c-pip' + (i === indiceCliente ? ' activo' : '');
       });
 
-      // Recalcular styles y forzar render antes de fade in (trick para reflow)
+      // Recalcular reflow visual
       void cVideo.offsetWidth;
 
-      // Fade In
-      elementosAnimados.forEach(el => {
-        el.style.transition = 'opacity 0.4s ease'; // Ensure transition class
+      // Fade In textos inmediantame
+      textosAnimados.forEach(el => {
+        el.style.transition = 'opacity 0.4s ease'; 
         el.style.opacity = '1';
       });
 
-      setTimeout(() => { isTransitioning = false; }, 400); // unlock after animation ends
-    }, 400); // 400ms = duration of fade out
+      // Armar la lógica de que el video solo haga Fade-in cuando esté listo
+      canPlayHandler = () => {
+        if (cVideoLoader) cVideoLoader.classList.remove('cargando');
+        cVideo.style.opacity = '1';
+        cVideo.play().catch(e => console.log('Autoplay:', e));
+      };
+
+      cVideo.addEventListener('canplay', canPlayHandler, { once: true });
+
+      setTimeout(() => { isTransitioning = false; }, 400);
+    }, 400); // Wait for fade out
   }
 
   // Bind Buttons
