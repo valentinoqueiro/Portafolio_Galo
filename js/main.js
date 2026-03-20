@@ -606,27 +606,40 @@ function initScrollJacking() {
     return { top, left };
   }
 
+  let isInitialLoad = true;
+
   function getSyncPillPos() {
     const actionBar = document.getElementById('global-action-bar');
     const spacer = document.getElementById('action-bar-spacer');
-    const colIzq = document.querySelector('.cliente-col-info');
+    // Alineamos a la tarjeta exactamente (su padding / margin)
+    const cardTarget = document.querySelector('.cliente-desc-card');
     
-    if (!actionBar || !spacer || !colIzq) return;
+    if (!actionBar || !spacer || !cardTarget) return;
 
     if (currentSec === 0) {
-      // Estado Hero: Anclamos a las coordinates layout estables de su dummy
+      // Estado Hero
       const sPos = getAbsoluteOffset(spacer);
-      actionBar.style.transform = `translate(${sPos.left}px, ${sPos.top}px)`;
+      const sRect = spacer.getBoundingClientRect();
+      actionBar.style.transform = `translate(${sRect.left}px, ${sPos.top}px)`;
       actionBar.style.width = spacer.offsetWidth + 'px';
       actionBar.classList.remove('mode-top');
     } else {
-      // Estado VIP: Volar a la esquina Inferior Izquierda (Bottom-Left)
-      const cPos = getAbsoluteOffset(colIzq);
-      // ty = el alto de la pantalla menos 80px (para que quede abajito flotando con margen)
+      // Estado VIP
+      const cRect = cardTarget.getBoundingClientRect();
       const ty = window.innerHeight - 80; 
       
-      actionBar.style.transform = `translate(${cPos.left}px, ${ty}px)`;
+      // Restamos 8px para que el botón interno se alinee perfecto con el borde de la caja
+      actionBar.style.transform = `translate(${cRect.left - 8}px, ${ty}px)`;
       actionBar.classList.add('mode-top');
+    }
+
+    // Prevenir que vuele de arriba hacia abajo en la primerísima carga
+    if (isInitialLoad) {
+      actionBar.style.transition = 'none';
+      setTimeout(() => {
+        actionBar.style.transition = 'transform 1200ms cubic-bezier(0.77, 0, 0.175, 1), background 1200ms';
+        isInitialLoad = false;
+      }, 50);
     }
   }
 
