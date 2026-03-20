@@ -164,3 +164,26 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Indicadores tipo Stories de Instagram */
+.story-indicators {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  padding-top: 15px;
+}
+.story-pip {
+  flex: 1;
+  height: 4px; /* Barra delgada */
+  background: rgba(0,0,0,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.story-pip-fill {
+  height: 100%;
+  width: 0%; /* Inyectado por JS de 0 a 100 */
+  background: var(--acento); /* Color verde original o acento */
+  transition: width 0.1s linear;
+}

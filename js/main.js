@@ -471,21 +471,23 @@ function initClientesSection() {
   const cKpi1 = document.getElementById('c-kpi1');
   const cKpi2 = document.getElementById('c-kpi2');
   const cVideoName = document.getElementById('c-video-name');
-  const cProgressFill = document.getElementById('c-progress-fill');
-  const cNavPips = document.getElementById('c-nav-pips');
-  const btnPrevC = document.getElementById('btn-prev-c');
-  const btnNextC = document.getElementById('btn-next-c');
+  const storyContainer = document.getElementById('story-indicators');
   const cVideoLoader = document.getElementById('c-video-loader');
 
-  // Construir dots (pips)
-  if (cNavPips) {
+  // Construir pips de historia
+  if (storyContainer) {
     clientesData.forEach((_, i) => {
       const pip = document.createElement('div');
-      pip.className = 'c-pip' + (i === 0 ? ' activo' : '');
+      pip.className = 'story-pip';
+      const fill = document.createElement('div');
+      fill.className = 'story-pip-fill';
+      fill.id = 'story-fill-' + i;
+      pip.appendChild(fill);
+      
       pip.addEventListener('click', () => {
         if (!isTransitioning && i !== indiceCliente) cambiarCliente(i);
       });
-      cNavPips.appendChild(pip);
+      storyContainer.appendChild(pip);
     });
   }
 
@@ -530,9 +532,13 @@ function initClientesSection() {
       cVideo.src = data.videoSrc;
       cVideo.load(); // forzar recarga
 
-      // Actualizar Nav Pips
-      document.querySelectorAll('.c-pip').forEach((pip, i) => {
-        pip.className = 'c-pip' + (i === indiceCliente ? ' activo' : '');
+      // Resetear estado de los story pips
+      clientesData.forEach((_, i) => {
+        const fill = document.getElementById('story-fill-' + i);
+        if (!fill) return;
+        if (i < indiceCliente) fill.style.width = '100%'; // Los pasados llenos
+        else if (i > indiceCliente) fill.style.width = '0%'; // Los futuros vacios
+        else fill.style.width = '0%'; // El actual se empezara a llenar
       });
 
       // Recalcular reflow visual
@@ -557,19 +563,21 @@ function initClientesSection() {
     }, 400); // Wait for fade out
   }
 
-  // Bind Buttons
-  if (btnPrevC) btnPrevC.addEventListener('click', () => cambiarCliente(indiceCliente - 1));
-  if (btnNextC) btnNextC.addEventListener('click', () => cambiarCliente(indiceCliente + 1));
-
-  // Sync Video bar
+  // Synchronizar barra story
   if (cVideo) {
     cVideo.addEventListener('timeupdate', () => {
       if (cVideo.duration) {
-        cProgressFill.style.width = ((cVideo.currentTime / cVideo.duration) * 100) + '%';
+        const p = (cVideo.currentTime / cVideo.duration) * 100;
+        const currentFill = document.getElementById('story-fill-' + indiceCliente);
+        if (currentFill) currentFill.style.width = p + '%';
+        
+        // Mantener la vieja progres bar por redundancia visual abajo
+        const cProgressFill = document.getElementById('c-progress-fill');
+        if (cProgressFill) cProgressFill.style.width = p + '%';
       }
     });
 
-    // Cambiar dinámicamente al próximo cuando acaba el actual (Efecto presentación fluida)
+    // Siguiente paso automático cuando acaba
     cVideo.addEventListener('ended', () => {
       cambiarCliente(indiceCliente + 1);
     });
@@ -590,6 +598,14 @@ function initScrollJacking() {
   function scrollToSec() {
     isScrolling = true;
     wrapper.style.transform = `translateY(-${currentSec * 100}dvh)`;
+    
+    // Mover Botones Flotantes (Action Bar)
+    const actionBar = document.getElementById('global-action-bar');
+    if (actionBar) {
+      if (currentSec > 0) actionBar.classList.add('mode-top');
+      else actionBar.classList.remove('mode-top');
+    }
+
     setTimeout(() => { isScrolling = false; }, cooldown);
   }
 
