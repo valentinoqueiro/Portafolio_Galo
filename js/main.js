@@ -384,9 +384,9 @@ function iniciarTypewriter() {
   if (!el) return;
 
   const textos = [
-    'Especialista en short-form.',
-    'Reels que generan millones de views.',
-    'Edición que engancha en 3 segundos.',
+    'Short Content',
+    'High Retention',
+    'Vertical Video'
   ];
 
   let idxTexto = 0, idxChar = 0;

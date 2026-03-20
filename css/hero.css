@@ -28,15 +28,11 @@
 
 .barra-logo {
   font-family: var(--fuente-display);
-  font-size: 13px;
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--acento);
-}
-.barra-version {
-  font-weight: 300;
-  opacity: 0.35;
-  font-size: 11px;
+  letter-spacing: -0.06em;
+  color: #111;
+  padding-left: 8px;
 }
 
 .barra-controles { display: flex; align-items: center; gap: 4px; }
@@ -45,19 +41,18 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 12px;
-  font-family: var(--fuente-mono);
-  font-size: 10px;
-  letter-spacing: 0.03em;
-  color: var(--texto-medio);
-  background: var(--card);
-  border: 1px solid var(--card-borde);
+  padding: 6px 14px;
+  font-family: var(--fuente-cuerpo);
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(44, 42, 37, 0.4);
+  background: transparent;
+  border: none;
   border-radius: 8px;
   cursor: none;
   transition: var(--transicion);
-  backdrop-filter: blur(8px);
 }
-.btn-barra:hover { color: var(--acento); background: var(--card-hover); box-shadow: var(--card-sombra); }
+.btn-barra:hover { color: rgba(44, 42, 37, 0.9); }
 .btn-barra .dot {
   width: 5px; height: 5px; border-radius: 50%;
   background: #27ae60; flex-shrink: 0;
@@ -171,37 +166,32 @@
   box-shadow: var(--card-sombra-hover);
 }
 
-/* ─── Card identidad ─────────────────────────────────── */
-.card-identidad { display: flex; flex-direction: column; gap: 6px; }
-
-.card-eyebrow {
-  font-family: var(--fuente-mono);
-  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--texto-suave);
-  display: flex; align-items: center; gap: 6px;
-}
-.card-eyebrow::before {
-  content: ''; width: 5px; height: 5px; border-radius: 50%;
-  background: #27ae60; animation: pulso 2.5s ease infinite;
+/* ─── Card info principal ────────────────────────────── */
+.card-info-principal { 
+  display: flex; flex-direction: column; gap: 8px; 
+  padding: 22px 18px;
 }
 
-.card-nombre {
+.info-tit {
   font-family: var(--fuente-display);
-  font-size: clamp(20px, 1.8vw, 28px);
-  font-weight: 700;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
-  color: var(--acento);
+  font-size: 32px;
+  font-weight: 400; /* Tipografía fina/elegante como en la imagen */
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #333;
 }
-.nombre-fino { font-weight: 300; color: var(--texto-medio); }
 
-.card-tagline {
-  font-size: 11px; color: var(--texto-suave);
-  line-height: 1.6; font-weight: 300;
+.info-desc {
+  font-family: var(--fuente-cuerpo);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--texto-suave);
+  line-height: 1.5;
 }
+
 .cursor-texto {
-  display: inline-block; width: 1.5px; height: 0.9em;
-  background: var(--texto-suave); margin-left: 1px;
+  display: inline-block; width: 1.5px; height: 1em;
+  background: #333; margin-left: 2px;
   vertical-align: middle; animation: parpadeo 1s step-end infinite;
 }
 
