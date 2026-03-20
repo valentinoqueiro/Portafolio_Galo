@@ -595,6 +595,7 @@ function initScrollJacking() {
   const secciones = document.querySelectorAll('.seccion');
   let currentSec = 0;
   let isScrolling = false;
+  const cooldown = 1250; 
 
   function scrollToSec() {
     isScrolling = true;
@@ -602,7 +603,9 @@ function initScrollJacking() {
     
     // Animación matemática FLIP de la Action Bar Natural
     const actionBar = document.getElementById('card-acciones');
-    if (actionBar) {
+    const paramRef = document.querySelector('.panel-izquierdo'); // Usado para alinear a la grilla
+
+    if (actionBar && paramRef) {
       if (currentSec > 0) {
         // En este instante (antes de que la animación avance), sacamos las coords originales:
         // Como currentSec es > 0 (Section 2), el wrapper va a deslizarse -window.innerHeight
@@ -617,9 +620,12 @@ function initScrollJacking() {
         
         const origTop = parseFloat(actionBar.dataset.origTop);
         const origLeft = parseFloat(actionBar.dataset.origLeft);
+        
+        // El target X es exactamente el eje vertical del panel izquierdo + tal vez 20px extra de margen.
+        const refRect = paramRef.getBoundingClientRect();
 
-        const ty = 60 - origTop + (window.innerHeight * currentSec);
-        const tx = 40 - origLeft;
+        const ty = 40 - origTop + (window.innerHeight * currentSec);
+        const tx = refRect.left - origLeft;
         
         actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
         actionBar.style.zIndex = "9999";
