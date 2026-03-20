@@ -99,7 +99,8 @@
 /* Columna del Video (Derecha) */
 .cliente-col-v {
   position: relative;
-  height: 95%; /* Que ocupe casi toda la altura, ideal para celulares */
+  height: 72%; /* Achicado para monitores Mac y para dejar lugar a los botones abajo */
+  max-height: 680px; 
   aspect-ratio: 9/16; /* ¡FORZADO SIEMPRE A VERTICAL (SHORTS)! */
   border-radius: var(--radio-lg); /* Bordes redondeados elegantes */
   padding: 0;
@@ -108,6 +109,7 @@
   display: flex; align-items: center; justify-content: center;
   flex: 0 0 auto; /* Para que flexbox no lo achate horizontalmente por error */
   box-shadow: 0 20px 60px rgba(0,0,0,0.15); /* Efecto despegado como celular */
+  margin-top: -30px; /* Sube apenas el video para balancear visualmente la pildora abajo */
 }
 
 /* Loader de video para dar feedback si tarda en cargar (archivos pesados) */

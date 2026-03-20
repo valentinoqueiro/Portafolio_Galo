@@ -624,13 +624,20 @@ function initScrollJacking() {
       actionBar.style.width = spacer.offsetWidth + 'px';
       actionBar.classList.remove('mode-top');
     } else {
-      // Estado VIP
-      const cRect = cardTarget.getBoundingClientRect();
-      const ty = window.innerHeight - 80; 
-      
-      // Restamos 8px para que el botón interno se alinee perfecto con el borde de la caja
-      actionBar.style.transform = `translate(${cRect.left - 8}px, ${ty}px)`;
-      actionBar.classList.add('mode-top');
+      // Estado VIP: Posicionar justo debajo del video y centrado a él
+      const videoTarget = document.querySelector('.cliente-col-v');
+      if (videoTarget) {
+        // Pre-aplicar estilo VIP para que contraiga su width a 'max-content' natural ANTES de medir
+        actionBar.classList.add('mode-top');
+        
+        const vPos = getAbsoluteOffset(videoTarget);
+        const vRect = videoTarget.getBoundingClientRect();
+        
+        const ty = vPos.top + videoTarget.offsetHeight + 24; // 24px de respiro abajo del video
+        const tx = vRect.left + (videoTarget.offsetWidth / 2) - (actionBar.offsetWidth / 2); // Centrado horizontal
+        
+        actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
+      }
     }
 
     // Prevenir que vuele de arriba hacia abajo en la primerísima carga

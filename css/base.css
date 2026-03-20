@@ -147,6 +147,8 @@ body {
 .action-bar-floating.mode-top {
   background: rgba(255,255,255,0.85); /* Solid white VIP mode */
   box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  width: max-content !important;
+  padding: 8px 10px;
 }
 
 .action-bar-floating button {
