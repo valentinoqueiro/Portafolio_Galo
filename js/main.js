@@ -576,7 +576,65 @@ function initClientesSection() {
   }
 }
 
+// ─── SCROLLJACKING SYSTEM ──────────────────────────────
+function initScrollJacking() {
+  const wrapper = document.getElementById('secciones-wrapper');
+  if (!wrapper) return;
+  const secciones = document.querySelectorAll('.seccion');
+  let currentSec = 0;
+  let isScrolling = false;
+
+  const threshold = 15; // Ignorar toques accidentales o deltas muy finos de Mac
+  const cooldown = 1250; // Match exacto con el CSS bezier (1200ms + 50ms buffer)
+
+  function scrollToSec() {
+    isScrolling = true;
+    wrapper.style.transform = `translateY(-${currentSec * 100}dvh)`;
+    setTimeout(() => { isScrolling = false; }, cooldown);
+  }
+
+  // Wheel Desktop/Mac
+  window.addEventListener('wheel', (e) => {
+    if (isScrolling) return;
+    if (Math.abs(e.deltaY) < threshold) return; 
+
+    if (e.deltaY > 0) {
+      // Hacia abajo
+      if (currentSec < secciones.length - 1) {
+        currentSec++;
+        scrollToSec();
+      }
+    } else {
+      // Hacia arriba
+      if (currentSec > 0) {
+        currentSec--;
+        scrollToSec();
+      }
+    }
+  }, { passive: false });
+
+  // Touch Swipe Mobile
+  let touchStartY = 0;
+  window.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+  });
+  window.addEventListener('touchmove', e => {
+    if (isScrolling) { e.preventDefault(); return; }
+    let touchEndY = e.touches[0].clientY;
+    let diff = touchStartY - touchEndY;
+    
+    if (Math.abs(diff) < 30) return; // Umbral táctil
+
+    if (diff > 0 && currentSec < secciones.length - 1) {
+      currentSec++; scrollToSec();
+    } else if (diff < 0 && currentSec > 0) {
+      currentSec--; scrollToSec();
+    }
+  }, { passive: false });
+}
+
 // Llama al init también en DOMContentLoaded general (ya que este script no estaba modularizado asincrónico por partes)
 document.addEventListener('DOMContentLoaded', () => {
   initClientesSection();
+  initScrollJacking();
 });
