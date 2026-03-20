@@ -1,0 +1,10 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Videos (archivos pesados, no van en Git)
+videos /
+videos/
+
+# Dependencias (si se agregan en el futuro)
+node_modules/
