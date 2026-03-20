@@ -620,7 +620,7 @@ function initScrollJacking() {
       // Estado Hero
       const sPos = getAbsoluteOffset(spacer);
       const sRect = spacer.getBoundingClientRect();
-      actionBar.style.transform = `translate(${sRect.left}px, ${sPos.top}px)`;
+      actionBar.style.transform = `translate(${sRect.left}px, ${sPos.top}px) scale(1)`;
       actionBar.style.width = spacer.offsetWidth + 'px';
       actionBar.classList.remove('mode-top');
     } else if (currentSec === 1) {
@@ -635,9 +635,9 @@ function initScrollJacking() {
         const ty = targetViewportTop + videoTarget.offsetHeight + 24;
         const tx = vRect.left + (videoTarget.offsetWidth / 2) - (actionBar.offsetWidth / 2);
         
-        actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
+        actionBar.style.transform = `translate(${tx}px, ${ty}px) scale(1)`;
       }
-    } else {
+    } else if (currentSec === 2) {
       // Estado Sobre Mí: Puede esconderse, o acoplarse inteligentemente
       const infoTarget = document.querySelector('.sobremi-specs');
       if (infoTarget) {
@@ -649,7 +649,22 @@ function initScrollJacking() {
         const ty = targetViewportTop + infoTarget.offsetHeight + 30; // 30px abajo del panel spec
         const tx = iRect.left; // Alinear a la izquierda del spec
         
-        actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
+        actionBar.style.transform = `translate(${tx}px, ${ty}px) scale(1)`;
+      }
+    } else if (currentSec === 3) {
+      // Estado CTA FINAL: Ir al centro y agrandarse enormemente
+      const ctaSpacer = document.getElementById('cta-button-spacer');
+      if (ctaSpacer) {
+        actionBar.classList.remove('mode-top'); // Quitar estilo blanco si lo tiene
+        const cPos = getAbsoluteOffset(ctaSpacer);
+        const cRect = ctaSpacer.getBoundingClientRect();
+        
+        const targetViewportTop = cPos.top - (window.innerHeight * currentSec);
+        const tx = cRect.left + (ctaSpacer.offsetWidth / 2) - (actionBar.offsetWidth / 2);
+        const ty = targetViewportTop; 
+        
+        // Escalarlo 1.4x para que sea GIGANTE
+        actionBar.style.transform = `translate(${tx}px, ${ty}px) scale(1.4)`;
       }
     }
 
