@@ -580,9 +580,7 @@ function initClientesSection() {
     }, 400); // Wait for fade out
   }
 
-  // Bind Buttons
-  if (btnPrevC) btnPrevC.addEventListener('click', () => cambiarCliente(indiceCliente - 1));
-  if (btnNextC) btnNextC.addEventListener('click', () => cambiarCliente(indiceCliente + 1));
+  // Iniciar la rotación automática con el primer index
 
   // Iniciar la rotación automática con el primer index
   setTimeout(() => cambiarCliente(0), 500); 
