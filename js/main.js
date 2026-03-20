@@ -433,7 +433,7 @@ function initClientesSection() {
       texto: "Estrategias de viralización orgánica y crecimiento exponencial de comunidades. Enfoque en la retención absoluta del espectador mediante storytelling dinámico, ritmo acelerado y ganchos emocionales para escalar ventas.",
       kpi1: "+13M Views",
       kpi2: "Reel 9:16",
-      foto: "ClientesVIP/David Otalora.jpeg",
+      foto: "ClientesVIP/David Otalora.jpg",
       videoSrc: "ClientesVIP/Plan de contenido.mp4",
       videoName: "David_Otalora_Viral_v2.mp4"
     },
@@ -444,8 +444,8 @@ function initClientesSection() {
       texto: "Modelos de negocio de e-commerce a escala global y funnels de conversión avanzados. Optimización de rentabilidad máxima mediante estrategias de marketing automatizadas y logística eficiente.",
       kpi1: "+35M Views",
       kpi2: "TikTok 9:16",
-      foto: "ClientesVIP/marcos-razzetti.jpeg",
-      videoSrc: "ClientesVIP/Marcos #3.mp4",
+      foto: "ClientesVIP/marcos-razzetti.jpg",
+      videoSrc: "ClientesVIP/Marcos %233.mp4",
       videoName: "MR_Ecom_Scale_1080p.mp4"
     },
     {
