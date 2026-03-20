@@ -14,15 +14,6 @@
   <div id="cursor-punto"></div>
   <div id="cursor-anillo"></div>
 
-  <!-- Action Bar Flotante (Global Píldora) -->
-  <div class="action-bar-floating" id="global-action-bar">
-    <button class="btn-primario" id="btn-ver-trabajo">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 3 19 12 5 21 5 3"></polyline></svg>
-      Ver trabajo
-    </button>
-    <button class="btn-secundario" id="btn-contactar">Contactar</button>
-  </div>
-
   <div class="scroll-container">
     <div class="secciones-wrapper" id="secciones-wrapper">
 
@@ -206,8 +197,14 @@
             </div>
           </div>
 
-          <!-- Dummy spacer para la Action Bar Global -->
-          <div style="height: 60px; pointer-events: none; opacity: 0;"></div>
+          <!-- 5. Botones -->
+          <div class="card card-acciones" id="card-acciones">
+            <button class="btn-primario" id="btn-ver-trabajo">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Ver trabajo
+            </button>
+            <button class="btn-secundario" id="btn-contactar">Contactar</button>
+          </div>
 
         </div>
 

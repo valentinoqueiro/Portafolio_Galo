@@ -596,18 +596,37 @@ function initScrollJacking() {
   let currentSec = 0;
   let isScrolling = false;
 
-  const threshold = 15; // Ignorar toques accidentales o deltas muy finos de Mac
-  const cooldown = 1250; // Match exacto con el CSS bezier (1200ms + 50ms buffer)
-
   function scrollToSec() {
     isScrolling = true;
     wrapper.style.transform = `translateY(-${currentSec * 100}dvh)`;
     
-    // Mover Botones Flotantes (Action Bar)
-    const actionBar = document.getElementById('global-action-bar');
+    // Animación matemática FLIP de la Action Bar Natural
+    const actionBar = document.getElementById('card-acciones');
     if (actionBar) {
-      if (currentSec > 0) actionBar.classList.add('mode-top');
-      else actionBar.classList.remove('mode-top');
+      if (currentSec > 0) {
+        // En este instante (antes de que la animación avance), sacamos las coords originales:
+        // Como currentSec es > 0 (Section 2), el wrapper va a deslizarse -window.innerHeight
+        // Queremos que termine en Top: 60px, Left: 40px en la pantalla visible
+        // Compensamos sumando innerHeight a la Y.
+        // Usamos una feature para fijar el rect inicial si no ha sido scrolleado antes.
+        
+        if (!actionBar.dataset.origTop) {
+           actionBar.dataset.origTop = actionBar.getBoundingClientRect().top;
+           actionBar.dataset.origLeft = actionBar.getBoundingClientRect().left;
+        }
+        
+        const origTop = parseFloat(actionBar.dataset.origTop);
+        const origLeft = parseFloat(actionBar.dataset.origLeft);
+
+        const ty = 60 - origTop + (window.innerHeight * currentSec);
+        const tx = 40 - origLeft;
+        
+        actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
+        actionBar.style.zIndex = "9999";
+        actionBar.style.position = "relative";
+      } else {
+        actionBar.style.transform = `translate(0px, 0px)`;
+      }
     }
 
     setTimeout(() => { isScrolling = false; }, cooldown);
@@ -616,15 +635,14 @@ function initScrollJacking() {
   // Wheel Desktop/Mac
   window.addEventListener('wheel', (e) => {
     if (isScrolling) return;
-    if (Math.abs(e.deltaY) < threshold) return; 
 
-    if (e.deltaY > 0) {
+    if (e.deltaY > 10) {
       // Hacia abajo
       if (currentSec < secciones.length - 1) {
         currentSec++;
         scrollToSec();
       }
-    } else {
+    } else if (e.deltaY < -10) {
       // Hacia arriba
       if (currentSec > 0) {
         currentSec--;
