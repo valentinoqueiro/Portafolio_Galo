@@ -595,23 +595,37 @@ function initScrollJacking() {
   let isScrolling = false;
   const cooldown = 1250; 
 
+  // Función pura para obtener X, Y reales sin que el css transform en progreso corrompa los valores
+  function getAbsoluteOffset(el) {
+    let top = 0, left = 0;
+    while(el) {
+      top += el.offsetTop;
+      left += el.offsetLeft;
+      el = el.offsetParent;  
+    }
+    return { top, left };
+  }
+
   function getSyncPillPos() {
     const actionBar = document.getElementById('global-action-bar');
     const spacer = document.getElementById('action-bar-spacer');
-    const paramRef = document.querySelector('.panel-izquierdo');
+    const colIzq = document.querySelector('.cliente-col-info');
     
-    if (!actionBar || !spacer || !paramRef) return;
+    if (!actionBar || !spacer || !colIzq) return;
 
     if (currentSec === 0) {
-      // Estado Hero: Anclar exactamente a donde está el marker dummy en la grilla derecha
-      const sRect = spacer.getBoundingClientRect();
-      actionBar.style.transform = `translate(${sRect.left}px, ${sRect.top}px)`;
-      actionBar.style.width = sRect.width + 'px';
+      // Estado Hero: Anclamos a las coordinates layout estables de su dummy
+      const sPos = getAbsoluteOffset(spacer);
+      actionBar.style.transform = `translate(${sPos.left}px, ${sPos.top}px)`;
+      actionBar.style.width = spacer.offsetWidth + 'px';
       actionBar.classList.remove('mode-top');
     } else {
-      // Estado VIP: Volar al borde superior izquierdo basado en el margen orgánico del panel
-      const pRect = paramRef.getBoundingClientRect();
-      actionBar.style.transform = `translate(${pRect.left}px, 60px)`;
+      // Estado VIP: Volar a la esquina Inferior Izquierda (Bottom-Left)
+      const cPos = getAbsoluteOffset(colIzq);
+      // ty = el alto de la pantalla menos 80px (para que quede abajito flotando con margen)
+      const ty = window.innerHeight - 80; 
+      
+      actionBar.style.transform = `translate(${cPos.left}px, ${ty}px)`;
       actionBar.classList.add('mode-top');
     }
   }
