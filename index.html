@@ -45,71 +45,61 @@
       <!-- Container para agrupar y centrar todo el contenido con gap controlado -->
       <div class="visor-content">
 
-        <!-- ── CARDS FLOTANTES IZQUIERDA ── -->
-        <div class="cards-flotantes cards-izq" id="cards-izq">
-
-          <!-- Card info principal -->
-        <div class="card card-info-principal">
-          <h1 class="info-tit">
-            <span id="tagline-texto">Short Content</span><span class="cursor-texto"></span>
-          </h1>
-          <p class="info-desc">
-            Videos de corta duración en formato vertical (9:16)
-          </p>
-        </div>
-
-          <!-- Bloque central izquierdo (agrupado para simetría vertical) -->
-        <div class="cards-mid-group">
-          <!-- Card tools -->
-          <div class="card card-tools">
-            <div class="tools-label mono">Herramientas</div>
-            <div class="toolbar-wrap">
-              <button class="tool-btn activo" title="Cortar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-              </button>
-              <button class="tool-btn" title="Transición">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-              </button>
-              <button class="tool-btn" title="Audio">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path></svg>
-              </button>
-              <button class="tool-btn" title="Color">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
-              </button>
-              <button class="tool-btn" title="Efectos">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </button>
-              <button class="tool-btn" title="Texto">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-              </button>
-            </div>
+        <!-- ── INFO PROFESIONAL IZQUIERDA (Estilo Inspector) ── -->
+        <div class="panel-izquierdo" id="panel-izquierdo">
+          
+          <div class="panel-top">
+            <h1 class="info-tit">
+              <span id="tagline-texto">Short Content</span><span class="cursor-texto"></span>
+            </h1>
+            <p class="info-desc">
+              Edición de alto impacto en formato vertical (9:16).<br>
+              Especialista en retención, ritmo visual y narrativa.
+            </p>
           </div>
 
-          <!-- Card especialización -->
-          <div class="card card-specs">
-            <div class="card-specs-titulo mono">Especialización</div>
-            <ul class="spec-list">
-              <li><span class="spec-dot"></span>Reels &amp; TikToks virales</li>
-              <li><span class="spec-dot"></span>Motion graphics 2D</li>
-              <li><span class="spec-dot"></span>Beat sync &amp; ritmo visual</li>
-              <li><span class="spec-dot"></span>Color grading</li>
+          <div class="card panel-propiedades">
+            <div class="prop-header mono">Propiedades de Secuencia</div>
+            <div class="prop-grid">
+              <div class="prop-item">
+                <span class="prop-label mono">Resolución</span>
+                <span class="prop-val mono">1080 x 1920</span>
+              </div>
+              <div class="prop-item">
+                <span class="prop-label mono">Framerate</span>
+                <span class="prop-val mono">59.94 fps</span>
+              </div>
+              <div class="prop-item">
+                <span class="prop-label mono">Color Space</span>
+                <span class="prop-val mono">Rec.709</span>
+              </div>
+              <div class="prop-item">
+                <span class="prop-label mono">Workspace</span>
+                <span class="prop-val mono">Vertical P.</span>
+              </div>
+              <div class="prop-item">
+                <span class="prop-label mono">Renderer</span>
+                <span class="prop-val mono">GPU Accel.</span>
+              </div>
+              <div class="prop-item">
+                <span class="prop-label mono">Audio</span>
+                <span class="prop-val mono">48kHz / Stereo</span>
+              </div>
+            </div>
+            
+            <div class="prop-divider"></div>
+            
+            <div class="prop-header mono">Archivos de Proyecto</div>
+            <ul class="bin-list mono">
+              <li><span class="bin-icon">▾</span>📁 Sequences
+                <ul class="sub-bin">
+                  <li class="activo"><span class="bin-icon">🎬</span>Portfolio_Reel_vFinal</li>
+                </ul>
+              </li>
+              <li><span class="bin-icon">▸</span>📁 Media RAW</li>
+              <li><span class="bin-icon">▸</span>📁 SFX & Audio Tracks</li>
+              <li><span class="bin-icon">▸</span>📁 Export / Renders</li>
             </ul>
-          </div>
-        </div>
-
-          <!-- Card proyecto activo -->
-          <div class="card card-proyecto">
-            <div class="card-specs-titulo mono">En edición ahora</div>
-            <div class="proyecto-nombre" id="proyecto-nombre">Marcos #3.mp4</div>
-            <div class="proyecto-meta">
-              <span class="mono" id="proyecto-duracion">0:18</span>
-              <span class="proyecto-badge" id="proyecto-badge">
-                <span class="badge-dot"></span>Procesando
-              </span>
-            </div>
-            <div class="proyecto-progreso">
-              <div class="proyecto-progreso-fill" id="proyecto-progreso-fill"></div>
-            </div>
           </div>
 
         </div>
@@ -149,7 +139,7 @@
         <!-- ── CARDS FLOTANTES DERECHA ── -->
         <div class="cards-flotantes cards-der" id="cards-der">
 
-          <!-- Stats: 3 en fila -->
+          <!-- 1. Stats row -->
           <div class="stats-row">
             <div class="card card-stat">
               <div class="stat-valor">+500<span>M</span></div>
@@ -165,7 +155,33 @@
             </div>
           </div>
 
-          <!-- Card stack -->
+          <!-- 2. Card proyecto activo -->
+          <div class="card card-proyecto">
+            <div class="card-specs-titulo mono">En edición ahora</div>
+            <div class="proyecto-nombre" id="proyecto-nombre">Marcos #3.mp4</div>
+            <div class="proyecto-meta">
+              <span class="mono" id="proyecto-duracion">0:18</span>
+              <span class="proyecto-badge" id="proyecto-badge"><span class="badge-dot"></span>Procesando</span>
+            </div>
+            <div class="proyecto-progreso">
+              <div class="proyecto-progreso-fill" id="proyecto-progreso-fill"></div>
+            </div>
+          </div>
+
+          <!-- 3. Card tools -->
+          <div class="card card-tools">
+            <div class="tools-label mono">Herramientas</div>
+            <div class="toolbar-wrap">
+              <button class="tool-btn activo" title="Cortar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></button>
+              <button class="tool-btn" title="Transición"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></button>
+              <button class="tool-btn" title="Audio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"></path></svg></button>
+              <button class="tool-btn" title="Color"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg></button>
+              <button class="tool-btn" title="Efectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+              <button class="tool-btn" title="Texto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></button>
+            </div>
+          </div>
+
+          <!-- 4. Card stack -->
           <div class="card card-software">
             <div class="card-specs-titulo mono">Stack</div>
             <div class="chips">
@@ -177,7 +193,7 @@
             </div>
           </div>
 
-          <!-- Botones -->
+          <!-- 5. Botones -->
           <div class="card card-acciones">
             <button class="btn-primario" id="btn-ver-trabajo">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
