@@ -1,0 +1,140 @@
+/* ─── SECCIÓN CLIENTES ─────────────────────────────────────── */
+.seccion-clientes {
+  background-color: var(--crema-oscuro); /* Ligero contraste con el hero */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clientes-container {
+  width: 100%;
+  max-width: 1600px;
+  height: 90%;
+  position: relative;
+  padding: 0 40px;
+}
+
+.cliente-grid {
+  display: grid;
+  grid-template-columns: 440px 1fr; /* Info Izquierda, Video Derecha */
+  gap: 40px;
+  height: 100%;
+}
+
+/* Columna de Información (Izquierda) */
+.cliente-col-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Foto Card */
+.cliente-foto-card {
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.c-foto-wrap {
+  width: 100%; height: 300px; /* Foto super clara e imponente */
+  border-radius: 12px; overflow: hidden;
+  position: relative;
+}
+#c-foto {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+.c-foto-meta {
+  font-size: 11px; color: var(--texto-suave);
+  display: flex; justify-content: space-between;
+  padding: 0 4px;
+}
+
+/* Briefing Card */
+.cliente-desc-card {
+  padding: 30px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.c-nombre {
+  font-family: var(--fuente-display); font-size: 42px; letter-spacing: -0.04em;
+  color: #111; margin-top: 4px; line-height: 1;
+}
+.c-rol {
+  font-family: var(--fuente-mono); font-size: 11px; color: var(--acento); text-transform: uppercase;
+  margin-bottom: 8px; font-weight: 700;
+}
+.c-texto {
+  font-size: 14px; color: var(--texto-medio); line-height: 1.6;
+}
+
+.c-kpis {
+  display: flex; gap: 30px; margin-top: 10px;
+  padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06);
+}
+.c-kpi {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.c-kpi span { font-size: 10px; color: var(--texto-suave); text-transform: uppercase; }
+.c-kpi strong { font-size: 24px; color: #111; font-family: var(--fuente-display); }
+
+/* Navegación Card */
+.cliente-nav-card {
+  padding: 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.c-nav-pips {
+  display: flex; gap: 8px;
+  padding-left: 10px;
+}
+.c-pip {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s;
+}
+.c-pip.activo { background: var(--acento); transform: scale(1.3); }
+.c-nav-btns {
+  display: flex; gap: 8px;
+}
+
+/* Columna del Video (Derecha) */
+.cliente-col-v {
+  position: relative;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+}
+.c-video-header {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 24px 28px; z-index: 10;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+  color: white; font-size: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+#c-video {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+.c-video-footer {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  padding: 30px 24px 20px 24px; z-index: 10;
+}
+.c-progress {
+  height: 4px; background: rgba(255,255,255,0.2);
+  border-radius: 2px; overflow: hidden;
+}
+.c-progress-fill {
+  height: 100%; background: #27ae60; width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* Animaciones para transiciones JS */
+.fade-transition {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-transition.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

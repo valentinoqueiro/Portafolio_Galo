@@ -418,3 +418,144 @@ function iniciarTypewriter() {
   }
   setTimeout(escribir, 1200);
 }
+
+// ─── LÓGICA DE SECCIÓN CLIENTES (02) ───────────────────
+function initClientesSection() {
+  const cVideo = document.getElementById('c-video');
+  const cFoto = document.getElementById('c-foto');
+  if (!cVideo || !cFoto) return;
+
+  const clientesData = [
+    {
+      id: "CL-001",
+      nombre: "Marcos",
+      rol: "Emprendedor & Negocios",
+      texto: "Estrategia de retención para contenido de alto valor. Crecimiento explosivo en conversiones mediante edición dinámica y ganchos visuales efectivos.",
+      kpi1: "+2M Views",
+      kpi2: "Reel 9:16",
+      foto: "https://i.pravatar.cc/600?img=11",
+      videoSrc: "videos/Marcos #3.mp4",
+      videoName: "Marcos_Final_Render.mp4"
+    },
+    {
+      id: "CL-002",
+      nombre: "Lifestyle Co.",
+      rol: "Creadores de Contenido",
+      texto: "Formatos dinámicos en vertical diseñados para algoritmos de IG y TikTok. Incremento del 40% en watch-time por pacing acelerado.",
+      kpi1: "+1.5M Engaged",
+      kpi2: "TikTok",
+      foto: "https://i.pravatar.cc/600?img=32",
+      videoSrc: "videos/Plan de contenido.mp4",
+      videoName: "PlanContenido_v2.mov"
+    },
+    {
+      id: "CL-003",
+      nombre: "Top Motor",
+      rol: "Campaña Publicitaria",
+      texto: "Lanzamiento de producto con edición rítmica off-road y motion graphics agresivos que resaltan la robustez del vehículo.",
+      kpi1: "+500K Leads",
+      kpi2: "Promo",
+      foto: "https://images.unsplash.com/photo-1570530752495-9ff2bd22e84d?w=600&fit=crop", 
+      videoSrc: "videos/doble Ranger.mp4",
+      videoName: "Ranger_Promo_9x16.mp4"
+    }
+  ];
+
+  let indiceCliente = 0;
+  let isTransitioning = false;
+
+  const cId = document.getElementById('c-id');
+  const cNombre = document.getElementById('c-nombre');
+  const cRol = document.getElementById('c-rol');
+  const cTexto = document.getElementById('c-texto');
+  const cKpi1 = document.getElementById('c-kpi1');
+  const cKpi2 = document.getElementById('c-kpi2');
+  const cVideoName = document.getElementById('c-video-name');
+  const cProgressFill = document.getElementById('c-progress-fill');
+  const cNavPips = document.getElementById('c-nav-pips');
+  const btnPrevC = document.getElementById('btn-prev-c');
+  const btnNextC = document.getElementById('btn-next-c');
+
+  // Construir dots (pips)
+  if (cNavPips) {
+    clientesData.forEach((_, i) => {
+      const pip = document.createElement('div');
+      pip.className = 'c-pip' + (i === 0 ? ' activo' : '');
+      pip.addEventListener('click', () => {
+        if (!isTransitioning && i !== indiceCliente) cambiarCliente(i);
+      });
+      cNavPips.appendChild(pip);
+    });
+  }
+
+  function cambiarCliente(index) {
+    if (isTransitioning) return;
+    isTransitioning = true;
+
+    if (index < 0) index = clientesData.length - 1;
+    if (index >= clientesData.length) index = 0;
+    indiceCliente = index;
+    
+    const data = clientesData[indiceCliente];
+    const elementosAnimados = [cFoto, cNombre, cRol, cTexto, cKpi1, cKpi2, cVideoName, cVideo];
+    
+    // Fade out
+    elementosAnimados.forEach(el => {
+      el.style.opacity = '0';
+    });
+
+    setTimeout(() => {
+      // Inyectar datos
+      cFoto.src = data.foto;
+      cId.textContent = data.id;
+      cNombre.textContent = data.nombre;
+      cRol.textContent = data.rol;
+      cTexto.textContent = data.texto;
+      cKpi1.textContent = data.kpi1;
+      cKpi2.textContent = data.kpi2;
+      cVideoName.textContent = data.videoName;
+      
+      cVideo.src = data.videoSrc;
+      cVideo.play().catch(e => console.error(e));
+
+      // Actualizar Nav Pips
+      document.querySelectorAll('.c-pip').forEach((pip, i) => {
+        pip.className = 'c-pip' + (i === indiceCliente ? ' activo' : '');
+      });
+
+      // Recalcular styles y forzar render antes de fade in (trick para reflow)
+      void cVideo.offsetWidth;
+
+      // Fade In
+      elementosAnimados.forEach(el => {
+        el.style.transition = 'opacity 0.4s ease'; // Ensure transition class
+        el.style.opacity = '1';
+      });
+
+      setTimeout(() => { isTransitioning = false; }, 400); // unlock after animation ends
+    }, 400); // 400ms = duration of fade out
+  }
+
+  // Bind Buttons
+  if (btnPrevC) btnPrevC.addEventListener('click', () => cambiarCliente(indiceCliente - 1));
+  if (btnNextC) btnNextC.addEventListener('click', () => cambiarCliente(indiceCliente + 1));
+
+  // Sync Video bar
+  if (cVideo) {
+    cVideo.addEventListener('timeupdate', () => {
+      if (cVideo.duration) {
+        cProgressFill.style.width = ((cVideo.currentTime / cVideo.duration) * 100) + '%';
+      }
+    });
+
+    // Cambiar dinámicamente al próximo cuando acaba el actual (Efecto presentación fluida)
+    cVideo.addEventListener('ended', () => {
+      cambiarCliente(indiceCliente + 1);
+    });
+  }
+}
+
+// Llama al init también en DOMContentLoaded general (ya que este script no estaba modularizado asincrónico por partes)
+document.addEventListener('DOMContentLoaded', () => {
+  initClientesSection();
+});

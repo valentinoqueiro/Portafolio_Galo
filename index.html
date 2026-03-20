@@ -7,6 +7,7 @@
   <meta name="description" content="Portafolio de Galo, editor de video especializado en contenido corto de alto impacto.">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/clientes.css">
 </head>
 <body>
 
@@ -111,8 +112,8 @@
             <canvas id="canvas-color" width="80" height="80" style="display:none;"></canvas>
 
             <div class="video-layers" id="video-layers">
-              <video class="video-layer activa" id="video-a" src="videos /Marcos #3.mp4" muted autoplay loop playsinline></video>
-              <video class="video-layer"        id="video-b" src="videos /OH-R0042.mp4"  muted loop playsinline></video>
+              <video class="video-layer activa" id="video-a" src="videos/Marcos #3.mp4" muted autoplay loop playsinline></video>
+              <video class="video-layer"        id="video-b" src="videos/OH-R0042.mp4"  muted loop playsinline></video>
             </div>
 
             <div class="video-topbar">
@@ -259,6 +260,78 @@
       </div>
     </footer>
 
+  </section>
+
+  <!-- ── SECCIÓN 02: CLIENTES / PORTFOLIO VIP ── -->
+  <section class="seccion seccion-clientes" id="clientes">
+    <div class="clientes-container">
+      <div class="visor-label visor-label-tl mono">CLIENT ASSETS · 02</div>
+
+      <div class="cliente-grid">
+        
+        <!-- INFO Y FOTO (Columna Izquierda 400px) -->
+        <div class="cliente-col-info">
+          
+          <!-- Foto Card -->
+          <div class="cliente-foto-card card">
+            <div class="c-foto-wrap">
+              <img id="c-foto" src="https://i.pravatar.cc/600?img=11" alt="Cliente VIP">
+            </div>
+            <div class="c-foto-meta mono">
+              ID: <span id="c-id">CL-001</span> | Status: <span style="color:#27ae60">Verified</span>
+            </div>
+          </div>
+
+          <!-- Info Expandida Card -->
+          <div class="cliente-desc-card card">
+            <div class="card-specs-titulo mono">Client Brief</div>
+            <h2 class="c-nombre" id="c-nombre">Marcos</h2>
+            <h3 class="c-rol mono" id="c-rol">Emprendedor & Negocios</h3>
+            <p class="c-texto" id="c-texto">
+              Estrategia de retención para contenido de alto valor. Crecimiento explosivo en conversiones mediante edición dinámica y ganchos visuales efectivos.
+            </p>
+            
+            <div class="c-kpis">
+              <div class="c-kpi">
+                <span class="mono">Impacto</span>
+                <strong id="c-kpi1">+2M Views</strong>
+              </div>
+              <div class="c-kpi">
+                <span class="mono">Formato</span>
+                <strong id="c-kpi2">Reel 9:16</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nav (Control de Slide) -->
+          <div class="cliente-nav-card card">
+            <div class="c-nav-pips" id="c-nav-pips">
+              <!-- Dots inyectados por JS -->
+            </div>
+            <div class="c-nav-btns">
+              <button class="btn-secundario" id="btn-prev-c" style="padding: 10px; flex:0;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button class="btn-primario" id="btn-next-c" style="padding: 10px; flex:1;">Next Client</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- VIDEO DEL CLIENTE (Columna Derecha grande) -->
+        <div class="cliente-col-v card">
+          <div class="c-video-header mono">
+            <span class="rec-dot"></span><span id="c-video-name">Marcos_final.mp4</span>
+          </div>
+          <video id="c-video" src="videos/Marcos #3.mp4" muted autoplay playsinline></video>
+          
+          <div class="c-video-footer">
+            <div class="c-progress"><div class="c-progress-fill" id="c-progress-fill"></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </section>
 
   <script src="js/main.js"></script>
