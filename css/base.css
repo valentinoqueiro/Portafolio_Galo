@@ -2,27 +2,36 @@
 
 /* ─── Variables ─────────────────────────────────────── */
 :root {
-  --negro:       #060810;
-  --negro-medio: #0d1017;
-  --panel:       rgba(255, 255, 255, 0.04);
-  --panel-borde: rgba(255, 255, 255, 0.08);
+  --crema:       #F1EFE7;
+  --crema-oscuro:#E8E5DA;
+  --crema-borde: rgba(0, 0, 0, 0.07);
 
-  --cian:        #00e5ff;
-  --cian-dim:    rgba(0, 229, 255, 0.15);
-  --purpura:     #a855f7;
-  --purpura-dim: rgba(168, 85, 247, 0.15);
-  --blanco:      #f0f4ff;
-  --gris:        rgba(240, 244, 255, 0.45);
+  /* Cards glass */
+  --card:        rgba(255, 255, 255, 0.55);
+  --card-hover:  rgba(255, 255, 255, 0.75);
+  --card-borde:  rgba(255, 255, 255, 0.9);
+  --card-sombra: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --card-sombra-hover: 0 8px 40px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.05);
 
-  --blur-glass:  12px;
-  --radio:       12px;
-  --radio-lg:    20px;
+  /* Texto */
+  --texto:       #1c1b18;
+  --texto-medio: #4a4840;
+  --texto-suave: #8a877e;
+
+  /* Acento — arena/topo cálido */
+  --acento:      #2C2A25;
+  --acento-dim:  rgba(44, 42, 37, 0.07);
+
+  --blur-card:   18px;
+  --radio:       16px;
+  --radio-lg:    24px;
+  --radio-xl:    32px;
 
   --fuente-display: 'Space Grotesk', sans-serif;
   --fuente-cuerpo:  'Inter', sans-serif;
   --fuente-mono:    'Space Mono', monospace;
 
-  --transicion:  all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transicion:  all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ─── Reset ─────────────────────────────────────────── */
@@ -41,8 +50,8 @@ html {
 
 body {
   font-family: var(--fuente-cuerpo);
-  background-color: var(--negro);
-  color: var(--blanco);
+  background-color: var(--crema);
+  color: var(--texto);
   cursor: none;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -58,13 +67,29 @@ body {
   overflow: hidden;
 }
 
+/* ─── Card glass ─────────────────────────────────────── */
+.card {
+  background: var(--card);
+  backdrop-filter: blur(var(--blur-card));
+  -webkit-backdrop-filter: blur(var(--blur-card));
+  border: 1px solid var(--card-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--card-sombra);
+  transition: var(--transicion);
+}
+
+.card:hover {
+  background: var(--card-hover);
+  box-shadow: var(--card-sombra-hover);
+}
+
 /* ─── Cursor personalizado ──────────────────────────── */
 #cursor-punto {
   position: fixed;
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--cian);
+  background: var(--acento);
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
@@ -76,24 +101,13 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 229, 255, 0.5);
+  border: 1px solid rgba(44, 42, 37, 0.3);
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: transform 0.15s ease, width 0.25s, height 0.25s, opacity 0.25s;
-}
-
-/* ─── Glass mixin ───────────────────────────────────── */
-.glass {
-  background: var(--panel);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
-  border: 1px solid var(--panel-borde);
-  border-radius: var(--radio);
+  transition: width 0.25s, height 0.25s, opacity 0.25s;
 }
 
 /* ─── Utilidades ────────────────────────────────────── */
-.text-cian    { color: var(--cian); }
-.text-purpura { color: var(--purpura); }
-.text-gris    { color: var(--gris); }
-.mono         { font-family: var(--fuente-mono); }
+.mono { font-family: var(--fuente-mono); }
+.texto-suave { color: var(--texto-suave); }

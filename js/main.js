@@ -95,10 +95,10 @@ function iniciarParticulas() {
       y:   Math.random() * canvas.height,
       vx:  (Math.random() - 0.5) * 0.25,
       vy:  (Math.random() - 0.5) * 0.25,
-      r:   Math.random() * 1.2 + 0.3,
-      a:   Math.random() * 0.4 + 0.05,
-      // cian o púrpura aleatorio
-      color: Math.random() > 0.55 ? '0, 229, 255' : '168, 85, 247',
+      r:   Math.random() * 1.0 + 0.2,
+      a:   Math.random() * 0.2 + 0.03,
+      // tonos tierra neutros
+      color: Math.random() > 0.5 ? '44, 42, 37' : '120, 115, 100',
     };
   }
 
@@ -133,11 +133,11 @@ function iniciarParticulas() {
         const dy   = particulas[i].y - particulas[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 90) {
-          const alpha = (1 - dist / 90) * 0.06;
+          const alpha = (1 - dist / 90) * 0.04;
           ctx.beginPath();
           ctx.moveTo(particulas[i].x, particulas[i].y);
           ctx.lineTo(particulas[j].x, particulas[j].y);
-          ctx.strokeStyle = `rgba(0, 229, 255, ${alpha})`;
+          ctx.strokeStyle = `rgba(44, 42, 37, ${alpha})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
