@@ -627,13 +627,19 @@ function initScrollJacking() {
       // Estado VIP: Posicionar justo debajo del video y centrado a él
       const videoTarget = document.querySelector('.cliente-col-v');
       if (videoTarget) {
-        // Pre-aplicar estilo VIP para que contraiga su width a 'max-content' natural ANTES de medir
+        // Pre-aplicar estilo VIP para contraer ancho a 'max-content' natural
         actionBar.classList.add('mode-top');
         
         const vPos = getAbsoluteOffset(videoTarget);
-        const vRect = videoTarget.getBoundingClientRect();
+        const vRect = videoTarget.getBoundingClientRect(); // Seguro para X
         
-        const ty = vPos.top + videoTarget.offsetHeight + 24; // 24px de respiro abajo del video
+        // Magia geométrica: El elemento es fixed al viewport. 
+        // Su target Y absoluto (vPos.top) asume que la pág no ha scrolleado.
+        // Pero el wrapper se desplazará hacia arriba (-100vh por section).
+        // Restar el scroll nos da el lugar futuro exacto que ocupará frente al ojo.
+        const targetViewportTop = vPos.top - (window.innerHeight * currentSec);
+        
+        const ty = targetViewportTop + videoTarget.offsetHeight + 24; // Abajo del vídeo
         const tx = vRect.left + (videoTarget.offsetWidth / 2) - (actionBar.offsetWidth / 2); // Centrado horizontal
         
         actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
