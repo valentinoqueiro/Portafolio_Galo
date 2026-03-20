@@ -140,6 +140,15 @@ function iniciarReproductor() {
   setInterval(actualizarProgreso, 1000 / 60); // A 60fps para fluidez del timecode y cabezal
 
   // ── Color sampler ──────────────────────────────────
+  // Fallbacks predefinidos en caso de error CORS local
+  const fallbackColors = [
+    {r: 120, g: 100, b: 85},  // V1 - Muted brown
+    {r: 90,  g: 110, b: 120}, // V2 - Blueish grey
+    {r: 130, g: 125, b: 110}, // V3 - Warm sand
+    {r: 100, g: 130, b: 105}, // V4 - Desaturated green
+    {r: 140, g: 110, b: 90}   // V5 - Terracotta
+  ];
+
   function extraerColorDominante() {
     if (!ctx || !videoActivo || videoActivo.readyState < 2) return null;
 
@@ -148,7 +157,6 @@ function iniciarReproductor() {
       const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
       let r = 0, g = 0, b = 0, count = 0;
-      // Muestrear cada 8 píxeles para rendimiento
       for (let i = 0; i < data.length; i += 32) {
         r += data[i];
         g += data[i + 1];
@@ -158,13 +166,12 @@ function iniciarReproductor() {
       if (count === 0) return null;
       return { r: Math.round(r / count), g: Math.round(g / count), b: Math.round(b / count) };
     } catch {
+      // Retorna null si 'getImageData' tira error de Security/CORS por protocolo file:///
       return null;
     }
   }
 
-  // Desaturar un color para que sea sutil en las cards
   function desaturar(r, g, b, factor = 0.12) {
-    // mezclar con el blanco base de las cards
     const br = 255, bg = 255, bb = 255;
     return {
       r: Math.round(br + (r - br) * factor),
@@ -184,32 +191,28 @@ function iniciarReproductor() {
       card.style.borderColor   = borde;
     });
 
-    // También el fondo del visor toma el tinte sutilmente
     const visor = document.querySelector('.visor-central');
     if (visor) {
       const cv = desaturar(color.r, color.g, color.b, 0.06);
       visor.style.backgroundColor = `rgb(${cv.r}, ${cv.g}, ${cv.b})`;
     }
 
-    // Colorear clips del timeline y onda de audio
-    const cClip   = desaturar(color.r, color.g, color.b, 0.35); // un poco más intensos
+    const cClip   = desaturar(color.r, color.g, color.b, 0.35);
     const cAudio  = desaturar(color.r, color.g, color.b, 0.25);
     
     document.querySelectorAll('.clip-v1').forEach(el => el.style.background = `rgba(${cClip.r}, ${cClip.g}, ${cClip.b}, 0.55)`);
     document.querySelectorAll('.clip-v2').forEach(el => el.style.background = `rgba(${cClip.r}, ${cClip.g}, ${cClip.b}, 0.45)`);
     document.querySelectorAll('.wave-bar').forEach(el => el.style.background = `rgba(${cAudio.r}, ${cAudio.g}, ${cAudio.b}, 0.45)`);
 
-    // Actualizar la Card de Color Grading con la paleta visual interactiva
     const paletaHex = document.getElementById('paleta-hex');
     if (paletaHex) {
       const hex = '#' + [color.r, color.g, color.b].map(x => x.toString(16).padStart(2, '0')).join('');
       paletaHex.textContent = hex;
       
-      // Armar la paleta de 5 tonos iterando variaciones de saturación
       for (let i = 0; i < 5; i++) {
         const pBar = document.getElementById('pal-' + i);
         if (pBar) {
-          const factor = 0.1 + (i * 0.15); // del más puro al más agrisado
+          const factor = 0.1 + (i * 0.15);
           const t = desaturar(color.r, color.g, color.b, factor);
           pBar.style.background = `rgb(${t.r}, ${t.g}, ${t.b})`;
         }
@@ -217,19 +220,24 @@ function iniciarReproductor() {
     }
   }
 
-  // Samplear cada 2s (cuando el video ya cargó algo)
   colorSamplerInterval = setInterval(() => {
-    const color = extraerColorDominante();
+    let color = extraerColorDominante();
+    if (!color) color = fallbackColors[indiceActual]; // Fallback para file:///
     aplicarColorACards(color);
   }, 2000);
 
-  // Primer sampleo al cargar el video
   videoActivo.addEventListener('loadeddata', () => {
-    setTimeout(() => {
-      const color = extraerColorDominante();
-      aplicarColorACards(color);
-    }, 300);
+    let color = extraerColorDominante();
+    if (!color) color = fallbackColors[indiceActual];
+    aplicarColorACards(color);
   });
+  
+  // Fuerza la paleta inicial al recargar la pág independientemente del loadeddata
+  setTimeout(() => {
+    let color = extraerColorDominante();
+    if (!color) color = fallbackColors[indiceActual];
+    aplicarColorACards(color);
+  }, 100);
 }
 
 // ─── Generación progresiva de Waveform (Audio) ─────────
