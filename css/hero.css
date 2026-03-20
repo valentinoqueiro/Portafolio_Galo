@@ -126,20 +126,27 @@
 .visor-label-tl { top:18px; left:38px; }
 .visor-label-tr { top:18px; right:38px; }
 
-/* ─── CARDS FLOTANTES ────────────────────────────────── */
-.cards-flotantes {
-  position: absolute;
-  top: 14px;
-  bottom: 14px;
+/* Contenedor centralizado para abrazar orgánicamente cards y video */
+.visor-content {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 210px;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 50px);
+  width: 100%;
+  height: 90%;
+  max-width: 1400px;
+  position: relative;
   z-index: 10;
+  padding: 0 20px;
 }
 
-.cards-izq { left: 14px; }
-.cards-der { right: 14px; }
+/* ─── CARDS FLOTANTES ────────────────────────────────── */
+.cards-flotantes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 250px;
+}
 
 /* Animaciones de entrada */
 .cards-izq {
@@ -282,30 +289,12 @@
   transition: width 1s ease;
 }
 
-/* ─── Card color grading ─────────────────────────────── */
-.card-color-grading { display: flex; flex-direction: column; gap: 8px; }
-
-.paleta-visual {
-  display: flex; gap: 4px; height: 24px;
-}
-
-.paleta-barra {
-  flex: 1; border-radius: 6px;
-  transition: background 1.2s ease;
-  background: rgba(200,180,150,0.5);
-}
-
-.paleta-hex {
-  font-size: 9px; letter-spacing: 0.08em;
-  color: var(--texto-suave); opacity: 0.7;
-}
-
 /* ─── Stats row (3 cards en fila) ────────────────────── */
 .stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
-}
+}  
 
 .card-stat {
   display: flex; flex-direction: column; gap: 3px;
@@ -366,7 +355,7 @@
 .video-wrap {
   position: relative;
   z-index: 3;
-  height: 92%;
+  height: 100%; /* Toma el 100% del .visor-content */
   aspect-ratio: 9/16;
   animation: visor-aparecer 0.9s cubic-bezier(0.4,0,0.2,1) both 0.45s;
 }

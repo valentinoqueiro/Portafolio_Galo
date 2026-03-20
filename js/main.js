@@ -182,8 +182,9 @@ function iniciarReproductor() {
 
   function aplicarColorACards(color) {
     if (!color) return;
-    const c = desaturar(color.r, color.g, color.b, 0.14);
-    const fondo  = `rgba(${c.r}, ${c.g}, ${c.b}, 0.62)`;
+    // Reducimos la desaturación (de 0.14 a 0.28) para que el color sea el doble de visible / intenso
+    const c = desaturar(color.r, color.g, color.b, 0.28);
+    const fondo  = `rgba(${c.r}, ${c.g}, ${c.b}, 0.65)`;
     const borde  = `rgba(${c.r}, ${c.g}, ${c.b}, 0.85)`;
 
     document.querySelectorAll('.card').forEach(card => {
@@ -193,31 +194,16 @@ function iniciarReproductor() {
 
     const visor = document.querySelector('.visor-central');
     if (visor) {
-      const cv = desaturar(color.r, color.g, color.b, 0.06);
+      const cv = desaturar(color.r, color.g, color.b, 0.12);
       visor.style.backgroundColor = `rgb(${cv.r}, ${cv.g}, ${cv.b})`;
     }
 
-    const cClip   = desaturar(color.r, color.g, color.b, 0.35);
-    const cAudio  = desaturar(color.r, color.g, color.b, 0.25);
+    const cClip   = desaturar(color.r, color.g, color.b, 0.45);
+    const cAudio  = desaturar(color.r, color.g, color.b, 0.35);
     
-    document.querySelectorAll('.clip-v1').forEach(el => el.style.background = `rgba(${cClip.r}, ${cClip.g}, ${cClip.b}, 0.55)`);
-    document.querySelectorAll('.clip-v2').forEach(el => el.style.background = `rgba(${cClip.r}, ${cClip.g}, ${cClip.b}, 0.45)`);
-    document.querySelectorAll('.wave-bar').forEach(el => el.style.background = `rgba(${cAudio.r}, ${cAudio.g}, ${cAudio.b}, 0.45)`);
-
-    const paletaHex = document.getElementById('paleta-hex');
-    if (paletaHex) {
-      const hex = '#' + [color.r, color.g, color.b].map(x => x.toString(16).padStart(2, '0')).join('');
-      paletaHex.textContent = hex;
-      
-      for (let i = 0; i < 5; i++) {
-        const pBar = document.getElementById('pal-' + i);
-        if (pBar) {
-          const factor = 0.1 + (i * 0.15);
-          const t = desaturar(color.r, color.g, color.b, factor);
-          pBar.style.background = `rgb(${t.r}, ${t.g}, ${t.b})`;
-        }
-      }
-    }
+    document.querySelectorAll('.clip-v1').forEach(el => el.style.background = `rgba(${cClip.r}, ${cClip.g}, ${cClip.b}, 0.65)`);
+    document.querySelectorAll('.clip-v2').forEach(el => el.style.background = `rgba(${cClip.r}, ${cClip.g}, ${cClip.b}, 0.55)`);
+    document.querySelectorAll('.wave-bar').forEach(el => el.style.background = `rgba(${cAudio.r}, ${cAudio.g}, ${cAudio.b}, 0.55)`);
   }
 
   colorSamplerInterval = setInterval(() => {
