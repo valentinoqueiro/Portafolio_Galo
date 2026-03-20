@@ -128,35 +128,52 @@ body {
 /* ─── PÍLDORA ACTION BAR FLOTANTE ────────────────────── */
 .action-bar-floating {
   position: fixed;
-  z-index: 9999;
+  z-index: 999999;
   background: rgba(0,0,0,0.06); 
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 8px;
-  border-radius: 100px; /* pill shape */
+  border-radius: 100px;
   display: flex; gap: 8px;
-  
-  /* Posición Hero Inicial: abajo derecha intentando coincidir con la col der */
-  bottom: 15vh; /* Se subió para que encaje mejor en el stack sin tapar el timeline */
-  right: max(40px, calc(50vw - 800px + 40px)); /* Usar el grid master para alinear */
   width: 320px;
   
-  transition: all 1200ms cubic-bezier(0.77, 0, 0.175, 1);
-}
-@media (max-width: 1600px) {
-  .action-bar-floating { right: 40px; }
+  /* Coords nativas Top Left, JS controla el transform:translate frame a frame */
+  top: 0; left: 0;
+  
+  transition: transform 1200ms cubic-bezier(0.77, 0, 0.175, 1), background 1200ms;
+  will-change: transform;
 }
 
-/* Modificador cuando baja a la seccion 2 */
 .action-bar-floating.mode-top {
-  bottom: calc(100vh - 100px); /* Arriba */
-  /* Viaja al borde IZQUIERDO del container */
-  right: calc(100vw - max(40px, calc(50vw - 800px + 40px)) - 320px);
-  transform: translateX(0);
-  width: 320px;
-  background: rgba(255,255,255,0.85); /* Solido para resaltar sobre crema */
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08); /* Sombra elegante */
+  background: rgba(255,255,255,0.85); /* Solid white VIP mode */
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
 }
+
+.action-bar-floating button {
+  flex: 1;
+  border-radius: 40px; 
+  padding: 16px 12px;
+  font-size: 14px;
+  font-family: var(--fuente-display);
+  font-weight: 600;
+  border: none;
+  cursor: none;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.action-bar-floating .btn-primario {
+  background: #2a2926;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.action-bar-floating .btn-primario:hover { background: #111; transform: scale(1.02); }
+
+.action-bar-floating .btn-secundario {
+  background: rgba(255,255,255,0.7);
+  color: #333;
+}
+.action-bar-floating .btn-secundario:hover { background: #fff; transform: scale(1.02); }
 
 /* Botones dentro de la pildora */
 .action-bar-floating button {

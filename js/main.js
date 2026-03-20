@@ -595,46 +595,41 @@ function initScrollJacking() {
   let isScrolling = false;
   const cooldown = 1250; 
 
+  function getSyncPillPos() {
+    const actionBar = document.getElementById('global-action-bar');
+    const spacer = document.getElementById('action-bar-spacer');
+    const paramRef = document.querySelector('.panel-izquierdo');
+    
+    if (!actionBar || !spacer || !paramRef) return;
+
+    if (currentSec === 0) {
+      // Estado Hero: Anclar exactamente a donde está el marker dummy en la grilla derecha
+      const sRect = spacer.getBoundingClientRect();
+      actionBar.style.transform = `translate(${sRect.left}px, ${sRect.top}px)`;
+      actionBar.style.width = sRect.width + 'px';
+      actionBar.classList.remove('mode-top');
+    } else {
+      // Estado VIP: Volar al borde superior izquierdo basado en el margen orgánico del panel
+      const pRect = paramRef.getBoundingClientRect();
+      actionBar.style.transform = `translate(${pRect.left}px, 60px)`;
+      actionBar.classList.add('mode-top');
+    }
+  }
+
   function scrollToSec() {
     isScrolling = true;
     wrapper.style.transform = `translateY(-${currentSec * 100}dvh)`;
     
-    // Animación matemática FLIP de la Action Bar Natural
-    const actionBar = document.getElementById('card-acciones');
-    const paramRef = document.querySelector('.panel-izquierdo'); // Usado para alinear a la grilla
-
-    if (actionBar && paramRef) {
-      if (currentSec > 0) {
-        // En este instante (antes de que la animación avance), sacamos las coords originales:
-        // Como currentSec es > 0 (Section 2), el wrapper va a deslizarse -window.innerHeight
-        // Queremos que termine en Top: 60px, Left: 40px en la pantalla visible
-        // Compensamos sumando innerHeight a la Y.
-        // Usamos una feature para fijar el rect inicial si no ha sido scrolleado antes.
-        
-        if (!actionBar.dataset.origTop) {
-           actionBar.dataset.origTop = actionBar.getBoundingClientRect().top;
-           actionBar.dataset.origLeft = actionBar.getBoundingClientRect().left;
-        }
-        
-        const origTop = parseFloat(actionBar.dataset.origTop);
-        const origLeft = parseFloat(actionBar.dataset.origLeft);
-        
-        // El target X es exactamente el eje vertical del panel izquierdo + tal vez 20px extra de margen.
-        const refRect = paramRef.getBoundingClientRect();
-
-        const ty = 40 - origTop + (window.innerHeight * currentSec);
-        const tx = refRect.left - origLeft;
-        
-        actionBar.style.transform = `translate(${tx}px, ${ty}px)`;
-        actionBar.style.zIndex = "9999";
-        actionBar.style.position = "relative";
-      } else {
-        actionBar.style.transform = `translate(0px, 0px)`;
-      }
-    }
+    // Al ejecutar translate, actualizamos el action bar al mismo tiempo
+    getSyncPillPos();
 
     setTimeout(() => { isScrolling = false; }, cooldown);
   }
+
+  // Refrescar al redimensionar y al iniciar para el layout correcto en cualquier pantalla
+  window.addEventListener('resize', getSyncPillPos);
+  // Pequeño timeout al arrancar para asegurar que dom pintó las coordenadas flex
+  setTimeout(getSyncPillPos, 100);
 
   // Wheel Desktop/Mac
   window.addEventListener('wheel', (e) => {
