@@ -3,10 +3,10 @@
 // ═══════════════════════════════════════════════════════
 
 const VIDEOS = [
-  'videos /AD #1.mp4',
-  'videos /AD #6 Hook #3.mp4',
+  'videos /AD %231.mp4',
+  'videos /AD %236 Hook %233.mp4',
   'videos /DA-R015.mp4',
-  'videos /Organico #12.mp4',
+  'videos /Organico %2312.mp4',
   'videos /Reel 3- ranger 570.mp4',
   'videos /doble Ranger.mp4',
 ];
@@ -763,14 +763,14 @@ function initPortafolioShowcase() {
       titulo: 'AD #1 — Producto Digital',
       categoria: 'PAID ADS · META',
       stats: '+2.4M Impresiones · CTR 4.8%',
-      src: 'videos /AD #1.mp4',
+      src: 'videos /AD %231.mp4',
       color: '#c0392b'
     },
     {
       titulo: 'AD #6 — Hook Variation',
       categoria: 'PAID ADS · TikTok',
       stats: '+1.8M Views · 8.3% Conv.',
-      src: 'videos /AD #6 Hook #3.mp4',
+      src: 'videos /AD %236 Hook %233.mp4',
       color: '#2980b9'
     },
     {
@@ -784,7 +784,7 @@ function initPortafolioShowcase() {
       titulo: 'Orgánico #12 — Storytelling',
       categoria: 'CONTENIDO ORGÁNICO · TikTok',
       stats: '+5.7M Views · Viral',
-      src: 'videos /Organico #12.mp4',
+      src: 'videos /Organico %2312.mp4',
       color: '#16a085'
     },
     {
@@ -800,6 +800,27 @@ function initPortafolioShowcase() {
       stats: '+1.2M Views · Trending #3',
       src: 'videos /doble Ranger.mp4',
       color: '#27ae60'
+    },
+    {
+      titulo: 'David Otálora Viral v2',
+      categoria: 'VIP CLIENT · RETENCIÓN',
+      stats: '+13M Views',
+      src: 'ClientesVIP/Plan de contenido.mp4',
+      color: '#f39c12'
+    },
+    {
+      titulo: 'Marcos Razzetti E-com',
+      categoria: 'VIP CLIENT · TIKTOK',
+      stats: '+35M Views',
+      src: 'ClientesVIP/Marcos %233.mp4',
+      color: '#34495e'
+    },
+    {
+      titulo: 'Oscar Hinojosa Launch',
+      categoria: 'VIP CLIENT · REELS',
+      stats: '+$1M Reven.',
+      src: 'ClientesVIP/OH-R0042.mp4',
+      color: '#d1ccc0'
     }
   ];
 
@@ -871,6 +892,7 @@ function initPortafolioShowcase() {
       if (visorVideo) {
         visorVideo.src = pieza.src;
         visorVideo.load();
+        visorVideo.muted = false; // Desmutear al hacer clic (permitido por política web porque hubo clic)
         visorVideo.play().catch(() => {});
         visorVideo.style.opacity = '1';
       }
