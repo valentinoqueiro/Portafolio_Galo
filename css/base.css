@@ -149,6 +149,7 @@ body {
   box-shadow: 0 10px 40px rgba(0,0,0,0.08);
 }
 
+/* Botones dentro de la pildora */
 .action-bar-floating button {
   flex: 1;
   border-radius: 40px; 
@@ -160,7 +161,8 @@ body {
   cursor: none;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   white-space: nowrap;
-  transition: transform 0.2s ease, background 0.2s ease;
+  overflow: hidden; /* Necesario para cuando se colapsa */
+  transition: flex 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease, padding 0.6s cubic-bezier(0.77, 0, 0.175, 1), background 0.4s ease, color 0.4s ease, transform 0.2s ease;
 }
 
 .action-bar-floating .btn-primario {
@@ -176,32 +178,30 @@ body {
 }
 .action-bar-floating .btn-secundario:hover { background: #fff; transform: scale(1.02); }
 
-/* Botones dentro de la pildora */
-.action-bar-floating button {
-  flex: 1;
-  border-radius: 40px; /* inner pills */
-  padding: 16px 12px;
-  font-size: 14px;
-  font-family: var(--fuente-display);
-  font-weight: 600;
-  border: none;
-  cursor: none;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: transform 0.2s ease, background 0.2s ease;
+/* ─── ACTION BAR DARK MODE (PORTAFOLIO) ─── */
+.action-bar-floating.mode-dark {
+  background: rgba(255,255,255,0.06); 
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-.action-bar-floating .btn-primario {
-  background: #2a2926;
-  color: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.action-bar-floating.mode-dark .btn-secundario {
+  flex: 0;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
 }
-.action-bar-floating .btn-primario:hover { background: #111; transform: scale(1.02); }
 
-.action-bar-floating .btn-secundario {
-  background: rgba(255,255,255,0.7);
-  color: #333;
+.action-bar-floating.mode-dark .btn-primario {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 4px 15px rgba(255,255,255,0.15);
 }
-.action-bar-floating .btn-secundario:hover { background: #fff; transform: scale(1.02); }
+.action-bar-floating.mode-dark .btn-primario:hover { 
+  background: #f1f1f1; 
+  transform: scale(1.03); 
+}
 
 /* ─── PANTALLA DE CARGA ─── */
 .pantalla-carga {

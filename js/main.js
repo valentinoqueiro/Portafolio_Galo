@@ -666,15 +666,16 @@ function initScrollJacking() {
 
     if (currentSec === 0) {
       // Estado Hero
+      actionBar.classList.remove('mode-top', 'mode-dark');
       const sPos = getAbsoluteOffset(spacer);
       const sRect = spacer.getBoundingClientRect();
       actionBar.style.transform = `translate(${sRect.left}px, ${sPos.top}px) scale(1)`;
       actionBar.style.width = spacer.offsetWidth + 'px';
-      actionBar.classList.remove('mode-top');
     } else if (currentSec === 1) {
       // Estado VIP: centrado debajo del video del cliente
       const videoTarget = document.querySelector('.cliente-col-v');
       if (videoTarget) {
+        actionBar.classList.remove('mode-dark');
         actionBar.classList.add('mode-top');
         const vPos = getAbsoluteOffset(videoTarget);
         const vRect = videoTarget.getBoundingClientRect();
@@ -687,7 +688,8 @@ function initScrollJacking() {
       // Estado Portafolio: centrado debajo del visor de video principal
       const visorTarget = document.querySelector('.portafolio-visor-frame');
       if (visorTarget) {
-        actionBar.classList.add('mode-top');
+        actionBar.classList.remove('mode-top');
+        actionBar.classList.add('mode-dark');
         const vPos = getAbsoluteOffset(visorTarget);
         const vRect = visorTarget.getBoundingClientRect();
         const targetViewportTop = vPos.top - (window.innerHeight * currentSec);
@@ -699,6 +701,7 @@ function initScrollJacking() {
       // Estado Sobre Mí: alineado al panel de specs
       const infoTarget = document.querySelector('.sobremi-specs');
       if (infoTarget) {
+        actionBar.classList.remove('mode-dark');
         actionBar.classList.add('mode-top');
         const iPos = getAbsoluteOffset(infoTarget);
         const iRect = infoTarget.getBoundingClientRect();
@@ -711,7 +714,7 @@ function initScrollJacking() {
       // Estado CTA FINAL: centro enorme
       const ctaSpacer = document.getElementById('cta-button-spacer');
       if (ctaSpacer) {
-        actionBar.classList.remove('mode-top');
+        actionBar.classList.remove('mode-top', 'mode-dark');
         const cPos = getAbsoluteOffset(ctaSpacer);
         const cRect = ctaSpacer.getBoundingClientRect();
         const targetViewportTop = cPos.top - (window.innerHeight * currentSec);
