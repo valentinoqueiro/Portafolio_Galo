@@ -3,15 +3,16 @@
 // ═══════════════════════════════════════════════════════
 
 const VIDEOS = [
-  'videos /Marcos #3.mp4',
-  'videos /OH-R0042.mp4',
-  'videos /Plan de contenido.mp4',
+  'videos /AD #1.mp4',
+  'videos /AD #6 Hook #3.mp4',
+  'videos /DA-R015.mp4',
+  'videos /Organico #12.mp4',
   'videos /Reel 3- ranger 570.mp4',
   'videos /doble Ranger.mp4',
 ];
 
 // Intervalo entre cambio de videos (ms)
-const INTERVALO_VIDEO = 7000;
+const INTERVALO_VIDEO = 5000;
 
 document.addEventListener('DOMContentLoaded', () => {
   iniciarCursor();
@@ -21,6 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
   generarWaveformAudio();
   iniciarReproductor();
 });
+
+// Miniaturas para el hero — 6 botones (uno por video)
+const MINIATURAS_VIDEOS = [
+  { nombre: 'AD #1', duracion: '0:30' },
+  { nombre: 'AD #6 Hook #3', duracion: '0:28' },
+  { nombre: 'DA-R015', duracion: '0:45' },
+  { nombre: 'Organico #12', duracion: '1:12' },
+  { nombre: 'Reel 3 Ranger', duracion: '0:22' },
+  { nombre: 'Doble Ranger', duracion: '0:35' },
+];
 
 // ─── Reproductor con crossfade y color sampler ────────
 function iniciarReproductor() {
@@ -624,46 +635,51 @@ function initScrollJacking() {
       actionBar.style.width = spacer.offsetWidth + 'px';
       actionBar.classList.remove('mode-top');
     } else if (currentSec === 1) {
-      // Estado VIP: Posicionar justo debajo del video y centrado a él
+      // Estado VIP: centrado debajo del video del cliente
       const videoTarget = document.querySelector('.cliente-col-v');
       if (videoTarget) {
         actionBar.classList.add('mode-top');
         const vPos = getAbsoluteOffset(videoTarget);
-        const vRect = videoTarget.getBoundingClientRect(); 
-        
+        const vRect = videoTarget.getBoundingClientRect();
         const targetViewportTop = vPos.top - (window.innerHeight * currentSec);
         const ty = targetViewportTop + videoTarget.offsetHeight + 24;
         const tx = vRect.left + (videoTarget.offsetWidth / 2) - (actionBar.offsetWidth / 2);
-        
         actionBar.style.transform = `translate(${tx}px, ${ty}px) scale(1)`;
       }
     } else if (currentSec === 2) {
-      // Estado Sobre Mí: Puede esconderse, o acoplarse inteligentemente
+      // Estado Portafolio: centrado debajo del visor de video principal
+      const visorTarget = document.querySelector('.portafolio-visor-frame');
+      if (visorTarget) {
+        actionBar.classList.add('mode-top');
+        const vPos = getAbsoluteOffset(visorTarget);
+        const vRect = visorTarget.getBoundingClientRect();
+        const targetViewportTop = vPos.top - (window.innerHeight * currentSec);
+        const ty = targetViewportTop + visorTarget.offsetHeight + 24;
+        const tx = vRect.left + (visorTarget.offsetWidth / 2) - (actionBar.offsetWidth / 2);
+        actionBar.style.transform = `translate(${tx}px, ${ty}px) scale(1)`;
+      }
+    } else if (currentSec === 3) {
+      // Estado Sobre Mí: alineado al panel de specs
       const infoTarget = document.querySelector('.sobremi-specs');
       if (infoTarget) {
         actionBar.classList.add('mode-top');
         const iPos = getAbsoluteOffset(infoTarget);
         const iRect = infoTarget.getBoundingClientRect();
-        
         const targetViewportTop = iPos.top - (window.innerHeight * currentSec);
-        const ty = targetViewportTop + infoTarget.offsetHeight + 30; // 30px abajo del panel spec
-        const tx = iRect.left; // Alinear a la izquierda del spec
-        
+        const ty = targetViewportTop + infoTarget.offsetHeight + 30;
+        const tx = iRect.left;
         actionBar.style.transform = `translate(${tx}px, ${ty}px) scale(1)`;
       }
-    } else if (currentSec === 3) {
-      // Estado CTA FINAL: Ir al centro y agrandarse enormemente
+    } else if (currentSec === 4) {
+      // Estado CTA FINAL: centro enorme
       const ctaSpacer = document.getElementById('cta-button-spacer');
       if (ctaSpacer) {
-        actionBar.classList.remove('mode-top'); // Quitar estilo blanco si lo tiene
+        actionBar.classList.remove('mode-top');
         const cPos = getAbsoluteOffset(ctaSpacer);
         const cRect = ctaSpacer.getBoundingClientRect();
-        
         const targetViewportTop = cPos.top - (window.innerHeight * currentSec);
         const tx = cRect.left + (ctaSpacer.offsetWidth / 2) - (actionBar.offsetWidth / 2);
-        const ty = targetViewportTop; 
-        
-        // Escalarlo 1.4x para que sea GIGANTE
+        const ty = targetViewportTop;
         actionBar.style.transform = `translate(${tx}px, ${ty}px) scale(1.4)`;
       }
     }
@@ -732,8 +748,153 @@ function initScrollJacking() {
   }, { passive: false });
 }
 
-// Llama al init también en DOMContentLoaded general (ya que este script no estaba modularizado asincrónico por partes)
+// ─── SECCIÓN PORTAFOLIO SHOWCASE ──────────────────────────
+function initPortafolioShowcase() {
+  const contenedor = document.getElementById('portafolio-carrusel');
+  const visorVideo = document.getElementById('portafolio-video-principal');
+  const visorTitulo = document.getElementById('portafolio-titulo-activo');
+  const visorCategoria = document.getElementById('portafolio-categoria-activa');
+  const visorStats = document.getElementById('portafolio-stats-activos');
+
+  if (!contenedor || !visorVideo) return;
+
+  const piezas = [
+    {
+      titulo: 'AD #1 — Producto Digital',
+      categoria: 'PAID ADS · META',
+      stats: '+2.4M Impresiones · CTR 4.8%',
+      src: 'videos /AD #1.mp4',
+      color: '#c0392b'
+    },
+    {
+      titulo: 'AD #6 — Hook Variation',
+      categoria: 'PAID ADS · TikTok',
+      stats: '+1.8M Views · 8.3% Conv.',
+      src: 'videos /AD #6 Hook #3.mp4',
+      color: '#2980b9'
+    },
+    {
+      titulo: 'DA-R015 — Orgánico',
+      categoria: 'CONTENIDO ORGÁNICO · IG',
+      stats: '+3.1M Alcance · 9.2% ER',
+      src: 'videos /DA-R015.mp4',
+      color: '#8e44ad'
+    },
+    {
+      titulo: 'Orgánico #12 — Storytelling',
+      categoria: 'CONTENIDO ORGÁNICO · TikTok',
+      stats: '+5.7M Views · Viral',
+      src: 'videos /Organico #12.mp4',
+      color: '#16a085'
+    },
+    {
+      titulo: 'Reel 3 — Ranger 570',
+      categoria: 'BRAND CONTENT · IG Reels',
+      stats: '+890K Views · 6.1% ER',
+      src: 'videos /Reel 3- ranger 570.mp4',
+      color: '#d35400'
+    },
+    {
+      titulo: 'Doble Ranger — Acción',
+      categoria: 'BRAND CONTENT · YouTube Shorts',
+      stats: '+1.2M Views · Trending #3',
+      src: 'videos /doble Ranger.mp4',
+      color: '#27ae60'
+    }
+  ];
+
+  let indiceActivo = 0;
+  let enTransicion = false;
+
+  // Crear tarjetas del carrusel
+  piezas.forEach((pieza, i) => {
+    const tarjeta = document.createElement('div');
+    tarjeta.className = 'portafolio-tarjeta' + (i === 0 ? ' activa' : '');
+    tarjeta.dataset.index = i;
+    tarjeta.style.setProperty('--color-acento', pieza.color);
+
+    const videoThumb = document.createElement('video');
+    videoThumb.src = pieza.src;
+    videoThumb.muted = true;
+    videoThumb.loop = true;
+    videoThumb.playsInline = true;
+    videoThumb.preload = 'metadata';
+    videoThumb.className = 'portafolio-thumb';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'portafolio-overlay';
+    overlay.innerHTML = `
+      <span class="portafolio-categoria-chip">${pieza.categoria}</span>
+      <span class="portafolio-titulo-chip">${pieza.titulo.split('—')[0].trim()}</span>
+    `;
+
+    const num = document.createElement('span');
+    num.className = 'portafolio-num';
+    num.textContent = String(i + 1).padStart(2, '0');
+
+    tarjeta.appendChild(videoThumb);
+    tarjeta.appendChild(overlay);
+    tarjeta.appendChild(num);
+    contenedor.appendChild(tarjeta);
+
+    // Reproducir preview al hover
+    tarjeta.addEventListener('mouseenter', () => videoThumb.play().catch(() => {}));
+    tarjeta.addEventListener('mouseleave', () => { videoThumb.pause(); videoThumb.currentTime = 0; });
+
+    // Seleccionar pieza
+    tarjeta.addEventListener('click', () => seleccionarPieza(i));
+  });
+
+  function seleccionarPieza(idx) {
+    if (enTransicion || idx === indiceActivo) return;
+    enTransicion = true;
+
+    // Quitar activa de tarjeta anterior
+    const tarjetaAnterior = contenedor.querySelector('.portafolio-tarjeta.activa');
+    if (tarjetaAnterior) tarjetaAnterior.classList.remove('activa');
+
+    indiceActivo = idx;
+    const pieza = piezas[idx];
+
+    // Activar tarjeta nueva
+    const tarjetaNueva = contenedor.querySelector(`[data-index="${idx}"]`);
+    if (tarjetaNueva) tarjetaNueva.classList.add('activa');
+
+    // Fade out visor
+    if (visorVideo) { visorVideo.style.opacity = '0'; }
+    if (visorTitulo) { visorTitulo.style.opacity = '0'; }
+    if (visorCategoria) { visorCategoria.style.opacity = '0'; }
+    if (visorStats) { visorStats.style.opacity = '0'; }
+
+    setTimeout(() => {
+      // Cambiar video del visor
+      if (visorVideo) {
+        visorVideo.src = pieza.src;
+        visorVideo.load();
+        visorVideo.play().catch(() => {});
+        visorVideo.style.opacity = '1';
+      }
+      if (visorTitulo) { visorTitulo.textContent = pieza.titulo; visorTitulo.style.opacity = '1'; }
+      if (visorCategoria) { visorCategoria.textContent = pieza.categoria; visorCategoria.style.opacity = '1'; }
+      if (visorStats) { visorStats.textContent = pieza.stats; visorStats.style.opacity = '1'; }
+
+      enTransicion = false;
+    }, 350);
+  }
+
+  // Inicializar visor con la primera pieza
+  if (visorVideo) {
+    visorVideo.src = piezas[0].src;
+    visorVideo.play().catch(() => {});
+  }
+  if (visorTitulo) visorTitulo.textContent = piezas[0].titulo;
+  if (visorCategoria) visorCategoria.textContent = piezas[0].categoria;
+  if (visorStats) visorStats.textContent = piezas[0].stats;
+}
+
+// Llama al init también en DOMContentLoaded general
 document.addEventListener('DOMContentLoaded', () => {
   initClientesSection();
+  initPortafolioShowcase();
   initScrollJacking();
 });

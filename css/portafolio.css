@@ -1,0 +1,267 @@
+/* ═══════════════════════════════════════════════════════
+   PORTAFOLIO SHOWCASE — Mostrador de piezas con visor
+═══════════════════════════════════════════════════════ */
+
+.seccion-portafolio {
+  background-color: #111110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.portafolio-container {
+  width: 100%;
+  max-width: 1600px;
+  height: 92%;
+  position: relative;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Etiqueta de sección */
+.seccion-portafolio .visor-label {
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+/* Layout principal: visor izq + lista der */
+.portafolio-layout {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(24px, 4vw, 60px);
+  flex: 1;
+  min-height: 0;
+}
+
+/* ─── VISOR PRINCIPAL (izquierda) ─── */
+.portafolio-visor {
+  flex: 0 0 auto;
+  height: 100%;
+  aspect-ratio: 9/16;
+  display: flex;
+  align-items: center;
+}
+
+.portafolio-visor-frame {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0b0b0b;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 32px 80px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.04) inset;
+}
+
+#portafolio-video-principal {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.35s ease;
+}
+
+.portafolio-visor-hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 18px 20px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, transparent 100%);
+  z-index: 4;
+}
+
+.portafolio-visor-rec {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--fuente-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.7);
+}
+
+.portafolio-visor-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 36px 20px 22px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.portafolio-visor-cat {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  transition: opacity 0.35s ease;
+}
+
+.portafolio-visor-tit {
+  font-family: var(--fuente-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  transition: opacity 0.35s ease;
+}
+
+.portafolio-visor-stats {
+  font-size: 10px;
+  color: rgba(255,255,255,0.38);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+  transition: opacity 0.35s ease;
+}
+
+/* ─── LADO DERECHO ─── */
+.portafolio-lado-derecho {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.portafolio-header {
+  flex-shrink: 0;
+}
+
+.portafolio-sec-titulo {
+  font-family: var(--fuente-display);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.05;
+}
+
+.portafolio-sec-titulo span {
+  color: rgba(255,255,255,0.3);
+}
+
+.portafolio-sec-desc {
+  font-size: 11px;
+  color: rgba(255,255,255,0.28);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* ─── CARRUSEL DE TARJETAS ─── */
+.portafolio-carrusel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Tarjeta individual */
+.portafolio-tarjeta {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1a1a18;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portafolio-tarjeta:hover {
+  border-color: rgba(255,255,255,0.18);
+  transform: scale(1.025);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.portafolio-tarjeta.activa {
+  border-color: var(--color-acento, rgba(255,255,255,0.5));
+  box-shadow: 0 0 0 2px var(--color-acento, rgba(255,255,255,0.3)), 0 12px 40px rgba(0,0,0,0.4);
+}
+
+/* Video de thumbnail */
+.portafolio-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.65;
+  transition: opacity 0.4s ease;
+}
+
+.portafolio-tarjeta:hover .portafolio-thumb,
+.portafolio-tarjeta.activa .portafolio-thumb {
+  opacity: 1;
+}
+
+/* Overlay siempre visible con info */
+.portafolio-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px 12px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.portafolio-categoria-chip {
+  font-family: var(--fuente-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 3px;
+}
+
+.portafolio-titulo-chip {
+  font-family: var(--fuente-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Número de pieza */
+.portafolio-num {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-family: var(--fuente-mono);
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  pointer-events: none;
+  transition: color 0.3s;
+}
+
+.portafolio-tarjeta.activa .portafolio-num {
+  color: var(--color-acento, rgba(255,255,255,0.6));
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .portafolio-layout {
+    flex-direction: column;
+  }
+  .portafolio-visor {
+    height: 40%;
+    aspect-ratio: unset;
+    width: 100%;
+  }
+  .portafolio-carrusel {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}

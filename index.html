@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/hero.css">
   <link rel="stylesheet" href="css/clientes.css">
+  <link rel="stylesheet" href="css/portafolio.css">
   <link rel="stylesheet" href="css/sobremi.css">
   <link rel="stylesheet" href="css/cta.css">
 </head>
@@ -151,6 +152,7 @@
                     <button class="miniatura" data-index="2" aria-label="Video 3"></button>
                     <button class="miniatura" data-index="3" aria-label="Video 4"></button>
                     <button class="miniatura" data-index="4" aria-label="Video 5"></button>
+                    <button class="miniatura" data-index="5" aria-label="Video 6"></button>
                   </div>
                 </div>
 
@@ -390,10 +392,47 @@
         </div>
       </section>
 
-      <!-- ── SECCIÓN 03: SOBRE MÍ ── -->
+      <!-- ── SECCIÓN 03: PORTAFOLIO SHOWCASE ── -->
+      <section class="seccion seccion-portafolio" id="portafolio">
+        <div class="portafolio-container">
+          <div class="visor-label visor-label-tl mono">PORTFOLIO SHOWCASE · 03</div>
+
+          <div class="portafolio-layout">
+
+            <!-- Visor principal (izquierda) -->
+            <div class="portafolio-visor">
+              <div class="portafolio-visor-frame">
+                <video id="portafolio-video-principal" muted autoplay loop playsinline preload="auto"></video>
+                <div class="portafolio-visor-hud">
+                  <span class="portafolio-visor-rec"><span class="rec-dot"></span>PREVIEW</span>
+                </div>
+                <div class="portafolio-visor-info">
+                  <p id="portafolio-categoria-activa" class="portafolio-visor-cat mono"></p>
+                  <h3 id="portafolio-titulo-activo" class="portafolio-visor-tit"></h3>
+                  <p id="portafolio-stats-activos" class="portafolio-visor-stats mono"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carrusel de tarjetas (derecha) -->
+            <div class="portafolio-lado-derecho">
+              <div class="portafolio-header">
+                <h2 class="portafolio-sec-titulo">Trabajos<br><span>Recientes</span></h2>
+                <p class="portafolio-sec-desc mono">Seleccioná una pieza para previsualizar</p>
+              </div>
+              <div class="portafolio-carrusel" id="portafolio-carrusel">
+                <!-- Las tarjetas se inyectan por JS -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECCIÓN 04: SOBRE MÍ ── -->
       <section class="seccion seccion-sobremi" id="sobre-mi">
         <div class="sobremi-container">
-          <div class="visor-label visor-label-tl visor-label-dark mono">SYSTEM CONFIG · 03</div>
+          <div class="visor-label visor-label-tl visor-label-dark mono">SYSTEM CONFIG · 04</div>
 
           <div class="sobremi-grid">
 
@@ -445,11 +484,11 @@
         </div>
       </section>
 
-      <!-- ── SECCIÓN 04: CTA FINALE ── -->
+      <!-- ── SECCIÓN 05: CTA FINALE ── -->
       <section class="seccion seccion-cta" id="cta">
         <div class="cta-deco-grid"></div>
         <div class="cta-container">
-          <div class="visor-label visor-label-tl mono">DEPLOY PORTFOLIO · 04</div>
+          <div class="visor-label visor-label-tl mono">DEPLOY PORTFOLIO · 05</div>
           <h2 class="cta-titulo">¿Listo para<br>hackear retención?</h2>
           <p class="cta-desc">Llevemos a tu audiencia actual hacia un crecimiento exponencial. Empecemos a iterar tus contenidos hoy mismo.</p>
           
