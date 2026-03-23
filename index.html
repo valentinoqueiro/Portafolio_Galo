@@ -331,7 +331,7 @@
               <!-- Foto Card -->
               <div class="cliente-foto-card card">
                 <div class="c-foto-wrap">
-                  <img id="c-foto" src="ClientesVIP/David Otalora.jpg" alt="Cliente VIP">
+                  <img id="c-foto" src="ClientesVIP/David Otalora.jpg" alt="Cliente VIP" loading="lazy">
                 </div>
                 <div class="c-foto-meta mono">
                   ID: <span id="c-id">ID-01</span> | Status: <span style="color:#27ae60">Verified</span>
@@ -400,13 +400,14 @@
           <div class="portafolio-layout">
 
             <!-- Visor principal (izquierda) -->
-            <div class="portafolio-visor">
-              <div class="portafolio-visor-frame">
-                <video id="portafolio-video-principal" muted autoplay loop playsinline preload="auto"></video>
-                <div class="portafolio-visor-hud">
+            <div class="portafolio-visor" id="portafolio-visor-wrap">
+              <div class="portafolio-visor-frame" id="portafolio-visor-frame">
+                <!-- Se agrega 'controls' opcional o se usará JS, por UX se usa controls native y pointer-events al video -->
+                <video id="portafolio-video-principal" muted autoplay loop playsinline preload="auto" style="cursor: pointer;"></video>
+                <div class="portafolio-visor-hud" style="pointer-events: none;">
                   <span class="portafolio-visor-rec"><span class="rec-dot"></span>PREVIEW</span>
                 </div>
-                <div class="portafolio-visor-info">
+                <div class="portafolio-visor-info" style="pointer-events: none;">
                   <p id="portafolio-categoria-activa" class="portafolio-visor-cat mono"></p>
                   <h3 id="portafolio-titulo-activo" class="portafolio-visor-tit"></h3>
                   <p id="portafolio-stats-activos" class="portafolio-visor-stats mono"></p>
@@ -440,7 +441,7 @@
             <div class="sobremi-col-foto">
               <div class="foto-galo-wrap">
                 <!-- Se reemplazará con la imagen real de Galo -->
-                <img id="foto-galo" src="Galo /galo.jpg" alt="Galo">
+                <img id="foto-galo" src="Galo /galo.jpg" alt="Galo" loading="lazy">
               </div>
               <div class="foto-status mono">
                 <span>SRC://GALO_PROFILE_V1.JPG</span>

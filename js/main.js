@@ -835,11 +835,10 @@ function initPortafolioShowcase() {
     tarjeta.style.setProperty('--color-acento', pieza.color);
 
     const videoThumb = document.createElement('video');
-    videoThumb.src = pieza.src;
+    videoThumb.src = pieza.src + '#t=0.1'; // Optimización: Cargar solo el primer frame
     videoThumb.muted = true;
-    videoThumb.loop = true;
     videoThumb.playsInline = true;
-    videoThumb.preload = 'metadata';
+    videoThumb.preload = 'metadata'; // Optimización: No precargar 9 videos enteros
     videoThumb.className = 'portafolio-thumb';
 
     const overlay = document.createElement('div');
@@ -858,13 +857,27 @@ function initPortafolioShowcase() {
     tarjeta.appendChild(num);
     contenedor.appendChild(tarjeta);
 
-    // Reproducir preview al hover
-    tarjeta.addEventListener('mouseenter', () => videoThumb.play().catch(() => {}));
-    tarjeta.addEventListener('mouseleave', () => { videoThumb.pause(); videoThumb.currentTime = 0; });
-
-    // Seleccionar pieza
+    // Seleccionar pieza (al remover hover-reproducción, se ahorra gran cantidad de recursos)
     tarjeta.addEventListener('click', () => seleccionarPieza(i));
   });
+
+  // Funcionalidad de Play/Pause estilo TikTok / Instagram al dar clic en el video principal
+  if (visorVideo) {
+    visorVideo.addEventListener('click', () => {
+      if (visorVideo.paused) {
+        visorVideo.play().catch(() => {});
+        visorVideo.parentElement.classList.remove('pausado');
+      } else {
+        visorVideo.pause();
+        visorVideo.parentElement.classList.add('pausado');
+      }
+    });
+
+    // Controlar fin de carga
+    visorVideo.addEventListener('playing', () => {
+      visorVideo.parentElement.classList.remove('pausado');
+    });
+  }
 
   function seleccionarPieza(idx) {
     if (enTransicion || idx === indiceActivo) return;
