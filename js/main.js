@@ -15,6 +15,7 @@ const VIDEOS = [
 const INTERVALO_VIDEO = 5000;
 
 document.addEventListener('DOMContentLoaded', () => {
+  initCarga();
   iniciarCursor();
   iniciarParticulas();
   iniciarTypewriter();
@@ -22,6 +23,42 @@ document.addEventListener('DOMContentLoaded', () => {
   generarWaveformAudio();
   iniciarReproductor();
 });
+
+// ─── PANTALLA DE CARGA Y OPTIMIZADOR ──────────────────
+function initCarga() {
+  const loader = document.getElementById('pantalla-carga');
+  const barra = document.getElementById('carga-progreso');
+  const texto = document.getElementById('carga-texto');
+  if (!loader) return;
+
+  let progreso = 0;
+  
+  // Simulador visual de buffering
+  let intervalo = setInterval(() => {
+    progreso += Math.random() * 8;
+    if (progreso > 90) progreso = 90; 
+    
+    if (barra) barra.style.width = progreso + '%';
+    if (texto) texto.textContent = `PRECARGANDO MEDIA... ${Math.floor(progreso)}%`;
+  }, 80);
+
+  function finalizarCarga() {
+    clearInterval(intervalo);
+    if (barra) barra.style.width = '100%';
+    if (texto) texto.textContent = 'SISTEMA LISTO · 100%';
+    
+    setTimeout(() => {
+      loader.classList.add('oculta');
+    }, 600); // 600ms de gracia al 100% para que el usuario alcance a leerlo
+  }
+
+  // Terminar cuando los assets (fuentes, CSS, imagenes y red inicial) terminaron
+  if (document.readyState === 'complete') {
+    finalizarCarga();
+  } else {
+    window.addEventListener('load', finalizarCarga);
+  }
+}
 
 // Miniaturas para el hero — 6 botones (uno por video)
 const MINIATURAS_VIDEOS = [

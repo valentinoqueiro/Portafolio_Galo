@@ -202,3 +202,56 @@ body {
   color: #333;
 }
 .action-bar-floating .btn-secundario:hover { background: #fff; transform: scale(1.02); }
+
+/* ─── PANTALLA DE CARGA ─── */
+.pantalla-carga {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  background: var(--crema-oscuro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+}
+.pantalla-carga.oculta {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.carga-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.carga-logo {
+  font-family: var(--fuente-display);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  color: #111;
+  animation: pulso-carga 2s ease-in-out infinite;
+}
+.carga-barra-wrap {
+  width: 240px;
+  height: 2px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.carga-progreso {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0%;
+  background: #27ae60;
+  transition: width 0.3s ease;
+}
+.carga-texto {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+}
+@keyframes pulso-carga { 0%,100%{opacity:1} 50%{opacity:0.4} }

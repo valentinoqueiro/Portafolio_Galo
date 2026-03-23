@@ -17,6 +17,17 @@
 
 <body>
 
+  <!-- ── PANTALLA DE CARGA ── -->
+  <div id="pantalla-carga" class="pantalla-carga">
+    <div class="carga-content">
+      <div class="carga-logo">galo.</div>
+      <div class="carga-barra-wrap">
+        <div class="carga-progreso" id="carga-progreso"></div>
+      </div>
+      <div class="carga-texto mono" id="carga-texto">Iniciando secuencias...</div>
+    </div>
+  </div>
+
   <div id="cursor-punto"></div>
   <div id="cursor-anillo"></div>
 
@@ -132,9 +143,9 @@
                 <canvas id="canvas-color" width="80" height="80" style="display:none;"></canvas>
 
                 <div class="video-layers" id="video-layers">
-                  <video class="video-layer activa" id="video-a" src="videos/Marcos %233.mp4" muted autoplay loop
-                    playsinline></video>
-                  <video class="video-layer" id="video-b" src="videos/OH-R0042.mp4" muted loop playsinline></video>
+                  <video class="video-layer activa" id="video-a" src="videos /AD %231.mp4" muted autoplay loop
+                    playsinline preload="auto"></video>
+                  <video class="video-layer" id="video-b" src="" muted loop playsinline preload="none"></video>
                 </div>
 
                 <div class="video-topbar">
