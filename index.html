@@ -42,26 +42,28 @@
     <button class="btn-secundario" id="btn-contactar">Ver trabajos</button>
   </div>
 
+  <!-- Barra superior (Navbar Fijo) -->
+  <header class="barra-superior" id="navbar">
+    <div class="barra-logo" data-target="0" style="cursor: pointer;">galo.</div>
+    <nav class="barra-controles">
+      <button class="btn-barra" data-target="0"><span class="dot"></span>En línea</button>
+      <button class="btn-barra" data-target="2">Proyectos</button>
+      <button class="btn-barra" data-target="3">Sobre mí</button>
+      <button class="btn-barra" data-target="4">Contacto</button>
+    </nav>
+    <div class="barra-estado">
+      <span class="indicador">Disponible</span>
+      <span class="sep">·</span>
+      <span class="mono">Mar 2026</span>
+    </div>
+  </header>
+
   <div class="scroll-container">
     <div class="secciones-wrapper" id="secciones-wrapper">
 
       <section class="seccion hero" id="inicio">
 
-        <!-- Barra superior -->
-        <header class="barra-superior">
-          <div class="barra-logo">galo.</div>
-          <nav class="barra-controles">
-            <button class="btn-barra"><span class="dot"></span>En línea</button>
-            <button class="btn-barra">Proyectos</button>
-            <button class="btn-barra">Sobre mí</button>
-            <button class="btn-barra">Contacto</button>
-          </nav>
-          <div class="barra-estado">
-            <span class="indicador">Disponible para proyectos</span>
-            <span class="sep">·</span>
-            <span class="mono">Mar 2026</span>
-          </div>
-        </header>
+
 
         <!-- Visor completo con cards flotantes -->
         <div class="visor-central" id="visor-central">
@@ -414,7 +416,8 @@
             <div class="portafolio-visor" id="portafolio-visor-wrap">
               <div class="portafolio-visor-frame" id="portafolio-visor-frame">
                 <!-- Se agrega 'controls' opcional o se usará JS, por UX se usa controls native y pointer-events al video -->
-                <video id="portafolio-video-principal" muted autoplay loop playsinline preload="auto" style="cursor: pointer;"></video>
+                <video id="portafolio-video-principal" muted autoplay loop playsinline preload="auto"
+                  style="cursor: pointer;"></video>
                 <div class="portafolio-visor-hud" style="pointer-events: none;">
                   <span class="portafolio-visor-rec"><span class="rec-dot"></span>PREVIEW</span>
                 </div>
@@ -501,9 +504,10 @@
         <div class="cta-deco-grid"></div>
         <div class="cta-container">
           <div class="visor-label visor-label-tl mono">DEPLOY PORTFOLIO · 05</div>
-          <h2 class="cta-titulo">¿Listo para<br>hackear retención?</h2>
-          <p class="cta-desc">Llevemos a tu audiencia actual hacia un crecimiento exponencial. Empecemos a iterar tus contenidos hoy mismo.</p>
-          
+          <h2 class="cta-titulo">¿Listo para<br>el siguiente nivel?</h2>
+          <p class="cta-desc">Llevemos a tu audiencia actual hacia un crecimiento exponencial. Empecemos a iterar tus
+            contenidos hoy mismo.</p>
+
           <!-- Spacer donde el motor FLIP anclará la cápsula de botones -->
           <div id="cta-button-spacer"></div>
         </div>

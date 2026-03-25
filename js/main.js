@@ -734,15 +734,53 @@ function initScrollJacking() {
     }
   }
 
+  function updateNavbarState() {
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+      // Determinar si la seccion activa requiere barra oscura
+      if (currentSec === 2 || currentSec === 4) {
+        navbar.classList.add('mode-dark');
+      } else {
+        navbar.classList.remove('mode-dark');
+      }
+      
+      // Actualizar botones activos
+      document.querySelectorAll('#navbar .btn-barra').forEach(btn => {
+        const target = parseInt(btn.getAttribute('data-target'));
+        if (target === currentSec || (target === 2 && currentSec === 1)) {
+          // Si es hero (0), proyectos (1 y 2), sobre mi (3), contacto (4)
+          // Mapeamos para que 'Proyectos' quede activo en sec 1 y 2
+          btn.classList.add('activo');
+        } else {
+          btn.classList.remove('activo');
+        }
+      });
+    }
+  }
+
   function scrollToSec() {
     isScrolling = true;
     wrapper.style.transform = `translateY(-${currentSec * 100}dvh)`;
     
-    // Al ejecutar translate, actualizamos el action bar al mismo tiempo
+    // Al ejecutar translate, actualizamos elementos
     getSyncPillPos();
+    updateNavbarState();
 
     setTimeout(() => { isScrolling = false; }, cooldown);
   }
+
+  // Funcionalidad de clicks en el navbar
+  const navBtns = document.querySelectorAll('#navbar .btn-barra, #navbar .barra-logo');
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const targetStr = e.currentTarget.getAttribute('data-target');
+      if (targetStr !== null && !isScrolling) {
+        currentSec = parseInt(targetStr);
+        scrollToSec();
+      }
+    });
+  });
+  updateNavbarState();
 
   // Refrescar al redimensionar y al iniciar para el layout correcto en cualquier pantalla
   window.addEventListener('resize', getSyncPillPos);

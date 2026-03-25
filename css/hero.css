@@ -9,50 +9,91 @@
   background-color: var(--crema);
 }
 
-/* ─── Barra superior ─────────────────────────────────── */
+/* ─── Barra superior (Navbar Flotante) ───────────────── */
 .barra-superior {
-  position: relative;
-  z-index: 20;
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 18px;
-  height: 44px;
-  border-bottom: 1px solid var(--crema-borde);
-  background: rgba(241,239,231,0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  flex-shrink: 0;
-  animation: entrar-abajo 0.5s ease both 0.05s;
+  padding: 0 16px 0 24px;
+  height: 56px;
+  width: calc(100% - 48px);
+  max-width: 1400px;
+  background: rgba(245, 244, 239, 0.65);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(44, 42, 37, 0.08); /* sutil */
+  border-radius: 100px;
+  box-shadow: 
+    0 8px 32px rgba(44, 42, 37, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: entrar-arriba 0.8s cubic-bezier(0.16, 1, 0.3, 1) both 0.15s;
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
+
+/* Soporte para Secciones Oscuras (ej: Portafolio o CTA) */
+.barra-superior.mode-dark {
+  background: rgba(20, 20, 18, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.barra-superior.mode-dark .barra-logo { color: rgba(255, 255, 255, 0.95); }
+.barra-superior.mode-dark .btn-barra { color: rgba(255, 255, 255, 0.4); border-color: transparent; }
+.barra-superior.mode-dark .btn-barra:hover,
+.barra-superior.mode-dark .btn-barra.activo {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+.barra-superior.mode-dark .barra-estado { color: rgba(255, 255, 255, 0.3); }
 
 .barra-logo {
   font-family: var(--fuente-display);
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   letter-spacing: -0.06em;
   color: #111;
-  padding-left: 8px;
+  transition: color 0.5s;
 }
 
-.barra-controles { display: flex; align-items: center; gap: 4px; }
+.barra-controles { 
+  display: flex; align-items: center; gap: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .btn-barra {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
+  padding: 8px 16px;
   font-family: var(--fuente-cuerpo);
-  font-size: 15px;
-  font-weight: 300;
-  color: rgba(44, 42, 37, 0.4);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(44, 42, 37, 0.55);
   background: transparent;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: 100px;
   cursor: none;
-  transition: var(--transicion);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.btn-barra:hover { color: rgba(44, 42, 37, 0.9); }
+.btn-barra:hover { 
+  color: rgba(44, 42, 37, 0.95); 
+  background: rgba(44, 42, 37, 0.05);
+}
+.btn-barra.activo {
+  color: rgba(44, 42, 37, 0.95); 
+  background: rgba(44, 42, 37, 0.08);
+  border-color: rgba(44, 42, 37, 0.03);
+}
+
 .btn-barra .dot {
   width: 5px; height: 5px; border-radius: 50%;
   background: #27ae60; flex-shrink: 0;
@@ -62,6 +103,8 @@
 .barra-estado {
   display: flex; align-items: center; gap: 8px;
   font-family: var(--fuente-mono); font-size: 10px; color: var(--texto-suave);
+  padding-right: 4px;
+  transition: color 0.5s;
 }
 .barra-estado .indicador { display: flex; align-items: center; gap: 5px; }
 .barra-estado .indicador::before {
@@ -628,6 +671,7 @@
 
 /* ─── Animaciones ────────────────────────────────────── */
 @keyframes entrar-abajo   { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes entrar-arriba  { from { opacity: 0; transform: translate(-50%, -15px); } to { opacity: 1; transform: translate(-50%, 0); } }
 @keyframes entrar-derecha { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes entrar-izq     { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes visor-aparecer { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
