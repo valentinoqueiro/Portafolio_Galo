@@ -76,6 +76,8 @@ body {
   width: 100%;
   height: 100dvh;
   position: relative;
+  box-sizing: border-box;
+  padding-top: 80px;
 }
 .seccion:nth-child(1) { z-index: 10; }
 .seccion:nth-child(2) { z-index: 5; }
