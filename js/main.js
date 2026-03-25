@@ -493,7 +493,7 @@ function initClientesSection() {
       kpi1: "+35M Views",
       kpi2: "TikTok 9:16",
       foto: "ClientesVIP/marcos-razzetti.jpg",
-      videoSrc: "ClientesVIP/Marcos %233.mp4",
+      videoSrc: "ClientesVIP/Marcos 3.mp4",
       videoName: "MR_Ecom_Scale_1080p.mp4"
     },
     {
@@ -852,7 +852,7 @@ function initPortafolioShowcase() {
       titulo: 'Marcos Razzetti E-com',
       categoria: 'VIP CLIENT · TIKTOK',
       stats: '+35M Views',
-      src: 'ClientesVIP/Marcos %233.mp4',
+      src: 'ClientesVIP/Marcos 3.mp4',
       color: '#34495e'
     },
     {

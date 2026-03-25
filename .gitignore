@@ -8,3 +8,4 @@ videos/
 
 # Dependencias (si se agregan en el futuro)
 node_modules/
+.vercel
