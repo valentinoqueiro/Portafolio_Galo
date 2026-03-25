@@ -666,7 +666,7 @@ function initScrollJacking() {
 
     if (currentSec === 0) {
       // Estado Hero
-      actionBar.classList.remove('mode-top', 'mode-dark');
+      actionBar.classList.remove('mode-top', 'mode-dark', 'mode-single');
       const sPos = getAbsoluteOffset(spacer);
       const sRect = spacer.getBoundingClientRect();
       actionBar.style.transform = `translate(${sRect.left}px, ${sPos.top}px) scale(1)`;
@@ -675,7 +675,7 @@ function initScrollJacking() {
       // Estado VIP: centrado debajo del video del cliente
       const videoTarget = document.querySelector('.cliente-col-v');
       if (videoTarget) {
-        actionBar.classList.remove('mode-dark');
+        actionBar.classList.remove('mode-dark', 'mode-single');
         actionBar.classList.add('mode-top');
         const vPos = getAbsoluteOffset(videoTarget);
         const vRect = videoTarget.getBoundingClientRect();
@@ -689,7 +689,7 @@ function initScrollJacking() {
       const visorTarget = document.querySelector('.portafolio-visor-frame');
       if (visorTarget) {
         actionBar.classList.remove('mode-top');
-        actionBar.classList.add('mode-dark');
+        actionBar.classList.add('mode-dark', 'mode-single');
         const vPos = getAbsoluteOffset(visorTarget);
         const vRect = visorTarget.getBoundingClientRect();
         const targetViewportTop = vPos.top - (window.innerHeight * currentSec);
@@ -701,8 +701,8 @@ function initScrollJacking() {
       // Estado Sobre Mí: alineado al panel de specs
       const infoTarget = document.querySelector('.sobremi-specs');
       if (infoTarget) {
-        actionBar.classList.remove('mode-dark');
-        actionBar.classList.add('mode-top');
+        actionBar.classList.remove('mode-top');
+        actionBar.classList.add('mode-dark', 'mode-single');
         const iPos = getAbsoluteOffset(infoTarget);
         const iRect = infoTarget.getBoundingClientRect();
         const targetViewportTop = iPos.top - (window.innerHeight * currentSec);
@@ -715,6 +715,7 @@ function initScrollJacking() {
       const ctaSpacer = document.getElementById('cta-button-spacer');
       if (ctaSpacer) {
         actionBar.classList.remove('mode-top', 'mode-dark');
+        actionBar.classList.add('mode-single');
         const cPos = getAbsoluteOffset(ctaSpacer);
         const cRect = ctaSpacer.getBoundingClientRect();
         const targetViewportTop = cPos.top - (window.innerHeight * currentSec);
@@ -780,6 +781,25 @@ function initScrollJacking() {
       }
     });
   });
+
+  // Funcionalidad Píldora action-bar
+  const btnContactar = document.getElementById('btn-contactar');
+  if (btnContactar) {
+    btnContactar.addEventListener('click', () => {
+      window.open('https://wa.me/5493812019292', '_blank');
+    });
+  }
+
+  const btnVerTrabajos = document.getElementById('btn-ver-trabajo');
+  if (btnVerTrabajos) {
+    btnVerTrabajos.addEventListener('click', () => {
+      if (!isScrolling) {
+        currentSec = 2;
+        scrollToSec();
+      }
+    });
+  }
+
   updateNavbarState();
 
   // Refrescar al redimensionar y al iniciar para el layout correcto en cualquier pantalla

@@ -106,7 +106,7 @@ body {
   border-radius: 50%;
   background: var(--acento);
   pointer-events: none;
-  z-index: 9999;
+  z-index: 9999999;
   transform: translate(-50%, -50%);
   transition: width 0.2s, height 0.2s;
 }
@@ -118,7 +118,7 @@ body {
   border-radius: 50%;
   border: 1px solid rgba(44, 42, 37, 0.3);
   pointer-events: none;
-  z-index: 9998;
+  z-index: 9999998;
   transform: translate(-50%, -50%);
   transition: width 0.25s, height 0.25s, opacity 0.25s;
 }
@@ -180,19 +180,20 @@ body {
 }
 .action-bar-floating .btn-secundario:hover { background: #fff; transform: scale(1.02); }
 
-/* ─── ACTION BAR DARK MODE (PORTAFOLIO) ─── */
-.action-bar-floating.mode-dark {
-  background: rgba(255,255,255,0.06); 
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
-
-.action-bar-floating.mode-dark .btn-secundario {
+/* ─── ACTION BAR SINGLE MODE (Versión Completa de Contactar) ─── */
+.action-bar-floating.mode-single .btn-secundario {
   flex: 0;
   padding: 0;
   margin: 0;
   opacity: 0;
   pointer-events: none;
+}
+
+/* ─── ACTION BAR DARK MODE (PORTAFOLIO) ─── */
+.action-bar-floating.mode-dark {
+  background: rgba(44, 42, 37, 0.95); 
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
 .action-bar-floating.mode-dark .btn-primario {
