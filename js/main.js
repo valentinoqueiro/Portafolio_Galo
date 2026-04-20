@@ -639,9 +639,18 @@ function initScrollJacking() {
 
   let isInitialLoad = true;
 
-  // En mobile la píldora va fija abajo — no usar FLIP
+  // En mobile la píldora va fija abajo — CSS !important lo controla, no JS
   function getSyncPillPos() {
-    if (esTactil) return;
+    if (esTactil) {
+      const actionBar = document.getElementById('global-action-bar');
+      if (actionBar) {
+        actionBar.style.transform = '';
+        actionBar.style.width = '';
+        actionBar.style.removeProperty('transform');
+        actionBar.style.removeProperty('width');
+      }
+      return;
+    }
 
     const actionBar    = document.getElementById('global-action-bar');
     const spacer       = document.getElementById('action-bar-spacer');
@@ -724,7 +733,9 @@ function initScrollJacking() {
 
   function scrollToSec() {
     isScrolling = true;
-    wrapper.style.transform = `translateY(-${currentSec * 100}dvh)`;
+    // Usar unidad flexible: en mobile 100vh y en desktop 100dvh
+    const unidad = esTactil ? window.innerHeight : window.innerHeight;
+    wrapper.style.transform = `translateY(-${currentSec * unidad}px)`;
     getSyncPillPos();
     updateNavbarState();
     setTimeout(() => { isScrolling = false; }, cooldown);
