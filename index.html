@@ -3,19 +3,22 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F1EFE7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Galo — Editor de Video</title>
   <meta name="description"
     content="Portafolio de Galo, editor de video especializado en contenido corto de alto impacto.">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/hero.css">
-  <link rel="stylesheet" href="css/clientes.css">
-  <link rel="stylesheet" href="css/portafolio.css">
-  <link rel="stylesheet" href="css/sobremi.css">
-  <link rel="stylesheet" href="css/cta.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/all.css">
 </head>
 
 <body>
+
+  <!-- ── RUIDO CINEMÁTICO (Grain Overlay) ── -->
+  <div class="noise-overlay"></div>
 
   <!-- ── PANTALLA DE CARGA ── -->
   <div id="pantalla-carga" class="pantalla-carga">
@@ -146,7 +149,7 @@
 
                 <div class="video-layers" id="video-layers">
                   <video class="video-layer activa" id="video-a" src="videos /AD %231.mp4" muted autoplay loop
-                    playsinline preload="auto"></video>
+                    playsinline preload="metadata"></video>
                   <video class="video-layer" id="video-b" src="" muted loop playsinline preload="none"></video>
                 </div>
 
@@ -391,8 +394,8 @@
               <div class="c-video-header mono">
                 <span class="rec-dot"></span><span id="c-video-name">David_Otalora_Viral_v2.mp4</span>
               </div>
-              <video id="c-video" src="ClientesVIP/Plan de contenido.mp4" muted autoplay playsinline
-                preload="auto"></video>
+              <video id="c-video" src="" muted autoplay playsinline
+                preload="none"></video>
 
               <div class="c-video-footer">
                 <div class="c-progress">
@@ -416,7 +419,7 @@
             <div class="portafolio-visor" id="portafolio-visor-wrap">
               <div class="portafolio-visor-frame" id="portafolio-visor-frame">
                 <!-- Se agrega 'controls' opcional o se usará JS, por UX se usa controls native y pointer-events al video -->
-                <video id="portafolio-video-principal" muted autoplay loop playsinline preload="auto"
+                <video id="portafolio-video-principal" muted loop playsinline preload="none"
                   style="cursor: pointer;"></video>
                 <div class="portafolio-visor-hud" style="pointer-events: none;">
                   <span class="portafolio-visor-rec"><span class="rec-dot"></span>PREVIEW</span>

@@ -1,0 +1,397 @@
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Portafolio Galo
+   Breakpoints: 480px | 768px | 1024px | 1280px
+═══════════════════════════════════════════════════════ */
+
+/* ─── Ocultar cursor personalizado en touch ─── */
+@media (hover: none) and (pointer: coarse) {
+  body { cursor: auto; }
+  #cursor-punto,
+  #cursor-anillo { display: none !important; }
+  .btn-barra,
+  .tl-btn,
+  .miniatura,
+  .tool-btn,
+  .action-bar-floating button { cursor: pointer; }
+}
+
+/* ══════════════════════════════════════════════
+   TABLET — ≤ 1024px
+══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+  /* ── Hero ── */
+  .visor-content {
+    gap: clamp(12px, 2vw, 24px);
+    padding: 0 20px;
+  }
+
+  .panel-izquierdo {
+    width: clamp(200px, 28vw, 320px);
+  }
+
+  .cards-flotantes {
+    width: clamp(180px, 26vw, 280px);
+  }
+
+  .info-tit {
+    font-size: clamp(28px, 4vw, 40px);
+  }
+
+  .panel-propiedades {
+    padding: 18px;
+    gap: 10px;
+  }
+
+  /* Ocultar la lista de archivos para ganar espacio */
+  .bin-list { display: none; }
+  .prop-divider + .prop-header,
+  .prop-divider { display: none; }
+
+  /* ── Clientes ── */
+  .cliente-grid {
+    gap: clamp(20px, 4vw, 60px);
+  }
+
+  .cliente-col-v {
+    height: 65%;
+    max-height: 560px;
+  }
+
+  .c-nombre { font-size: 32px; }
+
+  /* ── Portafolio ── */
+  .portafolio-sec-titulo {
+    font-size: clamp(28px, 3.5vw, 48px);
+  }
+
+  /* ── Sobre mí ── */
+  .sobremi-tit { font-size: clamp(36px, 5vw, 52px); }
+  .sobremi-desc { font-size: 14px; }
+}
+
+/* ══════════════════════════════════════════════
+   TABLET PEQUEÑA / LANDSCAPE MOBILE — ≤ 768px
+══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── Navbar ── */
+  .barra-controles {
+    display: none; /* Ocultar nav central, solo logo + estado */
+  }
+  .barra-estado { display: none; }
+  .barra-superior {
+    padding: 0 16px;
+    height: 50px;
+  }
+  .barra-logo { font-size: 22px; }
+
+  /* ── Píldora flotante — en mobile va FIJA abajo ── */
+  .action-bar-floating {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 40px) !important;
+    max-width: 360px;
+    transition: none !important; /* Sin animación FLIP en mobile */
+  }
+
+  /* ── Hero layout — apilar verticalmente ── */
+  .visor-central {
+    overflow-y: auto;
+  }
+
+  .visor-content {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    min-height: 100%;
+    padding: 16px 16px 100px; /* Espacio para la píldora fija */
+    gap: 16px;
+  }
+
+  /* Panel izquierdo encima del video */
+  .panel-izquierdo {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    order: 1;
+  }
+
+  .panel-top {
+    padding-top: 8px;
+    flex: 1 1 100%;
+  }
+
+  .info-tit {
+    font-size: clamp(26px, 7vw, 36px);
+    margin-bottom: 6px;
+  }
+
+  .info-desc { font-size: 13px; }
+
+  .panel-propiedades {
+    display: none; /* Ocultar inspector en mobile */
+  }
+
+  /* Video central */
+  .video-wrap {
+    order: 2;
+    height: auto;
+    max-height: 55vh;
+    width: auto;
+  }
+
+  /* Cards derecha — ocultar en mobile */
+  .cards-flotantes {
+    display: none;
+  }
+
+  /* Timeline oculto en mobile */
+  .hero-timeline {
+    display: none;
+  }
+
+  /* Esquinas de encuadre */
+  .corner { display: none; }
+
+  /* ── Sección Clientes ── */
+  .clientes-container {
+    padding: 0 16px;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .cliente-grid {
+    flex-direction: column;
+    gap: 16px;
+    height: auto;
+    padding-top: 70px;
+    padding-bottom: 100px;
+    align-items: stretch;
+  }
+
+  .cliente-col-info {
+    flex: 0 0 auto;
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .cliente-foto-card {
+    padding: 12px;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .c-foto-wrap {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+
+  .c-foto-meta { display: none; }
+
+  .cliente-desc-card {
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .c-nombre { font-size: 26px; }
+  .c-rol { font-size: 10px; }
+  .c-texto { font-size: 13px; line-height: 1.5; }
+
+  .c-kpis {
+    gap: 16px;
+    padding-top: 12px;
+    margin-top: 6px;
+  }
+  .c-kpi strong { font-size: 20px; }
+
+  .cliente-col-v {
+    width: 100%;
+    height: auto;
+    max-height: 45vh;
+    aspect-ratio: 9/16;
+    flex: 0 0 auto;
+    margin-top: 0;
+    align-self: center;
+    max-width: 220px; /* Evitar que el 9:16 ocupe demasiado ancho */
+  }
+
+  /* ── Portafolio ── */
+  .portafolio-container {
+    padding: 0 16px;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .portafolio-layout {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .portafolio-visor {
+    height: auto;
+    aspect-ratio: 9/16;
+    width: 60%;
+    max-width: 200px;
+    align-self: center;
+    flex: 0 0 auto;
+  }
+
+  .portafolio-lado-derecho {
+    gap: 16px;
+  }
+
+  .portafolio-sec-titulo {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .portafolio-carrusel {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    overflow: visible;
+    gap: 8px;
+  }
+
+  /* ── Sobre mí ── */
+  .sobremi-container {
+    padding: 0 16px;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .sobremi-grid {
+    flex-direction: column;
+    gap: 24px;
+    height: auto;
+    padding: 80px 0 100px;
+    align-items: flex-start;
+  }
+
+  .sobremi-col-foto {
+    flex: 0 0 auto;
+    width: 140px;
+    max-height: none;
+    gap: 10px;
+    align-self: center;
+  }
+
+  .foto-status { display: none; }
+
+  .sobremi-col-info {
+    gap: 20px;
+  }
+
+  .sobremi-tit { font-size: clamp(36px, 10vw, 48px); }
+  .sobremi-desc { font-size: 14px; line-height: 1.6; }
+
+  .sobremi-specs { padding: 16px; gap: 12px; }
+  .sm-label { font-size: 10px; }
+  .sm-val { font-size: 12px; }
+
+  /* ── CTA ── */
+  .cta-titulo {
+    font-size: clamp(40px, 12vw, 72px);
+  }
+  .cta-desc { font-size: 16px; }
+
+  /* ── Correcciones generales ── */
+  .seccion { padding-top: 66px; }
+}
+
+/* ══════════════════════════════════════════════
+   MOBILE — ≤ 480px
+══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  .barra-superior {
+    width: calc(100% - 24px);
+    height: 46px;
+  }
+
+  .info-tit { font-size: 24px; }
+
+  .video-wrap { max-height: 50vh; }
+
+  /* Foto del cliente más pequeña */
+  .c-foto-wrap {
+    width: 80px;
+    height: 80px;
+  }
+
+  .c-nombre { font-size: 22px; }
+
+  .cliente-col-v {
+    max-width: 180px;
+    max-height: 40vh;
+  }
+
+  .portafolio-visor {
+    width: 55%;
+    max-width: 170px;
+  }
+
+  .portafolio-carrusel {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .sobremi-col-foto { width: 120px; }
+  .sobremi-tit { font-size: 32px; }
+
+  .cta-titulo { font-size: clamp(36px, 13vw, 56px); }
+  .cta-desc { font-size: 15px; }
+
+  /* Stats row: 1 columna */
+  .stats-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .stat-valor { font-size: 18px; }
+}
+
+/* ══════════════════════════════════════════════
+   LANDSCAPE MOBILE (altura < 500px)
+══════════════════════════════════════════════ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .visor-content {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 16px 8px;
+  }
+
+  .panel-izquierdo {
+    width: 40%;
+    order: 1;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .video-wrap {
+    order: 2;
+    max-height: 90%;
+  }
+
+  .hero-timeline { display: none; }
+  .cards-flotantes { display: none; }
+
+  .cliente-grid {
+    flex-direction: row;
+    align-items: stretch;
+    padding-top: 60px;
+    padding-bottom: 80px;
+  }
+
+  .cliente-col-v {
+    max-height: 85%;
+    max-width: 140px;
+  }
+}
