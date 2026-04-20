@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════
    RESPONSIVE — Portafolio Galo
-   Estrategia: mobile-first, simplificar agresivamente
-   Breakpoints: 768px | 480px | landscape/height
+   Breakpoints: 768px | 480px | landscape/height | 1024px
+   Versión 4 — fix espacio vacío hero/clientes/portafolio
 ═══════════════════════════════════════════════════════ */
 
-/* ─── 1. Ocultar cursor custom en touch ─────────────── */
+/* ─── Cursor en touch: ocultar ──────────────────────── */
 @media (hover: none) and (pointer: coarse) {
   body { cursor: auto; }
   #cursor-punto,
@@ -14,35 +14,29 @@
 
 /* ══════════════════════════════════════════════════════
    MOBILE — ≤ 768px
-   Decisión de diseño: cada sección es una "pantalla"
-   con scroll interno. La píldora va fija al fondo.
 ══════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* ── Scroll: permitir overflow en secciones que lo necesiten ── */
+  /* ── Base: secciones con scroll propio ── */
   .seccion {
-    padding-top: 60px;
+    padding-top: 56px;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* ─── NAVBAR ─────────────────────────────────────── */
+  /* ── Navbar: solo logo ── */
   .barra-superior {
     height: 48px;
     padding: 0 16px;
     width: calc(100% - 24px);
   }
-
-  /* Ocultar nav central y estado — solo queda el logo */
   .barra-controles,
   .barra-estado { display: none !important; }
-
   .barra-logo { font-size: 22px; }
 
-  /* ─── PÍLDORA FLOTANTE — fija en fondo, sin FLIP ── */
+  /* ── Píldora: FIJA al fondo — CSS gana al JS con !important ── */
   .action-bar-floating {
-    /* Resetear todos los estilos del JS y poner fijo */
     position: fixed !important;
     bottom: 16px !important;
     left: 50% !important;
@@ -50,303 +44,243 @@
     width: calc(100% - 32px) !important;
     max-width: 380px !important;
     transform: translateX(-50%) !important;
-    /* Sin transición FLIP */
     transition: background 0.4s ease !important;
     z-index: 999999 !important;
-    /* Asegurar que escala sea 1 siempre */
-    scale: 1 !important;
   }
 
-  /* ─── HERO ──────────────────────────────────────── */
+  /* ══════════════════════════════════════
+     HERO — el fix crítico está aquí
+  ══════════════════════════════════════ */
 
-  /* El visor central stacks verticalmente y tiene scroll */
+  /*
+   * Problema: .visor-central tiene overflow:hidden y flex:1
+   * y .visor-content tiene height:90% (relativo al visor-central).
+   * En mobile, al poner flex-direction:column el contenido
+   * supera el 90% y queda cortado arriba.
+   * Fix: convertir visor-central en scrollable y visor-content
+   * en height:auto para que el contenido dicte la altura.
+   */
   .visor-central {
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch;
-    align-items: flex-start;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
   }
 
-  /* Contenedor principal: columna, scrollable */
   .visor-content {
-    flex-direction: column;
-    align-items: center;
-    height: auto;
-    min-height: 100%;
-    width: 100%;
-    padding: 16px 16px 90px; /* Espacio para la píldora */
-    gap: 16px;
-    max-width: 100%;
+    flex-direction: column !important;
+    align-items: center !important;
+    /* height:auto + sin min-height para que no haya espacio en blanco extra */
+    height: auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px 16px 90px !important;
+    gap: 14px !important;
   }
 
-  /* Panel izquierdo: mostrar solo título y descripción */
+  /* Texto: compacto, arriba */
   .panel-izquierdo {
-    width: 100%;
-    height: auto;
-    order: 1;
-    gap: 8px;
+    width: 100% !important;
+    height: auto !important;
+    order: 1 !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
   }
-
-  .panel-top { padding-top: 4px; }
-
+  .panel-top { padding-top: 0 !important; }
   .info-tit {
-    font-size: clamp(28px, 8vw, 38px);
-    margin-bottom: 6px;
+    font-size: clamp(26px, 7.5vw, 36px) !important;
+    margin-bottom: 4px !important;
+    line-height: 1.05 !important;
   }
+  .info-desc { font-size: 13px !important; line-height: 1.45 !important; }
 
-  .info-desc {
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  /* Ocultar todo el inspector/archivos en mobile */
+  /* Ocultar inspector */
   .panel-propiedades { display: none !important; }
 
-  /* Video central: tamaño apropiado */
+  /* Video: ancho fijo para que el 9:16 sea legible */
   .video-wrap {
-    order: 2;
-    height: auto;
-    width: auto;
-    max-height: 52vh;
-    aspect-ratio: 9/16;
-    flex-shrink: 0;
+    order: 2 !important;
+    flex: 0 0 auto !important;
+    width: 230px !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: 9/16 !important;
   }
 
-  /* Cards der: ocultar completamente */
-  .cards-flotantes { display: none !important; }
+  /* Ocultar decorativos */
+  .cards-flotantes  { display: none !important; }
+  .hero-timeline    { display: none !important; }
+  .corner           { display: none !important; }
+  .visor-label      { display: none !important; }
 
-  /* Timeline: ocultar en mobile */
-  .hero-timeline { display: none !important; }
+  /* ══════════════════════════════════════
+     CLIENTES — fix espacio vacío arriba
+  ══════════════════════════════════════ */
+  .seccion-clientes { align-items: flex-start !important; }
 
-  /* Elementos decorativos: ocultar */
-  .corner,
-  .visor-label { display: none !important; }
-
-  /* ─── CLIENTES ───────────────────────────────────── */
-  .seccion-clientes {
-    align-items: flex-start;
-  }
-
+  /*
+   * .clientes-container tiene height:90% (desktop).
+   * Al forzarlo a auto el grid empieza desde arriba.
+   */
   .clientes-container {
-    padding: 0 16px;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    width: 100% !important;
+    height: auto !important;         /* ← este era el culpable */
+    max-height: none !important;
+    padding: 14px 16px 90px !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
+    position: static !important;
   }
 
   .cliente-grid {
-    flex-direction: column;
-    height: auto;
-    gap: 12px;
-    padding-top: 14px;
-    padding-bottom: 90px;
-    align-items: stretch;
-    justify-content: flex-start;
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 12px !important;
+    padding: 0 !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
   }
 
-  /* Foto card: horizontal compacta */
+  /* Columna info: ancho completo */
+  .cliente-col-info {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+  }
+
+  /* Foto card: horizontal con foto cuadrada */
   .cliente-foto-card {
-    flex-direction: row;
-    align-items: center;
-    gap: 14px;
-    padding: 14px;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+    padding: 14px !important;
   }
-
   .c-foto-wrap {
-    width: 90px;
-    height: 90px;
-    flex-shrink: 0;
-    border-radius: 10px;
+    width: 84px !important;
+    height: 84px !important;       /* sobreescribe el height:300px */
+    flex-shrink: 0 !important;
+    border-radius: 10px !important;
   }
-
-  .c-foto-meta { display: none; }
+  .c-foto-meta { display: none !important; }
 
   /* Brief card */
-  .cliente-desc-card {
-    padding: 16px;
-    gap: 8px;
-  }
+  .cliente-desc-card { padding: 16px !important; gap: 8px !important; }
+  .c-nombre { font-size: clamp(20px, 6vw, 28px) !important; margin-top: 0 !important; }
+  .c-rol    { font-size: 10px !important; margin-bottom: 4px !important; }
+  .c-texto  { font-size: 13px !important; line-height: 1.5 !important; }
+  .c-kpis   { gap: 20px !important; padding-top: 12px !important; margin-top: 4px !important; }
+  .c-kpi strong { font-size: 18px !important; }
 
-  .c-nombre {
-    font-size: clamp(22px, 7vw, 32px);
-    margin-top: 0;
-  }
-
-  .c-rol { font-size: 10px; margin-bottom: 4px; }
-
-  .c-texto {
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  .c-kpis {
-    gap: 20px;
-    padding-top: 12px;
-    margin-top: 4px;
-  }
-
-  .c-kpi strong { font-size: 20px; }
-
-  /* Columna de info: sin altura fija */
-  .cliente-col-info {
-    flex: 0 0 auto;
-    width: 100%;
-    height: auto;
-    justify-content: flex-start;
-    gap: 10px;
-  }
-
-  /* Video del cliente: formato 9:16 centrado y razonable */
+  /* Video del cliente: 9:16 centrado */
   .cliente-col-v {
-    flex: 0 0 auto;
-    width: 55%;
-    max-width: 220px;
-    height: auto;
-    aspect-ratio: 9/16;
-    max-height: 42vh;
-    margin: 0 auto;
-    margin-top: 0;
+    flex: 0 0 auto !important;
+    width: 170px !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: 9/16 !important;
+    margin: 8px auto 0 !important;
   }
 
-  /* ─── PORTAFOLIO ─────────────────────────────────── */
-  .seccion-portafolio {
-    align-items: flex-start;
-  }
+  /* ══════════════════════════════════════
+     PORTAFOLIO — fix espacio vacío arriba
+  ══════════════════════════════════════ */
+  .seccion-portafolio { align-items: flex-start !important; }
 
+  /* Mismo problema: height:72% del desktop */
   .portafolio-container {
-    padding: 0 16px;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 14px 16px 90px !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
   }
 
   .portafolio-layout {
-    flex-direction: column;
-    gap: 20px;
-    padding-bottom: 90px;
+    flex-direction: column !important;
+    gap: 16px !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
   }
 
-  /* Visor: pequeño y centrado arriba */
+  /* Visor centrado con ancho moderado */
   .portafolio-visor {
-    align-self: center;
-    height: auto;
-    width: 55%;
-    max-width: 200px;
-    aspect-ratio: 9/16;
-    flex: 0 0 auto;
+    align-self: center !important;
+    width: 200px !important;
+    max-width: none !important;
+    height: auto !important;
+    aspect-ratio: 9/16 !important;
+    flex: 0 0 auto !important;
   }
 
-  .portafolio-lado-derecho {
-    gap: 12px;
-    flex: 1;
-  }
+  .portafolio-lado-derecho { gap: 12px !important; flex: 0 0 auto !important; width: 100% !important; }
+  .portafolio-sec-titulo   { font-size: clamp(28px, 8.5vw, 40px) !important; }
 
-  .portafolio-sec-titulo {
-    font-size: clamp(30px, 9vw, 44px);
-  }
-
-  .portafolio-sec-desc {
-    font-size: 10px;
-    margin-top: 6px;
-  }
-
-  /* Carrusel: 2 columnas */
+  /* Carrusel: 2 columnas, tarjetas tocables */
   .portafolio-carrusel {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    overflow: visible;
-    gap: 8px;
-    flex: 0 0 auto;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: auto !important;
+    overflow: visible !important;
+    gap: 8px !important;
+    height: auto !important;
   }
+  .portafolio-tarjeta { min-height: 90px !important; }
 
-  /* Tarjetas con altura mínima tocable */
-  .portafolio-tarjeta {
-    min-height: 80px;
-  }
-
-  /* ─── SOBRE MÍ ───────────────────────────────────── */
-  .seccion-sobremi {
-    align-items: flex-start;
-  }
+  /* ══════════════════════════════════════
+     SOBRE MÍ
+  ══════════════════════════════════════ */
+  .seccion-sobremi { align-items: flex-start !important; }
 
   .sobremi-container {
-    padding: 0 16px;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    width: 100% !important;
+    height: auto !important;
+    padding: 14px 16px 90px !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
   }
 
   .sobremi-grid {
-    flex-direction: column;
-    height: auto;
-    gap: 20px;
-    padding-top: 14px;
-    padding-bottom: 90px;
-    align-items: flex-start;
-    justify-content: flex-start;
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 20px !important;
+    padding: 0 !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
   }
 
   .sobremi-col-foto {
-    flex: 0 0 auto;
-    width: 130px;
-    max-height: none;
-    gap: 10px;
-    align-self: center;
+    flex: 0 0 auto !important;
+    width: 140px !important;
+    max-height: none !important;
+    gap: 10px !important;
+    align-self: center !important;
   }
-
-  .foto-status { display: none; }
-
-  .sobremi-col-info {
-    flex: 1;
-    gap: 16px;
-    max-width: 100%;
-  }
-
-  .sobremi-tit {
-    font-size: clamp(36px, 11vw, 52px);
-  }
-
-  .sobremi-desc {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  .sobremi-specs {
-    padding: 16px;
-    gap: 10px;
-  }
+  .foto-status { display: none !important; }
+  .sobremi-col-info { flex: 1 !important; gap: 16px !important; max-width: 100% !important; }
+  .sobremi-tit  { font-size: clamp(34px, 10vw, 50px) !important; }
+  .sobremi-desc { font-size: 14px !important; line-height: 1.6 !important; }
+  .sobremi-specs { padding: 14px !important; gap: 10px !important; }
 
   .sm-spec-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-    padding-bottom: 10px;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
+    padding-bottom: 10px !important;
   }
+  .sm-label { font-size: 10px !important; }
+  .sm-val   { font-size: 12px !important; }
 
-  .sm-label { font-size: 10px; }
-  .sm-val { font-size: 13px; }
-
-  /* ─── CTA ─────────────────────────────────────────── */
-  .cta-container {
-    padding: 0 24px;
-    gap: 20px;
-  }
-
-  .cta-titulo {
-    font-size: clamp(44px, 13vw, 80px);
-    line-height: 0.9;
-  }
-
-  .cta-desc {
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  /* En mobile el botón del CTA lo es la píldora fija */
-  #cta-button-spacer { display: none; }
+  /* ══════════════════════════════════════
+     CTA
+  ══════════════════════════════════════ */
+  .cta-container { padding: 0 24px !important; gap: 20px !important; }
+  .cta-titulo { font-size: clamp(42px, 12vw, 76px) !important; line-height: 0.92 !important; }
+  .cta-desc   { font-size: 15px !important; line-height: 1.5 !important; }
+  #cta-button-spacer { display: none !important; }
 }
 
 /* ══════════════════════════════════════════════════════
@@ -354,48 +288,35 @@
 ══════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
 
-  .barra-superior { width: calc(100% - 20px); height: 44px; }
-  .barra-logo { font-size: 20px; }
+  .barra-superior  { width: calc(100% - 20px) !important; height: 44px !important; }
+  .barra-logo      { font-size: 20px !important; }
 
-  .info-tit { font-size: clamp(24px, 7vw, 32px); }
-  .info-desc { font-size: 12px; }
+  .info-tit  { font-size: clamp(22px, 7vw, 30px) !important; }
+  .info-desc { font-size: 12px !important; }
+  .video-wrap { width: 200px !important; }
 
-  .video-wrap { max-height: 48vh; }
+  .c-foto-wrap { width: 72px !important; height: 72px !important; }
+  .c-nombre    { font-size: 20px !important; }
+  .c-texto     { font-size: 12px !important; }
+  .cliente-col-v { width: 150px !important; }
 
-  .c-foto-wrap { width: 70px; height: 70px; }
-  .c-nombre { font-size: 22px; }
-  .c-texto { font-size: 12px; }
+  .portafolio-visor       { width: 170px !important; }
+  .portafolio-sec-titulo  { font-size: clamp(24px, 8.5vw, 36px) !important; }
+  .portafolio-tarjeta     { min-height: 75px !important; }
 
-  .cliente-col-v {
-    width: 50%;
-    max-width: 190px;
-    max-height: 38vh;
-  }
+  .sobremi-col-foto { width: 115px !important; }
+  .sobremi-tit  { font-size: clamp(28px, 9.5vw, 42px) !important; }
+  .sobremi-desc { font-size: 13px !important; }
 
-  .portafolio-visor {
-    width: 50%;
-    max-width: 170px;
-  }
-
-  .portafolio-sec-titulo { font-size: clamp(26px, 9vw, 38px); }
-
-  .portafolio-carrusel { gap: 6px; }
-  .portafolio-tarjeta { min-height: 70px; }
-
-  .sobremi-col-foto { width: 110px; }
-  .sobremi-tit { font-size: clamp(30px, 10vw, 44px); }
-  .sobremi-desc { font-size: 13px; }
-
-  .cta-titulo { font-size: clamp(36px, 12vw, 60px); }
+  .cta-titulo { font-size: clamp(34px, 11.5vw, 56px) !important; }
 
   .action-bar-floating {
     bottom: 12px !important;
     width: calc(100% - 24px) !important;
   }
-
   .action-bar-floating button {
-    font-size: 13px;
-    padding: 14px 10px;
+    font-size: 13px !important;
+    padding: 13px 10px !important;
   }
 }
 
@@ -405,49 +326,31 @@
 @media (max-height: 500px) and (orientation: landscape) {
 
   .barra-superior { height: 40px; top: 8px; }
-  .seccion { padding-top: 56px; }
+  .seccion { padding-top: 54px; }
 
-  /* Hero: horizontal con video pequeño */
   .visor-content {
-    flex-direction: row;
-    align-items: center;
-    padding: 8px 16px 70px;
-    gap: 12px;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 8px 16px 70px !important;
+    gap: 12px !important;
   }
-
-  .panel-izquierdo {
-    width: 44%;
-    height: auto;
-    order: 1;
-  }
-
+  .panel-izquierdo { width: 42% !important; height: auto !important; order: 1 !important; }
   .video-wrap {
-    order: 2;
-    flex-shrink: 0;
-    max-height: 85%;
-    height: 80%;
-    width: auto;
+    order: 2 !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+    height: 82% !important;
+    max-height: none !important;
+    aspect-ratio: 9/16 !important;
   }
+  .cliente-col-v { width: auto !important; height: 80% !important; max-width: 130px !important; }
 
-  /* Clientes y Portafolio: permitir scroll horizontal si es necesario */
-  .cliente-col-v {
-    max-height: 75%;
-    max-width: 120px;
-  }
-
-  .action-bar-floating {
-    bottom: 8px !important;
-    padding: 6px !important;
-  }
-
-  .action-bar-floating button {
-    padding: 10px 8px;
-    font-size: 12px;
-  }
+  .action-bar-floating { bottom: 8px !important; padding: 6px !important; }
+  .action-bar-floating button { padding: 10px 8px !important; font-size: 12px !important; }
 }
 
 /* ══════════════════════════════════════════════════════
-   TABLET — ≤ 1024px (ajustes menores, no romper desktop)
+   TABLET — 769px–1024px
 ══════════════════════════════════════════════════════ */
 @media (min-width: 769px) and (max-width: 1024px) {
 
@@ -455,19 +358,16 @@
     gap: clamp(12px, 2vw, 28px);
     padding: 0 20px;
   }
-
   .panel-izquierdo { width: clamp(220px, 26vw, 320px); }
   .cards-flotantes  { width: clamp(190px, 24vw, 280px); }
-
-  .info-tit { font-size: clamp(30px, 4vw, 42px); }
-  .panel-propiedades { padding: 18px; gap: 10px; }
-  .bin-list { display: none; }
+  .info-tit         { font-size: clamp(30px, 4vw, 42px); }
+  .panel-propiedades{ padding: 18px; gap: 10px; }
+  .bin-list         { display: none; }
   .prop-divider + .prop-header,
-  .prop-divider { display: none; }
+  .prop-divider     { display: none; }
 
-  .cliente-grid { gap: clamp(24px, 4vw, 70px); }
-  .cliente-col-v { height: 65%; max-height: 560px; }
-  .c-nombre { font-size: 34px; }
-
-  .sobremi-tit { font-size: clamp(38px, 5vw, 52px); }
+  .cliente-grid   { gap: clamp(24px, 4vw, 70px); }
+  .cliente-col-v  { height: 65%; max-height: 560px; }
+  .c-nombre       { font-size: 34px; }
+  .sobremi-tit    { font-size: clamp(38px, 5vw, 52px); }
 }

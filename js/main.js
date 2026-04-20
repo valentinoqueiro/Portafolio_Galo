@@ -2,14 +2,30 @@
 //  main.js — Portafolio Editor de Video
 // ═══════════════════════════════════════════════════════
 
-const VIDEOS = [
-  'videos /AD %231.mp4',
-  'videos /AD %236 Hook %233.mp4',
-  'videos /DA-R015.mp4',
-  'videos /Organico %2312.mp4',
-  'videos /Reel 3- ranger 570.mp4',
-  'videos /doble Ranger.mp4',
+// Detectar soporte WebM una sola vez (mucho más liviano que MP4)
+const soportaWebM = (() => {
+  const v = document.createElement('video');
+  return v.canPlayType('video/webm; codecs="vp9"') !== '';
+})();
+
+// Par de fuentes por video — webm primero, mp4 como fallback
+const VIDEOS_FUENTES = [
+  { webm: 'videos /AD 1.webm',             mp4: 'videos /AD %231.mp4' },
+  { webm: 'videos /AD-_6-Hook-_3.webm',    mp4: 'videos /AD %236 Hook %233.mp4' },
+  { webm: 'videos /DA-R015.webm',          mp4: 'videos /DA-R015.mp4' },
+  { webm: 'videos /Organico 12.webm',      mp4: 'videos /Organico %2312.mp4' },
+  { webm: 'videos /Reel-3-ranger-570.webm',mp4: 'videos /Reel 3- ranger 570.mp4' },
+  { webm: 'videos /doble Ranger.webm',     mp4: 'videos /doble Ranger.mp4' },
 ];
+
+// Devuelve la mejor fuente disponible para el navegador
+function eligirFuente(par) {
+  if (!par) return '';
+  return soportaWebM && par.webm ? par.webm : par.mp4;
+}
+
+// Array de strings listo para usar
+const VIDEOS = VIDEOS_FUENTES.map(eligirFuente);
 
 const INTERVALO_VIDEO = 5000;
 
@@ -811,16 +827,17 @@ function initPortafolioShowcase() {
   if (!contenedor || !visorVideo) return;
 
   const piezas = [
-    { titulo: 'AD #1 — Producto Digital',    categoria: 'PAID ADS · META',              stats: '+2.4M Impresiones · CTR 4.8%', src: 'videos /AD %231.mp4',                  color: '#c0392b' },
-    { titulo: 'AD #6 — Hook Variation',      categoria: 'PAID ADS · TikTok',            stats: '+1.8M Views · 8.3% Conv.',     src: 'videos /AD %236 Hook %233.mp4',        color: '#2980b9' },
-    { titulo: 'DA-R015 — Orgánico',          categoria: 'CONTENIDO ORGÁNICO · IG',      stats: '+3.1M Alcance · 9.2% ER',      src: 'videos /DA-R015.mp4',                  color: '#8e44ad' },
-    { titulo: 'Orgánico #12 — Storytelling', categoria: 'CONTENIDO ORGÁNICO · TikTok',  stats: '+5.7M Views · Viral',          src: 'videos /Organico %2312.mp4',           color: '#16a085' },
-    { titulo: 'Reel 3 — Ranger 570',         categoria: 'BRAND CONTENT · IG Reels',     stats: '+890K Views · 6.1% ER',        src: 'videos /Reel 3- ranger 570.mp4',       color: '#d35400' },
-    { titulo: 'Doble Ranger — Acción',       categoria: 'BRAND CONTENT · YouTube Shorts', stats: '+1.2M Views · Trending #3',  src: 'videos /doble Ranger.mp4',             color: '#27ae60' },
-    { titulo: 'David Otálora Viral v2',      categoria: 'VIP CLIENT · RETENCIÓN',       stats: '+13M Views',                   src: 'ClientesVIP/Plan de contenido.mp4',    color: '#f39c12' },
-    { titulo: 'Marcos Razzetti E-com',       categoria: 'VIP CLIENT · TIKTOK',          stats: '+35M Views',                   src: 'ClientesVIP/Marcos 3.mp4',             color: '#34495e' },
-    { titulo: 'Oscar Hinojosa Launch',       categoria: 'VIP CLIENT · REELS',           stats: '+$1M Reven.',                  src: 'ClientesVIP/OH-R0042.mp4',             color: '#d1ccc0' },
+    { titulo: 'AD #1 — Producto Digital',    categoria: 'PAID ADS · META',              stats: '+2.4M Impresiones · CTR 4.8%', src: eligirFuente(VIDEOS_FUENTES[0]),  color: '#c0392b' },
+    { titulo: 'AD #6 — Hook Variation',      categoria: 'PAID ADS · TikTok',            stats: '+1.8M Views · 8.3% Conv.',     src: eligirFuente(VIDEOS_FUENTES[1]),  color: '#2980b9' },
+    { titulo: 'DA-R015 — Orgánico',          categoria: 'CONTENIDO ORGÁNICO · IG',      stats: '+3.1M Alcance · 9.2% ER',      src: eligirFuente(VIDEOS_FUENTES[2]),  color: '#8e44ad' },
+    { titulo: 'Orgánico #12 — Storytelling', categoria: 'CONTENIDO ORGÁNICO · TikTok',  stats: '+5.7M Views · Viral',          src: eligirFuente(VIDEOS_FUENTES[3]),  color: '#16a085' },
+    { titulo: 'Reel 3 — Ranger 570',         categoria: 'BRAND CONTENT · IG Reels',     stats: '+890K Views · 6.1% ER',        src: eligirFuente(VIDEOS_FUENTES[4]),  color: '#d35400' },
+    { titulo: 'Doble Ranger — Acción',       categoria: 'BRAND CONTENT · YouTube Shorts', stats: '+1.2M Views · Trending #3',  src: eligirFuente(VIDEOS_FUENTES[5]),  color: '#27ae60' },
+    { titulo: 'David Otálora Viral v2',      categoria: 'VIP CLIENT · RETENCIÓN',       stats: '+13M Views',                   src: 'ClientesVIP/Plan de contenido.mp4',  color: '#f39c12' },
+    { titulo: 'Marcos Razzetti E-com',       categoria: 'VIP CLIENT · TIKTOK',          stats: '+35M Views',                   src: 'ClientesVIP/Marcos 3.mp4',           color: '#34495e' },
+    { titulo: 'Oscar Hinojosa Launch',       categoria: 'VIP CLIENT · REELS',           stats: '+$1M Reven.',                  src: 'ClientesVIP/OH-R0042.mp4',           color: '#d1ccc0' },
   ];
+
 
   let indiceActivo = 0;
   let enTransicion = false;
