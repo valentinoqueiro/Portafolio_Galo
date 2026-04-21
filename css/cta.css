@@ -55,3 +55,10 @@
   pointer-events: none;
   opacity: 0.6;
 }
+
+/* Elementos exclusivos de mobile: ocultos en desktop */
+.cta-stats-mobile,
+.cta-tags-mobile,
+.cta-firma-mobile {
+  display: none;
+}

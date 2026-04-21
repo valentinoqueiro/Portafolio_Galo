@@ -657,21 +657,24 @@ function initScrollJacking() {
 
   // En mobile la píldora va fija abajo — CSS !important lo controla, no JS
   function getSyncPillPos() {
+    const actionBar = document.getElementById('global-action-bar');
+    if (!actionBar) return;
+
+    // En mobile solo gestionamos las clases CSS (no el posicionamiento JS)
     if (esTactil) {
-      const actionBar = document.getElementById('global-action-bar');
-      if (actionBar) {
-        actionBar.style.transform = '';
-        actionBar.style.width = '';
-        actionBar.style.removeProperty('transform');
-        actionBar.style.removeProperty('width');
+      actionBar.style.removeProperty('transform');
+      actionBar.style.removeProperty('width');
+      // Aplicar mode-single a partir de la sección 2 (portafolio, sobre mí, CTA)
+      if (currentSec >= 2) {
+        actionBar.classList.add('mode-single');
+      } else {
+        actionBar.classList.remove('mode-single');
       }
       return;
     }
 
-    const actionBar    = document.getElementById('global-action-bar');
-    const spacer       = document.getElementById('action-bar-spacer');
-
-    if (!actionBar || !spacer) return;
+    const spacer = document.getElementById('action-bar-spacer');
+    if (!spacer) return;
 
     if (currentSec === 0) {
       actionBar.classList.remove('mode-top', 'mode-dark', 'mode-single');
@@ -818,11 +821,14 @@ function initScrollJacking() {
 
 // ─── PORTAFOLIO SHOWCASE ───────────────────────────────
 function initPortafolioShowcase() {
-  const contenedor    = document.getElementById('portafolio-carrusel');
-  const visorVideo    = document.getElementById('portafolio-video-principal');
-  const visorTitulo   = document.getElementById('portafolio-titulo-activo');
+  const contenedor     = document.getElementById('portafolio-carrusel');
+  const visorVideo     = document.getElementById('portafolio-video-principal');
+  const visorTitulo    = document.getElementById('portafolio-titulo-activo');
   const visorCategoria = document.getElementById('portafolio-categoria-activa');
-  const visorStats    = document.getElementById('portafolio-stats-activos');
+  const visorStats     = document.getElementById('portafolio-stats-activos');
+  const btnMute        = document.getElementById('portafolio-btn-mute');
+  const captionTitulo  = document.getElementById('portafolio-titulo-activo-m');
+  const captionCat     = document.getElementById('portafolio-categoria-activa-m');
 
   if (!contenedor || !visorVideo) return;
 
@@ -875,21 +881,34 @@ function initPortafolioShowcase() {
     tarjeta.addEventListener('click', () => seleccionarPieza(i));
   });
 
-  // Lazy-cargar thumbnails solo cuando el carrusel entra en viewport
-  const lazyObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const video = entry.target.querySelector('.portafolio-thumb');
-        if (video && video.dataset.src) {
-          video.src = video.dataset.src;
-          delete video.dataset.src;
-        }
-        lazyObserver.unobserve(entry.target);
+  // Lazy-cargar thumbnails cuando cada tarjeta entra en viewport
+  // En mobile: cargar todos de inmediato (scroll interno no activa el observer)
+  if (esTactil) {
+    contenedor.querySelectorAll('.portafolio-tarjeta').forEach(t => {
+      const video = t.querySelector('.portafolio-thumb');
+      if (video && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.preload = 'metadata';
+        delete video.dataset.src;
       }
     });
-  }, { rootMargin: '200px', threshold: 0 });
+  } else {
+    const lazyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target.querySelector('.portafolio-thumb');
+          if (video && video.dataset.src) {
+            video.src = video.dataset.src;
+            video.preload = 'metadata';
+            delete video.dataset.src;
+          }
+          lazyObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '300px', threshold: 0 });
 
-  contenedor.querySelectorAll('.portafolio-tarjeta').forEach(t => lazyObserver.observe(t));
+    contenedor.querySelectorAll('.portafolio-tarjeta').forEach(t => lazyObserver.observe(t));
+  }
 
   if (visorVideo) {
     visorVideo.addEventListener('click', () => {
@@ -903,6 +922,19 @@ function initPortafolioShowcase() {
     });
     visorVideo.addEventListener('playing', () => {
       visorVideo.parentElement.classList.remove('pausado');
+    });
+    // Sincronizar estado del botón mute con cualquier cambio de volumen/mute
+    visorVideo.addEventListener('volumechange', () => {
+      if (!btnMute) return;
+      btnMute.classList.toggle('muted', visorVideo.muted);
+      btnMute.setAttribute('aria-label', visorVideo.muted ? 'Activar sonido' : 'Silenciar');
+    });
+  }
+
+  if (btnMute) {
+    btnMute.addEventListener('click', (e) => {
+      e.stopPropagation();
+      visorVideo.muted = !visorVideo.muted;
     });
   }
 
@@ -932,6 +964,8 @@ function initPortafolioShowcase() {
       if (visorTitulo)    { visorTitulo.textContent = pieza.titulo;    visorTitulo.style.opacity = '1'; }
       if (visorCategoria) { visorCategoria.textContent = pieza.categoria; visorCategoria.style.opacity = '1'; }
       if (visorStats)     { visorStats.textContent = pieza.stats;     visorStats.style.opacity = '1'; }
+      if (captionTitulo)  captionTitulo.textContent = pieza.titulo;
+      if (captionCat)     captionCat.textContent = pieza.categoria;
       enTransicion = false;
     }, 350);
   }
@@ -953,7 +987,9 @@ function initPortafolioShowcase() {
   }, { threshold: 0.1 });
 
   if (visorVideo) portObserver.observe(visorVideo);
-  if (visorTitulo) visorTitulo.textContent = piezas[0].titulo;
+  if (visorTitulo)    visorTitulo.textContent    = piezas[0].titulo;
   if (visorCategoria) visorCategoria.textContent = piezas[0].categoria;
-  if (visorStats) visorStats.textContent = piezas[0].stats;
+  if (visorStats)     visorStats.textContent     = piezas[0].stats;
+  if (captionTitulo)  captionTitulo.textContent  = piezas[0].titulo;
+  if (captionCat)     captionCat.textContent     = piezas[0].categoria;
 }

@@ -1,15 +1,24 @@
 /* ═══════════════════════════════════════════════════════
    RESPONSIVE — Portafolio Galo
    Breakpoints: 768px | 480px | landscape/height | 1024px
-   Versión 4 — fix espacio vacío hero/clientes/portafolio
+   Versión 5 — hero mobile enriquecido
 ═══════════════════════════════════════════════════════ */
 
 /* ─── Cursor en touch: ocultar ──────────────────────── */
 @media (hover: none) and (pointer: coarse) {
-  body { cursor: auto; }
+  body {
+    cursor: auto;
+  }
+
   #cursor-punto,
-  #cursor-anillo { display: none !important; }
-  button, a { cursor: pointer; }
+  #cursor-anillo {
+    display: none !important;
+  }
+
+  button,
+  a {
+    cursor: pointer;
+  }
 }
 
 /* ══════════════════════════════════════════════════════
@@ -25,17 +34,25 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* ── Navbar: solo logo ── */
+  /* ── Navbar: solo logo CENTRADO ── */
   .barra-superior {
     height: 48px;
     padding: 0 16px;
     width: calc(100% - 24px);
+    /* Centrar el logo cuando es el único elemento visible */
+    justify-content: center !important;
   }
-  .barra-controles,
-  .barra-estado { display: none !important; }
-  .barra-logo { font-size: 22px; }
 
-  /* ── Píldora: FIJA al fondo — CSS gana al JS con !important ── */
+  .barra-controles,
+  .barra-estado {
+    display: none !important;
+  }
+
+  .barra-logo {
+    font-size: 22px;
+  }
+
+  /* ── Píldora: FIJA al fondo — sin FLIP JS ── */
   .action-bar-floating {
     position: fixed !important;
     bottom: 16px !important;
@@ -46,6 +63,22 @@
     transform: translateX(-50%) !important;
     transition: background 0.4s ease !important;
     z-index: 999999 !important;
+  }
+
+  /* Fix simetría: en mode-single el btn-secundario no colapsa, se oculta con opacity pero mantiene espacio mínimo CERO */
+  .action-bar-floating.mode-single .btn-secundario {
+    flex: 0 0 0px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* btn-primario llena todo cuando es único */
+  .action-bar-floating.mode-single .btn-primario {
+    flex: 1 !important;
   }
 
   /* ══════════════════════════════════════
@@ -71,13 +104,18 @@
   .visor-content {
     flex-direction: column !important;
     align-items: center !important;
-    /* height:auto + sin min-height para que no haya espacio en blanco extra */
+    justify-content: flex-start !important;
+    /*
+     * min-height: 100% + height: auto evita el bug de centrado con overflow:
+     * si el contenido supera la altura del visor, el contenedor crece en lugar
+     * de centrar con offset negativo (lo que cortaría el título arriba).
+     */
+    min-height: 100% !important;
     height: auto !important;
-    min-height: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    padding: 14px 16px 90px !important;
-    gap: 14px !important;
+    padding: 20px 20px 100px !important;
+    gap: 20px !important;
   }
 
   /* Texto: compacto, arriba */
@@ -85,40 +123,135 @@
     width: 100% !important;
     height: auto !important;
     order: 1 !important;
-    gap: 6px !important;
+    gap: 8px !important;
     flex: 0 0 auto !important;
   }
-  .panel-top { padding-top: 0 !important; }
-  .info-tit {
-    font-size: clamp(26px, 7.5vw, 36px) !important;
-    margin-bottom: 4px !important;
-    line-height: 1.05 !important;
+
+  .panel-top {
+    padding-top: 0 !important;
   }
-  .info-desc { font-size: 13px !important; line-height: 1.45 !important; }
+
+  /* Badge disponibilidad: visible solo en mobile, encima del título */
+  .hero-badge-mobile {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 4px 12px !important;
+    background: rgba(39, 174, 96, 0.1) !important;
+    border: 1px solid rgba(39, 174, 96, 0.25) !important;
+    border-radius: 100px !important;
+    font-family: var(--fuente-mono) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.06em !important;
+    color: #27ae60 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .hero-badge-mobile::before {
+    content: '' !important;
+    width: 5px !important;
+    height: 5px !important;
+    border-radius: 50% !important;
+    background: #27ae60 !important;
+    animation: pulso 2s ease infinite !important;
+    flex-shrink: 0 !important;
+  }
+
+  .info-tit {
+    font-size: clamp(28px, 8vw, 38px) !important;
+    margin-bottom: 4px !important;
+    line-height: 1.0 !important;
+  }
+
+  .info-desc {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    color: var(--texto-medio) !important;
+  }
 
   /* Ocultar inspector */
-  .panel-propiedades { display: none !important; }
+  .panel-propiedades {
+    display: none !important;
+  }
 
-  /* Video: ancho fijo para que el 9:16 sea legible */
+  /* Video hero: prominente como pieza central */
   .video-wrap {
     order: 2 !important;
     flex: 0 0 auto !important;
-    width: 230px !important;
+    width: clamp(200px, 58vw, 280px) !important;
     height: auto !important;
     max-height: none !important;
     aspect-ratio: 9/16 !important;
   }
 
-  /* Ocultar decorativos */
-  .cards-flotantes  { display: none !important; }
-  .hero-timeline    { display: none !important; }
-  .corner           { display: none !important; }
-  .visor-label      { display: none !important; }
+  /* Stats row mobile: debajo del video */
+  .hero-stats-mobile {
+    display: flex !important;
+    order: 3 !important;
+    width: 100% !important;
+    gap: 8px !important;
+    justify-content: center !important;
+  }
+
+  .hero-stat-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2px !important;
+    flex: 1 !important;
+    padding: 12px 8px !important;
+    background: var(--card) !important;
+    border: 1px solid var(--card-borde) !important;
+    border-radius: var(--radio-lg) !important;
+    backdrop-filter: blur(var(--blur-card)) !important;
+    -webkit-backdrop-filter: blur(var(--blur-card)) !important;
+  }
+
+  .hero-stat-mobile .stat-valor {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+  }
+
+  .hero-stat-mobile .stat-etq {
+    font-size: 8px !important;
+    text-align: center !important;
+  }
+
+  /* Chips stack: debajo de stats */
+  .hero-stack-mobile {
+    display: flex !important;
+    order: 4 !important;
+    flex-wrap: wrap !important;
+    gap: 5px !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  /* Ocultar las cards flotantes del desktop */
+  .cards-flotantes {
+    display: none !important;
+  }
+
+  .hero-timeline {
+    display: none !important;
+  }
+
+  .corner {
+    display: none !important;
+  }
+
+  .visor-label {
+    display: none !important;
+  }
 
   /* ══════════════════════════════════════
      CLIENTES — fix espacio vacío arriba
   ══════════════════════════════════════ */
-  .seccion-clientes { align-items: flex-start !important; }
+  .seccion-clientes {
+    align-items: flex-start !important;
+    overflow-x: hidden !important;
+  }
 
   /*
    * .clientes-container tiene height:90% (desktop).
@@ -126,10 +259,11 @@
    */
   .clientes-container {
     width: 100% !important;
-    height: auto !important;         /* ← este era el culpable */
+    height: auto !important;
     max-height: none !important;
     padding: 14px 16px 90px !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch;
     position: static !important;
   }
@@ -152,28 +286,59 @@
     gap: 10px !important;
   }
 
-  /* Foto card: horizontal con foto cuadrada */
+  /* Foto card: BANNER de imagen completa (no thumbnail cuadrado) */
   .cliente-foto-card {
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 14px !important;
-    padding: 14px !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
   }
+
   .c-foto-wrap {
-    width: 84px !important;
-    height: 84px !important;       /* sobreescribe el height:300px */
+    /* Imagen como banner: ancho completo, altura fija */
+    width: 100% !important;
+    height: 200px !important;
+    border-radius: 12px !important;
     flex-shrink: 0 !important;
-    border-radius: 10px !important;
   }
-  .c-foto-meta { display: none !important; }
+
+  .c-foto-meta {
+    display: none !important;
+  }
 
   /* Brief card */
-  .cliente-desc-card { padding: 16px !important; gap: 8px !important; }
-  .c-nombre { font-size: clamp(20px, 6vw, 28px) !important; margin-top: 0 !important; }
-  .c-rol    { font-size: 10px !important; margin-bottom: 4px !important; }
-  .c-texto  { font-size: 13px !important; line-height: 1.5 !important; }
-  .c-kpis   { gap: 20px !important; padding-top: 12px !important; margin-top: 4px !important; }
-  .c-kpi strong { font-size: 18px !important; }
+  .cliente-desc-card {
+    padding: 16px !important;
+    gap: 8px !important;
+  }
+
+  .c-nombre {
+    font-size: clamp(20px, 6vw, 28px) !important;
+    margin-top: 0 !important;
+  }
+
+  .c-rol {
+    font-size: 10px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .c-texto {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+
+  .c-kpis {
+    gap: 20px !important;
+    padding-top: 12px !important;
+    margin-top: 4px !important;
+  }
+
+  .c-kpi strong {
+    font-size: 18px !important;
+  }
 
   /* Video del cliente: 9:16 centrado */
   .cliente-col-v {
@@ -186,11 +351,10 @@
   }
 
   /* ══════════════════════════════════════
-     PORTAFOLIO — fix espacio vacío arriba
+     PORTAFOLIO — carrusel horizontal
   ══════════════════════════════════════ */
   .seccion-portafolio { align-items: flex-start !important; }
 
-  /* Mismo problema: height:72% del desktop */
   .portafolio-container {
     width: 100% !important;
     height: auto !important;
@@ -207,33 +371,63 @@
     height: auto !important;
   }
 
-  /* Visor centrado con ancho moderado */
+  /* Visor: columna para que el caption quede debajo del frame */
   .portafolio-visor {
     align-self: center !important;
     width: 200px !important;
     max-width: none !important;
     height: auto !important;
-    aspect-ratio: 9/16 !important;
+    aspect-ratio: unset !important;
     flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
+  /* El frame lleva el aspect-ratio; esquinas inferiores rectas porque el caption cierra el bloque */
+  .portafolio-visor-frame {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 9/16 !important;
+    border-radius: 16px 16px 0 0 !important;
+  }
+  /* Caption debajo visible; overlay dentro del frame oculto */
+  .portafolio-visor-caption { display: flex !important; }
+  .portafolio-visor-info    { display: none !important; }
 
   .portafolio-lado-derecho { gap: 12px !important; flex: 0 0 auto !important; width: 100% !important; }
   .portafolio-sec-titulo   { font-size: clamp(28px, 8.5vw, 40px) !important; }
 
-  /* Carrusel: 2 columnas, tarjetas tocables */
+  /* Carrusel horizontal con scroll-snap */
   .portafolio-carrusel {
-    grid-template-columns: repeat(2, 1fr) !important;
-    grid-template-rows: auto !important;
-    overflow: visible !important;
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x proximity !important;
+    -webkit-overflow-scrolling: touch;
     gap: 8px !important;
     height: auto !important;
+    max-height: none !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: none !important;
   }
-  .portafolio-tarjeta { min-height: 90px !important; }
+  .portafolio-carrusel::-webkit-scrollbar { display: none; }
+
+  .portafolio-tarjeta {
+    flex: 0 0 100px !important;
+    width: 100px !important;
+    aspect-ratio: 9/16 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    scroll-snap-align: start !important;
+    contain: layout !important;
+  }
 
   /* ══════════════════════════════════════
      SOBRE MÍ
   ══════════════════════════════════════ */
-  .seccion-sobremi { align-items: flex-start !important; }
+  .seccion-sobremi {
+    align-items: flex-start !important;
+  }
 
   .sobremi-container {
     width: 100% !important;
@@ -259,11 +453,30 @@
     gap: 10px !important;
     align-self: center !important;
   }
-  .foto-status { display: none !important; }
-  .sobremi-col-info { flex: 1 !important; gap: 16px !important; max-width: 100% !important; }
-  .sobremi-tit  { font-size: clamp(34px, 10vw, 50px) !important; }
-  .sobremi-desc { font-size: 14px !important; line-height: 1.6 !important; }
-  .sobremi-specs { padding: 14px !important; gap: 10px !important; }
+
+  .foto-status {
+    display: none !important;
+  }
+
+  .sobremi-col-info {
+    flex: 1 !important;
+    gap: 16px !important;
+    max-width: 100% !important;
+  }
+
+  .sobremi-tit {
+    font-size: clamp(34px, 10vw, 50px) !important;
+  }
+
+  .sobremi-desc {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  .sobremi-specs {
+    padding: 14px !important;
+    gap: 10px !important;
+  }
 
   .sm-spec-row {
     flex-direction: column !important;
@@ -271,16 +484,141 @@
     gap: 2px !important;
     padding-bottom: 10px !important;
   }
-  .sm-label { font-size: 10px !important; }
-  .sm-val   { font-size: 12px !important; }
+
+  .sm-label {
+    font-size: 10px !important;
+  }
+
+  .sm-val {
+    font-size: 12px !important;
+  }
 
   /* ══════════════════════════════════════
      CTA
   ══════════════════════════════════════ */
-  .cta-container { padding: 0 24px !important; gap: 20px !important; }
-  .cta-titulo { font-size: clamp(42px, 12vw, 76px) !important; line-height: 0.92 !important; }
-  .cta-desc   { font-size: 15px !important; line-height: 1.5 !important; }
-  #cta-button-spacer { display: none !important; }
+  .seccion-cta {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  .cta-container {
+    width: 100% !important;
+    padding: 40px 24px 110px !important;
+    gap: 20px !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cta-titulo {
+    font-size: clamp(38px, 11vw, 70px) !important;
+    line-height: 0.92 !important;
+    text-align: left !important;
+  }
+
+  .cta-desc {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    max-width: 100% !important;
+    text-align: left !important;
+  }
+
+  /* Stats rápidos CTA mobile */
+  .cta-stats-mobile {
+    display: flex !important;
+    gap: 0 !important;
+    width: 100% !important;
+    border: 1px solid rgba(0,0,0,0.07) !important;
+    border-radius: var(--radio-lg) !important;
+    overflow: hidden !important;
+    background: var(--card) !important;
+    backdrop-filter: blur(var(--blur-card)) !important;
+    -webkit-backdrop-filter: blur(var(--blur-card)) !important;
+  }
+
+  .cta-stat-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2px !important;
+    flex: 1 !important;
+    padding: 14px 8px !important;
+    border-right: 1px solid rgba(0,0,0,0.06) !important;
+  }
+
+  .cta-stat-item:last-child {
+    border-right: none !important;
+  }
+
+  .cta-stat-num {
+    font-family: var(--fuente-display) !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: var(--acento) !important;
+    letter-spacing: -0.04em !important;
+    line-height: 1 !important;
+  }
+
+  .cta-stat-lbl {
+    font-family: var(--fuente-mono) !important;
+    font-size: 8px !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: var(--texto-suave) !important;
+    text-align: center !important;
+  }
+
+  /* Tags de servicios CTA mobile */
+  .cta-tags-mobile {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+
+  .cta-tag {
+    padding: 5px 12px !important;
+    font-family: var(--fuente-mono) !important;
+    font-size: 9px !important;
+    letter-spacing: 0.05em !important;
+    color: var(--texto-medio) !important;
+    background: rgba(255,255,255,0.6) !important;
+    border: 1px solid rgba(0,0,0,0.08) !important;
+    border-radius: 100px !important;
+  }
+
+  /* Firma / disponibilidad CTA */
+  .cta-firma-mobile {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 12px 16px !important;
+    background: rgba(39, 174, 96, 0.06) !important;
+    border: 1px solid rgba(39, 174, 96, 0.2) !important;
+    border-radius: var(--radio-lg) !important;
+    width: 100% !important;
+  }
+
+  .cta-firma-dot {
+    width: 7px !important;
+    height: 7px !important;
+    border-radius: 50% !important;
+    background: #27ae60 !important;
+    flex-shrink: 0 !important;
+    animation: pulso 2s ease infinite !important;
+  }
+
+  .cta-firma-texto {
+    font-family: var(--fuente-mono) !important;
+    font-size: 11px !important;
+    color: #27ae60 !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  #cta-button-spacer {
+    display: none !important;
+  }
 }
 
 /* ══════════════════════════════════════════════════════
@@ -288,32 +626,78 @@
 ══════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
 
-  .barra-superior  { width: calc(100% - 20px) !important; height: 44px !important; }
-  .barra-logo      { font-size: 20px !important; }
+  .barra-superior {
+    width: calc(100% - 20px) !important;
+    height: 44px !important;
+  }
 
-  .info-tit  { font-size: clamp(22px, 7vw, 30px) !important; }
-  .info-desc { font-size: 12px !important; }
-  .video-wrap { width: 200px !important; }
+  .barra-logo {
+    font-size: 20px !important;
+  }
 
-  .c-foto-wrap { width: 72px !important; height: 72px !important; }
-  .c-nombre    { font-size: 20px !important; }
-  .c-texto     { font-size: 12px !important; }
-  .cliente-col-v { width: 150px !important; }
+  .info-tit {
+    font-size: clamp(22px, 7vw, 30px) !important;
+  }
 
-  .portafolio-visor       { width: 170px !important; }
-  .portafolio-sec-titulo  { font-size: clamp(24px, 8.5vw, 36px) !important; }
-  .portafolio-tarjeta     { min-height: 75px !important; }
+  .info-desc {
+    font-size: 12px !important;
+  }
 
-  .sobremi-col-foto { width: 115px !important; }
-  .sobremi-tit  { font-size: clamp(28px, 9.5vw, 42px) !important; }
-  .sobremi-desc { font-size: 13px !important; }
+  .video-wrap {
+    width: 200px !important;
+  }
 
-  .cta-titulo { font-size: clamp(34px, 11.5vw, 56px) !important; }
+  .c-foto-wrap {
+    height: 160px !important;
+  }
+
+  /* mantiene width:100% del breakpoint 768px */
+  .c-nombre {
+    font-size: 20px !important;
+  }
+
+  .c-texto {
+    font-size: 12px !important;
+  }
+
+  .cliente-col-v {
+    width: 150px !important;
+  }
+
+  .portafolio-visor {
+    width: 170px !important;
+  }
+
+  .portafolio-sec-titulo {
+    font-size: clamp(24px, 8.5vw, 36px) !important;
+  }
+
+  .portafolio-tarjeta {
+    flex: 0 0 85px !important;
+    width: 85px !important;
+  }
+
+  .sobremi-col-foto {
+    width: 115px !important;
+  }
+
+  .sobremi-tit {
+    font-size: clamp(28px, 9.5vw, 42px) !important;
+  }
+
+  .sobremi-desc {
+    font-size: 13px !important;
+  }
+
+  .cta-titulo {
+    font-size: clamp(34px, 11.5vw, 56px) !important;
+  }
 
   .action-bar-floating {
     bottom: 12px !important;
     width: calc(100% - 24px) !important;
   }
+
   .action-bar-floating button {
     font-size: 13px !important;
     padding: 13px 10px !important;
@@ -325,8 +709,14 @@
 ══════════════════════════════════════════════════════ */
 @media (max-height: 500px) and (orientation: landscape) {
 
-  .barra-superior { height: 40px; top: 8px; }
-  .seccion { padding-top: 54px; }
+  .barra-superior {
+    height: 40px;
+    top: 8px;
+  }
+
+  .seccion {
+    padding-top: 54px;
+  }
 
   .visor-content {
     flex-direction: row !important;
@@ -334,7 +724,13 @@
     padding: 8px 16px 70px !important;
     gap: 12px !important;
   }
-  .panel-izquierdo { width: 42% !important; height: auto !important; order: 1 !important; }
+
+  .panel-izquierdo {
+    width: 42% !important;
+    height: auto !important;
+    order: 1 !important;
+  }
+
   .video-wrap {
     order: 2 !important;
     flex-shrink: 0 !important;
@@ -343,10 +739,22 @@
     max-height: none !important;
     aspect-ratio: 9/16 !important;
   }
-  .cliente-col-v { width: auto !important; height: 80% !important; max-width: 130px !important; }
 
-  .action-bar-floating { bottom: 8px !important; padding: 6px !important; }
-  .action-bar-floating button { padding: 10px 8px !important; font-size: 12px !important; }
+  .cliente-col-v {
+    width: auto !important;
+    height: 80% !important;
+    max-width: 130px !important;
+  }
+
+  .action-bar-floating {
+    bottom: 8px !important;
+    padding: 6px !important;
+  }
+
+  .action-bar-floating button {
+    padding: 10px 8px !important;
+    font-size: 12px !important;
+  }
 }
 
 /* ══════════════════════════════════════════════════════
@@ -358,16 +766,47 @@
     gap: clamp(12px, 2vw, 28px);
     padding: 0 20px;
   }
-  .panel-izquierdo { width: clamp(220px, 26vw, 320px); }
-  .cards-flotantes  { width: clamp(190px, 24vw, 280px); }
-  .info-tit         { font-size: clamp(30px, 4vw, 42px); }
-  .panel-propiedades{ padding: 18px; gap: 10px; }
-  .bin-list         { display: none; }
-  .prop-divider + .prop-header,
-  .prop-divider     { display: none; }
 
-  .cliente-grid   { gap: clamp(24px, 4vw, 70px); }
-  .cliente-col-v  { height: 65%; max-height: 560px; }
-  .c-nombre       { font-size: 34px; }
-  .sobremi-tit    { font-size: clamp(38px, 5vw, 52px); }
+  .panel-izquierdo {
+    width: clamp(220px, 26vw, 320px);
+  }
+
+  .cards-flotantes {
+    width: clamp(190px, 24vw, 280px);
+  }
+
+  .info-tit {
+    font-size: clamp(30px, 4vw, 42px);
+  }
+
+  .panel-propiedades {
+    padding: 18px;
+    gap: 10px;
+  }
+
+  .bin-list {
+    display: none;
+  }
+
+  .prop-divider+.prop-header,
+  .prop-divider {
+    display: none;
+  }
+
+  .cliente-grid {
+    gap: clamp(24px, 4vw, 70px);
+  }
+
+  .cliente-col-v {
+    height: 65%;
+    max-height: 560px;
+  }
+
+  .c-nombre {
+    font-size: 34px;
+  }
+
+  .sobremi-tit {
+    font-size: clamp(38px, 5vw, 52px);
+  }
 }

@@ -679,6 +679,13 @@
 @keyframes parpadeo       { 0%,100%{opacity:1}50%{opacity:0} }
 @keyframes progreso-video { 0%{width:5%} 100%{width:95%} }
 
+/* Ocultar en desktop los elementos exclusivos de mobile */
+.hero-badge-mobile,
+.hero-stats-mobile,
+.hero-stack-mobile {
+  display: none;
+}
+
 /* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 800px) {
   .cards-flotantes { width: 160px; }

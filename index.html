@@ -86,6 +86,8 @@
             <div class="panel-izquierdo" id="panel-izquierdo">
 
               <div class="panel-top">
+                <!-- Badge disponibilidad: solo visible en mobile -->
+                <div class="hero-badge-mobile" aria-label="Disponible para proyectos">Disponible</div>
                 <h1 class="info-tit">
                   <span id="tagline-texto">Short Content</span><span class="cursor-texto"></span>
                 </h1>
@@ -173,6 +175,31 @@
                 </div>
 
               </div>
+            </div>
+
+            <!-- ── STATS MOBILE (solo visible en ≤768px) ── -->
+            <div class="hero-stats-mobile" aria-hidden="true" style="display:none;">
+              <div class="hero-stat-mobile">
+                <div class="stat-valor">+500<span>M</span></div>
+                <div class="stat-etq mono">Views</div>
+              </div>
+              <div class="hero-stat-mobile">
+                <div class="stat-valor">3<span>s</span></div>
+                <div class="stat-etq mono">Enganche</div>
+              </div>
+              <div class="hero-stat-mobile">
+                <div class="stat-valor">+80</div>
+                <div class="stat-etq mono">Proyectos</div>
+              </div>
+            </div>
+
+            <!-- ── STACK CHIPS MOBILE (solo visible en ≤768px) ── -->
+            <div class="hero-stack-mobile" aria-hidden="true" style="display:none;">
+              <span class="chip">Premiere Pro</span>
+              <span class="chip">After Effects</span>
+              <span class="chip">DaVinci</span>
+              <span class="chip">CapCut</span>
+              <span class="chip">Photoshop</span>
             </div>
 
             <!-- ── CARDS FLOTANTES DERECHA ── -->
@@ -418,7 +445,6 @@
             <!-- Visor principal (izquierda) -->
             <div class="portafolio-visor" id="portafolio-visor-wrap">
               <div class="portafolio-visor-frame" id="portafolio-visor-frame">
-                <!-- Se agrega 'controls' opcional o se usará JS, por UX se usa controls native y pointer-events al video -->
                 <video id="portafolio-video-principal" muted loop playsinline preload="none"
                   style="cursor: pointer;"></video>
                 <div class="portafolio-visor-hud" style="pointer-events: none;">
@@ -429,6 +455,16 @@
                   <h3 id="portafolio-titulo-activo" class="portafolio-visor-tit"></h3>
                   <p id="portafolio-stats-activos" class="portafolio-visor-stats mono"></p>
                 </div>
+                <!-- Botón mute/unmute -->
+                <button class="portafolio-btn-mute muted" id="portafolio-btn-mute" aria-label="Activar sonido">
+                  <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                  <svg class="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+                </button>
+              </div>
+              <!-- Caption bajo el frame (visible solo en mobile, no tapa el video) -->
+              <div class="portafolio-visor-caption">
+                <p id="portafolio-categoria-activa-m" class="portafolio-visor-cat mono"></p>
+                <h3 id="portafolio-titulo-activo-m" class="portafolio-visor-tit"></h3>
               </div>
             </div>
 
@@ -502,7 +538,6 @@
         </div>
       </section>
 
-      <!-- ── SECCIÓN 05: CTA FINALE ── -->
       <section class="seccion seccion-cta" id="cta">
         <div class="cta-deco-grid"></div>
         <div class="cta-container">
@@ -510,6 +545,38 @@
           <h2 class="cta-titulo">¿Listo para<br>el siguiente nivel?</h2>
           <p class="cta-desc">Llevemos a tu audiencia actual hacia un crecimiento exponencial. Empecemos a iterar tus
             contenidos hoy mismo.</p>
+
+          <!-- Stats rápidos (solo mobile) -->
+          <div class="cta-stats-mobile" style="display:none;" aria-hidden="true">
+            <div class="cta-stat-item">
+              <span class="cta-stat-num">+500M</span>
+              <span class="cta-stat-lbl">Views total</span>
+            </div>
+            <div class="cta-stat-item">
+              <span class="cta-stat-num">+80</span>
+              <span class="cta-stat-lbl">Proyectos</span>
+            </div>
+            <div class="cta-stat-item">
+              <span class="cta-stat-num">3s</span>
+              <span class="cta-stat-lbl">Enganche</span>
+            </div>
+          </div>
+
+          <!-- Tags de servicio (solo mobile) -->
+          <div class="cta-tags-mobile" style="display:none;" aria-hidden="true">
+            <span class="cta-tag">Short Form</span>
+            <span class="cta-tag">Reels 9:16</span>
+            <span class="cta-tag">TikTok Ads</span>
+            <span class="cta-tag">Color Grading</span>
+            <span class="cta-tag">Retención</span>
+            <span class="cta-tag">Narrativa</span>
+          </div>
+
+          <!-- Firma disponibilidad (solo mobile) -->
+          <div class="cta-firma-mobile" style="display:none;" aria-hidden="true">
+            <div class="cta-firma-dot"></div>
+            <span class="cta-firma-texto">Disponible para proyectos selectos</span>
+          </div>
 
           <!-- Spacer donde el motor FLIP anclará la cápsula de botones -->
           <div id="cta-button-spacer"></div>

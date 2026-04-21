@@ -270,6 +270,56 @@
   color: var(--color-acento, rgba(255,255,255,0.6));
 }
 
+/* ─── Botón mute / unmute ─── */
+.portafolio-btn-mute {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.75);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+.portafolio-btn-mute:hover {
+  background: rgba(255,255,255,0.12);
+  color: white;
+  transform: scale(1.08);
+}
+.portafolio-btn-mute svg {
+  width: 15px;
+  height: 15px;
+  pointer-events: none;
+}
+.portafolio-btn-mute .icon-sound { display: none; }
+.portafolio-btn-mute.muted .icon-muted { display: block; }
+.portafolio-btn-mute.muted .icon-sound { display: none; }
+.portafolio-btn-mute:not(.muted) .icon-muted { display: none; }
+.portafolio-btn-mute:not(.muted) .icon-sound { display: block; }
+
+/* ─── Caption bajo el frame (solo en mobile via responsive.css) ─── */
+.portafolio-visor-caption {
+  display: none;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 14px 12px;
+  background: rgba(17,17,16,0.92);
+  border-radius: 0 0 16px 16px;
+}
+.portafolio-visor-caption .portafolio-visor-tit {
+  font-size: 14px;
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 900px) {
   .portafolio-layout {
