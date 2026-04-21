@@ -246,22 +246,20 @@
   }
 
   /* ══════════════════════════════════════
-     CLIENTES — fix espacio vacío arriba
+     CLIENTES — layout mobile rediseñado
   ══════════════════════════════════════ */
   .seccion-clientes {
     align-items: flex-start !important;
     overflow-x: hidden !important;
   }
 
-  /*
-   * .clientes-container tiene height:90% (desktop).
-   * Al forzarlo a auto el grid empieza desde arriba.
-   */
   .clientes-container {
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     height: auto !important;
     max-height: none !important;
-    padding: 14px 16px 90px !important;
+    padding: 14px 16px 100px !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch;
@@ -271,83 +269,104 @@
   .cliente-grid {
     flex-direction: column !important;
     height: auto !important;
-    gap: 12px !important;
+    gap: 14px !important;
     padding: 0 !important;
     align-items: stretch !important;
     justify-content: flex-start !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  /* Columna info: ancho completo */
+  /*
+   * Columna info: fila superior compacta con
+   * foto cuadrada pequeña + nombre/rol/kpis al lado.
+   * Descripción va dentro de la card, debajo.
+   */
   .cliente-col-info {
     flex: 0 0 auto !important;
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     height: auto !important;
     justify-content: flex-start !important;
-    gap: 10px !important;
+    gap: 8px !important;
   }
 
-  /* Foto card: BANNER de imagen completa (no thumbnail cuadrado) */
+  /* Foto card: fila con foto cuadrada (100px) + meta al lado */
   .cliente-foto-card {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
   }
 
   .c-foto-wrap {
-    /* Imagen como banner: ancho completo, altura fija */
-    width: 100% !important;
-    height: 200px !important;
-    border-radius: 12px !important;
+    /* Foto cuadrada compacta, no banner */
+    width: 80px !important;
+    height: 80px !important;
     flex-shrink: 0 !important;
+    border-radius: 12px !important;
+  }
+
+  /* Meta al lado de la foto: nombre + rol + kpis */
+  .c-foto-meta-inline {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
   }
 
   .c-foto-meta {
     display: none !important;
   }
 
-  /* Brief card */
+  /* Mover nombre y rol dentro de la fila de foto */
   .cliente-desc-card {
-    padding: 16px !important;
-    gap: 8px !important;
+    padding: 14px !important;
+    gap: 6px !important;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
   }
 
   .c-nombre {
-    font-size: clamp(20px, 6vw, 28px) !important;
+    font-size: clamp(18px, 5.5vw, 26px) !important;
     margin-top: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .c-rol {
-    font-size: 10px !important;
-    margin-bottom: 4px !important;
+    font-size: 9px !important;
+    margin-bottom: 2px !important;
   }
 
   .c-texto {
-    font-size: 13px !important;
+    font-size: 12px !important;
     line-height: 1.5 !important;
   }
 
   .c-kpis {
-    gap: 20px !important;
-    padding-top: 12px !important;
+    gap: 16px !important;
+    padding-top: 10px !important;
     margin-top: 4px !important;
   }
 
   .c-kpi strong {
-    font-size: 18px !important;
+    font-size: 16px !important;
   }
 
-  /* Video del cliente: 9:16 centrado */
+  /* Video del cliente: más grande y centrado */
   .cliente-col-v {
     flex: 0 0 auto !important;
-    width: 170px !important;
+    width: clamp(180px, 52vw, 240px) !important;
     height: auto !important;
     max-height: none !important;
     aspect-ratio: 9/16 !important;
-    margin: 8px auto 0 !important;
+    margin: 4px auto 0 !important;
   }
 
   /* ══════════════════════════════════════
@@ -648,21 +667,21 @@
   }
 
   .c-foto-wrap {
-    height: 160px !important;
+    /* Foto cuadrada compacta en pantallas muy pequeñas */
+    width: 70px !important;
+    height: 70px !important;
   }
 
   /* mantiene width:100% del breakpoint 768px */
   .c-nombre {
-    font-size: 20px !important;
+    font-size: 18px !important;
   }
 
   .c-texto {
     font-size: 12px !important;
   }
 
-  .cliente-col-v {
-    width: 150px !important;
-  }
+  /* El video hereda el clamp del breakpoint 768px — no necesita override */
 
   .portafolio-visor {
     width: 170px !important;
