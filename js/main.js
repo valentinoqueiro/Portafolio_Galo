@@ -488,7 +488,7 @@ function initClientesSection() {
       texto: 'Estrategias de viralización orgánica y crecimiento exponencial de comunidades. Enfoque en la retención absoluta del espectador mediante storytelling dinámico, ritmo acelerado y ganchos emocionales para escalar ventas.',
       kpi1: '+13M Views', kpi2: 'Reel 9:16',
       foto: 'ClientesVIP/David Otalora.jpg',
-      videoSrc: 'ClientesVIP/Plan de contenido.mp4',
+      videoSrc: eligirFuente({ webm: 'ClientesVIP/Plan de contenido.webm', mp4: 'ClientesVIP/Plan de contenido.mp4' }),
       videoName: 'David_Otalora_Viral_v2.mp4'
     },
     {
@@ -496,7 +496,7 @@ function initClientesSection() {
       texto: 'Modelos de negocio de e-commerce a escala global y funnels de conversión avanzados. Optimización de rentabilidad máxima mediante estrategias de marketing automatizadas y logística eficiente.',
       kpi1: '+35M Views', kpi2: 'TikTok 9:16',
       foto: 'ClientesVIP/marcos-razzetti.jpg',
-      videoSrc: 'ClientesVIP/Marcos 3.mp4',
+      videoSrc: eligirFuente({ webm: 'ClientesVIP/Marcos 3.webm', mp4: 'ClientesVIP/Marcos 3.mp4' }),
       videoName: 'MR_Ecom_Scale_1080p.mp4'
     },
     {
@@ -504,7 +504,7 @@ function initClientesSection() {
       texto: 'Estrategias de posicionamiento y lanzamientos digitales de alta conversión. Experto en captación de clientes, storytelling y ventas high-ticket, transformando influencia en negocios escalables.',
       kpi1: '+$1M Reven.', kpi2: 'Reel 9:16',
       foto: 'ClientesVIP/Oscar hinojosa.jpg',
-      videoSrc: 'ClientesVIP/OH-R0042.mp4',
+      videoSrc: eligirFuente({ webm: 'ClientesVIP/OH-R0042.webm', mp4: 'ClientesVIP/OH-R0042.mp4' }),
       videoName: 'Oscar_Launch_HT.mp4'
     }
   ];
@@ -568,7 +568,7 @@ function initClientesSection() {
 
       // Lazy: asignar src solo al momento de usar
       cVideo.src = data.videoSrc;
-      cVideo.preload = 'auto';
+      cVideo.preload = 'metadata';
       cVideo.load();
 
       clientesData.forEach((_, i) => {
