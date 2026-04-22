@@ -32,7 +32,7 @@ const INTERVALO_VIDEO = 5000;
 // Detectar dispositivo táctil una vez y reutilizar
 const esTactil = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-document.addEventListener('DOMContentLoaded', () => {
+function iniciarApp() {
   initCarga();
   if (!esTactil) iniciarCursor();
   iniciarTypewriter();
@@ -44,7 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initPortafolioShowcase();
   initScrollJacking();
   iniciarParticulas();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', iniciarApp);
+} else {
+  iniciarApp();
+}
 
 // ─── PANTALLA DE CARGA ─────────────────────────────────
 function initCarga() {
