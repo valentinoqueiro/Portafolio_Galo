@@ -191,10 +191,10 @@
             <h2 style="margin: 0; font-size: clamp(24px, min(3.8vw, 6.4vh), 54px); line-height: 1; font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase;">Galo</h2>
             <p style="margin: 0; max-width: 520px; font-size: clamp(13px, 1.8vh, 17px); line-height: 1.55; color: var(--f55); text-wrap: pretty;">Desarrollo estrategias de video vertical pensadas exclusivamente para hackear la atención. No hago simples recortes; analizo analíticas, construyo narrativas retentivas y utilizo edición de alto impacto para convertir views en conversiones reales.</p>
             <div style="display: flex; flex-direction: column; gap: 12px; max-width: 480px; font-family: var(--mono); font-size: 12px;">
-              <div style="display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--f14);"><span style="color: var(--f40); letter-spacing: 0.1em;">ROL_</span><span style="text-align: right;">Video Editor &amp; Content Strategist</span></div>
-              <div style="display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--f14);"><span style="color: var(--f40); letter-spacing: 0.1em;">ESPECIALIDAD_</span><span style="text-align: right;">Retención &amp; Crecimiento Orgánico</span></div>
-              <div style="display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--f14);"><span style="color: var(--f40); letter-spacing: 0.1em;">FORMATO PPAL_</span><span style="text-align: right;">9:16 (Shorts, Reels, TikTok)</span></div>
-              <div style="display: flex; justify-content: space-between; gap: 16px;"><span style="color: var(--f40); letter-spacing: 0.1em;">STATUS_</span><span style="text-align: right; color: #27ae60;">Aceptando Proyectos Selectos</span></div>
+              <div style="{{ specRow }}"><span style="color: var(--f40); letter-spacing: 0.1em;">ROL_</span><span style="{{ specVal }}">Video Editor &amp; Content Strategist</span></div>
+              <div style="{{ specRow }}"><span style="color: var(--f40); letter-spacing: 0.1em;">ESPECIALIDAD_</span><span style="{{ specVal }}">Retención &amp; Crecimiento Orgánico</span></div>
+              <div style="{{ specRow }}"><span style="color: var(--f40); letter-spacing: 0.1em;">FORMATO PPAL_</span><span style="{{ specVal }}">9:16 (Shorts, Reels, TikTok)</span></div>
+              <div style="{{ specRowLast }}"><span style="color: var(--f40); letter-spacing: 0.1em;">STATUS_</span><span style="{{ specValStatus }}">Aceptando Proyectos Selectos</span></div>
             </div>
           </div>
         </div>
@@ -368,6 +368,7 @@ class Component extends DCLogic {
     this.ty = null;
   };
   onMove = (e) => {
+    if (this.state.w < 760) return;
     this.mx = e.clientX; this.my = e.clientY;
     if (this.cursorRef.current) this.cursorRef.current.style.transform = `translate3d(${e.clientX}px,${e.clientY}px,0)`;
     const isHoverable = !!e.target.closest('[data-hover]');
@@ -618,6 +619,7 @@ class Component extends DCLogic {
       trackRef: this.trackRef, spotRef: this.spotRef, tcRef: this.tcRef, playRef: this.playRef,
       photoRef: this.photoRef, cursorRef: this.cursorRef,
       cursorStyle: {
+        display: mob ? 'none' : 'block',
         position: 'absolute', zIndex: 95, left: 0, top: 0,
         width: (cursorHover ? 46 : 22) + 'px', height: (cursorHover ? 46 : 22) + 'px',
         marginTop: (cursorHover ? -23 : -11) + 'px', marginLeft: (cursorHover ? -23 : -11) + 'px',
@@ -776,8 +778,12 @@ class Component extends DCLogic {
         style: { flex: c.f, borderRadius: '12px', background: i % 2 ? 'var(--f08)' : 'var(--f14)', display: 'flex', alignItems: 'center', padding: '0 12px', overflow: 'hidden', transition: 'background 220ms ease, transform 220ms ease' },
         labelStyle: { fontFamily: 'var(--mono)', fontSize: '9px', letterSpacing: '0.12em', color: 'var(--f55)', whiteSpace: 'nowrap', opacity: mob ? 0 : 1 }
       })),
-      aboutStyle: { position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: mob ? '1fr' : '0.9fr 1.1fr', gap: mob ? '18px' : '44px', padding: mob ? '76px 16px 116px' : '80px 100px 132px 40px' },
-      aboutPhotoStyle: { position: 'relative', overflow: 'hidden', borderRadius: mob ? '24px' : '34px', display: mob ? 'none' : 'block' },
+      aboutStyle: { position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: mob ? '1fr' : '0.9fr 1.1fr', gridTemplateRows: mob ? 'minmax(180px, 32vh) auto' : '1fr', gap: mob ? '16px' : '44px', padding: mob ? '72px 16px 116px' : '80px 100px 132px 40px', overflow: mob ? 'auto' : 'visible' },
+      aboutPhotoStyle: { position: 'relative', overflow: 'hidden', borderRadius: mob ? '24px' : '34px' },
+      specRow: { display: 'flex', flexDirection: mob ? 'column' : 'row', justifyContent: 'space-between', gap: mob ? '4px' : '16px', paddingBottom: '12px', borderBottom: '1px solid var(--f14)' },
+      specRowLast: { display: 'flex', flexDirection: mob ? 'column' : 'row', justifyContent: 'space-between', gap: mob ? '4px' : '16px' },
+      specVal: { textAlign: mob ? 'left' : 'right' },
+      specValStatus: { textAlign: mob ? 'left' : 'right', color: '#27ae60' },
       ctaPanelStyle: { position: 'absolute', top: (mob ? 14 : 24) + 'px', left: (mob ? 14 : 24) + 'px', right: (mob ? 14 : 24) + 'px', bottom: (mob ? 40 : 46) + 'px', borderRadius: mob ? '28px' : '40px', background: 'var(--surf)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: mob ? '18px' : '30px', padding: mob ? '48px 20px 170px' : '64px 40px 200px' },
       ctaLabel: merged ? 'Trabajemos juntos' : 'Contactar'
     };
