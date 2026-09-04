@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #11110F; overscroll-behavior: none; }
+  * { box-sizing: border-box; }
+  a { color: #E8E5DA; text-decoration: none; }
+  a:hover { color: #E8E5DAaa; }
+  ::selection { background: #E8E5DA; color: #11110F; }
+  @keyframes wf { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
+  @keyframes grainshift { 0% { transform: translate3d(0,0,0); } 25% { transform: translate3d(-2%,1%,0); } 50% { transform: translate3d(1%,-2%,0); } 75% { transform: translate3d(-1%,-1%,0); } 100% { transform: translate3d(0,0,0); } }
+  @keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0.15; } }
+  @keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+</style>
+</helmet>
+<div style="position: relative; width: 100%; height: 100dvh; overflow: hidden; background: #11110F; color: #E8E5DA; font-family: Archivo, Helvetica, sans-serif; cursor: none;">
+
+  <div ref="{{ trackRef }}" style="position: absolute; inset: 0; will-change: transform;">
+
+    <!-- ============ 1 · HERO ============ -->
+    <section data-screen-label="01 Hero" style="position: absolute; left: 0; top: 0; width: 100%; height: 100dvh;">
+      <div ref="{{ pane0 }}" style="position: absolute; inset: 0; background: #11110F; overflow: hidden; will-change: transform, opacity, filter;">
+        <div ref="{{ spotRef }}" style="position: absolute; width: 900px; height: 900px; left: -450px; top: -450px; border-radius: 50%; background: radial-gradient(circle, rgba(232,229,218,0.10) 0%, rgba(232,229,218,0.03) 40%, rgba(232,229,218,0) 70%); pointer-events: none;"></div>
+
+        <div style="position: absolute; left: 0; right: 0; top: 0; padding: 26px 48px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(232,229,218,0.55);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: #E8E5DA; animation: blink 1.2s steps(1) infinite;"></span>
+            <span>REC · 4K DCI · 23.976 FPS</span>
+          </div>
+          <div style="display: flex; gap: 28px;">
+            <span>SEQ_01 / PORTFOLIO_2026</span>
+            <span ref="{{ tcRef }}" style="color: #E8E5DA;">00:00:00:00</span>
+          </div>
+        </div>
+
+        <div style="{{ heroRev }}">
+          <div style="overflow: hidden;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: rgba(232,229,218,0.5); margin-bottom: 22px; clip-path: inset(0 var(--rev, 100%) 0 0); transition: clip-path 0.9s cubic-bezier(0.76,0,0.24,1) 0.1s;">EDITOR DE VIDEO · MOTION · POST</div>
+          </div>
+          <div style="overflow: hidden; padding-bottom: 6px;">
+            <h1 style="margin: 0; font-size: clamp(58px, 12.5vw, 210px); line-height: 0.84; font-weight: 900; letter-spacing: -0.045em; text-transform: uppercase; clip-path: inset(0 var(--rev, 100%) 0 0); transition: clip-path 1.15s cubic-bezier(0.76,0,0.24,1) 0.25s;">Martín<br />Reyes</h1>
+          </div>
+          <div style="overflow: hidden; margin-top: 26px; max-width: 520px;">
+            <p style="margin: 0; font-size: 17px; line-height: 1.5; color: rgba(232,229,218,0.62); clip-path: inset(0 var(--rev, 100%) 0 0); transition: clip-path 1s cubic-bezier(0.76,0,0.24,1) 0.55s; text-wrap: pretty;">Diez años cortando historias para marcas, artistas y creadores. Ritmo, tensión y un corte que respira. <span style="font-family: 'Instrument Serif', serif; font-style: italic; color: #E8E5DA;">El montaje es el guion final.</span></p>
+          </div>
+        </div>
+
+        <!-- timeline / scrubber -->
+        <div style="position: absolute; left: 48px; right: 48px; bottom: 40px;">
+          <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(232,229,218,0.4); margin-bottom: 8px;">
+            <span>V1 · SECUENCIA MAESTRA</span>
+            <span>SCROLL PARA CORTAR ↓</span>
+          </div>
+          <div style="display: flex; gap: 3px; height: 12px; margin-bottom: 6px;">
+            <sc-for list="{{ ticks }}" as="t" hint-placeholder-count="40">
+              <div style="flex: 1; background: rgba(232,229,218,0.16);"></div>
+            </sc-for>
+          </div>
+          <div style="position: relative; border-top: 1px solid rgba(232,229,218,0.18); border-bottom: 1px solid rgba(232,229,218,0.18); padding: 10px 0;">
+            <div style="display: flex; gap: 4px; height: 54px;">
+              <div style="flex: 2.2; background: rgba(232,229,218,0.14); border-left: 2px solid #E8E5DA; display: flex; align-items: flex-end; padding: 6px 8px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: rgba(232,229,218,0.6);">HERO_01</div>
+              <div style="flex: 1.1; background: rgba(232,229,218,0.08); border-left: 2px solid rgba(232,229,218,0.5);"></div>
+              <div style="flex: 3.4; background: rgba(232,229,218,0.2); border-left: 2px solid #E8E5DA; display: flex; align-items: flex-end; padding: 6px 8px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: rgba(232,229,218,0.6);">CLIENTES_VIP</div>
+              <div style="flex: 0.7; background: rgba(232,229,218,0.06);"></div>
+              <div style="flex: 2.6; background: rgba(232,229,218,0.12); border-left: 2px solid rgba(232,229,218,0.5); display: flex; align-items: flex-end; padding: 6px 8px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: rgba(232,229,218,0.6);">REEL_CUT</div>
+              <div style="flex: 1.5; background: rgba(232,229,218,0.09);"></div>
+            </div>
+            <div style="display: flex; align-items: flex-end; gap: 2px; height: 34px; margin-top: 8px;">
+              <sc-for list="{{ wave }}" as="b" hint-placeholder-count="60">
+                <div style="flex: 1; height: {{ b.h }}%; background: rgba(232,229,218,0.35); transform-origin: bottom; animation: wf {{ b.d }}s ease-in-out infinite alternate;"></div>
+              </sc-for>
+            </div>
+            <div ref="{{ playRef }}" style="position: absolute; top: -4px; bottom: -4px; left: 0; width: 1px; background: #E8E5DA;">
+              <div style="position: absolute; top: -5px; left: -5px; width: 11px; height: 6px; background: #E8E5DA;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · CLIENTES VIP ============ -->
+    <section data-screen-label="02 Clientes VIP" style="position: absolute; left: 0; top: 100dvh; width: 100%; height: 100dvh;">
+      <div ref="{{ pane1 }}" style="position: absolute; inset: 0; background: #11110F; overflow: hidden; will-change: transform, opacity, filter;">
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 120%, rgba(232,229,218,0.09), rgba(232,229,218,0) 62%);"></div>
+
+        <div style="position: absolute; left: 48px; right: 48px; top: 118px; display: flex; align-items: baseline; justify-content: space-between;">
+          <h2 style="margin: 0; font-size: clamp(28px, 4vw, 54px); font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase;">Clientes <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none;">VIP</span></h2>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(232,229,218,0.45);">CURADURÍA AUTOMÁTICA</span>
+        </div>
+
+        <div style="position: absolute; left: 48px; right: 48px; top: 186px; display: flex; gap: 6px;">
+          <sc-for list="{{ vipBars }}" as="s" hint-placeholder-count="4">
+            <div style="flex: 1; height: 2px; background: rgba(232,229,218,0.18); overflow: hidden;">
+              <div ref="{{ s.ref }}" style="{{ s.fill }}"></div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div onMouseEnter="{{ pauseVip }}" onMouseLeave="{{ resumeVip }}" style="position: absolute; left: 48px; right: 48px; top: 226px; bottom: 118px;">
+          <sc-for list="{{ vips }}" as="v" hint-placeholder-count="1">
+            <div style="{{ v.card }}">
+              <div style="position: relative; overflow: hidden; background: repeating-linear-gradient(135deg, rgba(232,229,218,0.09) 0 8px, rgba(232,229,218,0.04) 8px 16px); border: 1px solid rgba(232,229,218,0.16); display: flex; align-items: flex-end; padding: 16px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(232,229,218,0.5);">[ FOTO CLIENTE ]</span>
+              </div>
+              <div style="display: flex; flex-direction: column; justify-content: center; gap: 22px; padding-left: 8px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: rgba(232,229,218,0.45);">{{ v.tag }}</span>
+                <h3 style="margin: 0; font-size: clamp(34px, 5.4vw, 76px); line-height: 0.9; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase;">{{ v.name }}</h3>
+                <p style="margin: 0; max-width: 440px; font-size: 16px; line-height: 1.55; color: rgba(232,229,218,0.6); text-wrap: pretty;">{{ v.desc }}</p>
+                <div style="display: flex; align-items: baseline; gap: 14px; border-top: 1px solid rgba(232,229,218,0.18); padding-top: 20px;">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: clamp(30px, 4.6vw, 58px); font-weight: 700; letter-spacing: -0.03em;">{{ v.metric }}</span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(232,229,218,0.45);">DE VISUALIZACIONES</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="position: absolute; left: 48px; bottom: 48px; display: flex; align-items: center; gap: 14px;">
+          <button onClick="{{ prevVip }}" style="width: 46px; height: 46px; border: 1px solid rgba(232,229,218,0.28); background: transparent; color: #E8E5DA; font-size: 15px; cursor: pointer; transition: background 0.25s, color 0.25s;" style-hover="background: #E8E5DA; color: #11110F;">←</button>
+          <button onClick="{{ nextVip }}" style="width: 46px; height: 46px; border: 1px solid rgba(232,229,218,0.28); background: transparent; color: #E8E5DA; font-size: 15px; cursor: pointer; transition: background 0.25s, color 0.25s;" style-hover="background: #E8E5DA; color: #11110F;">→</button>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(232,229,218,0.45); margin-left: 8px;">{{ vipCounter }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3 · PORTFOLIO ============ -->
+    <section data-screen-label="03 Portfolio" style="position: absolute; left: 0; top: 200dvh; width: 100%; height: 100dvh;">
+      <div ref="{{ pane2 }}" style="position: absolute; inset: 0; background: #E8E5DA; color: #11110F; overflow: hidden; will-change: transform, opacity, filter;">
+        <div style="position: absolute; left: 48px; right: 48px; top: 44px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+          <h2 style="margin: 0; font-size: clamp(26px, 3.4vw, 46px); font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase;">Trabajos</h2>
+          <div style="display: flex; align-items: center; gap: 18px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(17,17,15,0.5);">{{ tabCount }}</span>
+            <div onClick="{{ toggleTab }}" style="position: relative; display: flex; border: 1px solid rgba(17,17,15,0.25); cursor: pointer; user-select: none; overflow: hidden;">
+              <div style="{{ knobStyle }}"></div>
+              <div style="{{ tabAStyle }}">CORTOS</div>
+              <div style="{{ tabBStyle }}">LARGOS</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="position: absolute; left: 48px; right: 48px; top: 118px; bottom: 44px;">
+          <div style="{{ gridAStyle }}">
+            <div style="grid-column: span 4; grid-row: span 2; position: relative; overflow: hidden; background: repeating-linear-gradient(135deg, rgba(17,17,15,0.09) 0 8px, rgba(17,17,15,0.04) 8px 16px); border: 1px solid rgba(17,17,15,0.18); opacity: var(--in, 0); transform: translateY(var(--y, 30px)); transition: opacity 0.7s ease 0.05s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.05s;" style-hover="border-color: #11110F;">
+              <div style="position: absolute; left: 16px; top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(17,17,15,0.55);">[ VIDEO 16:9 ]</div>
+              <div style="position: absolute; left: 18px; bottom: 16px; right: 18px;">
+                <div style="font-size: clamp(20px, 2.4vw, 34px); font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase;">Neón / Spot 30"</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(17,17,15,0.55); margin-top: 6px;">00:00:30:00 · CAMPAÑA</div>
+              </div>
+            </div>
+            <div style="grid-column: span 2; position: relative; overflow: hidden; background: repeating-linear-gradient(135deg, rgba(17,17,15,0.09) 0 8px, rgba(17,17,15,0.04) 8px 16px); border: 1px solid rgba(17,17,15,0.18); opacity: var(--in, 0); transform: translateY(var(--y, 30px)); transition: opacity 0.7s ease 0.14s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.14s;" style-hover="border-color: #11110F;">
+              <div style="position: absolute; left: 16px; bottom: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em;">TEASER · 00:00:15:00</div>
+            </div>
+            <div style="grid-column: span 2; position: relative; overflow: hidden; background: #11110F; color: #E8E5DA; border: 1px solid #11110F; opacity: var(--in, 0); transform: translateY(var(--y, 30px)); transition: opacity 0.7s ease 0.22s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.22s;">
+              <div style="position: absolute; left: 16px; top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(232,229,218,0.6);">[ VIDEO 9:16 ]</div>
+              <div style="position: absolute; left: 16px; bottom: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em;">REEL VERTICAL</div>
+            </div>
+            <div style="grid-column: span 4; position: relative; overflow: hidden; background: repeating-linear-gradient(135deg, rgba(17,17,15,0.09) 0 8px, rgba(17,17,15,0.04) 8px 16px); border: 1px solid rgba(17,17,15,0.18); opacity: var(--in, 0); transform: translateY(var(--y, 30px)); transition: opacity 0.7s ease 0.3s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s;" style-hover="border-color: #11110F;">
+              <div style="position: absolute; left: 18px; bottom: 16px; font-size: clamp(17px, 1.7vw, 24px); font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase;">Serie Social · 6 piezas</div>
+            </div>
+          </div>
+
+          <div style="{{ gridBStyle }}">
+            <div style="grid-column: span 5; grid-row: span 2; position: relative; overflow: hidden; background: #11110F; color: #E8E5DA; border: 1px solid #11110F; opacity: var(--in, 0); transform: translateY(var(--y, 30px)); transition: opacity 0.7s ease 0.05s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.05s;">
+              <div style="position: absolute; left: 18px; top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(232,229,218,0.6);">[ DOCUMENTAL · 2.39:1 ]</div>
+              <div style="position: absolute; left: 20px; bottom: 18px; right: 20px;">
+                <div style="font-size: clamp(22px, 2.8vw, 40px); font-weight: 800; letter-spacing: -0.035em; text-transform: uppercase;">Cordillera</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,229,218,0.6); margin-top: 6px;">00:48:12:00 · LARGOMETRAJE</div>
+              </div>
+            </div>
+            <div style="grid-column: span 3; position: relative; overflow: hidden; background: repeating-linear-gradient(135deg, rgba(17,17,15,0.09) 0 8px, rgba(17,17,15,0.04) 8px 16px); border: 1px solid rgba(17,17,15,0.18); opacity: var(--in, 0); transform: translateY(var(--y, 30px)); transition: opacity 0.7s ease 0.16s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.16s;" style-hover="border-color: #11110F;">
+              <div style="position: absolute; left: 18px; bottom: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em;">BRANDED DOC · 00:12:40:00</div>
+            </div>
+            <div style="grid-column: span 3; position: relative; overflow: hidden; background: repeating-linear-gradient(135deg, rgba(17,17,15,0.09) 0 8px, rgba(17,17,15,0.04) 8px 16px); border: 1px solid rgba(17,17,15,0.18); opacity: var(--in, 0); transform: translateY(var(--y, 30px)); transition: opacity 0.7s ease 0.26s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.26s;" style-hover="border-color: #11110F;">
+              <div style="position: absolute; left: 18px; bottom: 16px; font-size: clamp(16px, 1.6vw, 22px); font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase;">Concierto en vivo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · SOBRE MÍ ============ -->
+    <section data-screen-label="04 Sobre mí" style="position: absolute; left: 0; top: 300dvh; width: 100%; height: 100dvh;">
+      <div ref="{{ pane3 }}" style="position: absolute; inset: 0; background: #11110F; overflow: hidden; will-change: transform, opacity, filter;">
+        <div style="position: absolute; inset: 0; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; padding: 96px 48px 72px;">
+          <div style="position: relative; overflow: hidden; border: 1px solid rgba(232,229,218,0.16);">
+            <div ref="{{ photoRef }}" style="position: absolute; left: 0; right: 0; top: -12%; height: 124%; background: repeating-linear-gradient(135deg, rgba(232,229,218,0.1) 0 8px, rgba(232,229,218,0.04) 8px 16px);"></div>
+            <span style="position: absolute; left: 16px; bottom: 16px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(232,229,218,0.5);">[ RETRATO EDITOR ]</span>
+          </div>
+          <div style="display: flex; flex-direction: column; justify-content: center; gap: 26px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(232,229,218,0.45);">SOBRE MÍ / 04</span>
+            <h2 style="margin: 0; font-size: clamp(30px, 4.2vw, 62px); line-height: 0.95; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase;">El corte<br /><span style="font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.01em;">antes</span> del efecto</h2>
+            <p style="margin: 0; max-width: 560px; font-size: 17px; line-height: 1.6; color: rgba(232,229,218,0.65); text-wrap: pretty;">Soy Martín, editor y motion designer con base en Buenos Aires. Trabajo con marcas y creadores que necesitan que su contenido sostenga la atención: estructura primero, estética después. Vengo de la sala de montaje, no del preset.</p>
+            <div style="display: flex; gap: 56px; border-top: 1px solid rgba(232,229,218,0.18); padding-top: 24px; font-family: 'JetBrains Mono', monospace;">
+              <div><div style="font-size: 30px; font-weight: 700;">10</div><div style="font-size: 11px; letter-spacing: 0.16em; color: rgba(232,229,218,0.45); margin-top: 6px;">AÑOS</div></div>
+              <div><div style="font-size: 30px; font-weight: 700;">340+</div><div style="font-size: 11px; letter-spacing: 0.16em; color: rgba(232,229,218,0.45); margin-top: 6px;">PIEZAS</div></div>
+              <div><div style="font-size: 30px; font-weight: 700;">1.2B</div><div style="font-size: 11px; letter-spacing: 0.16em; color: rgba(232,229,218,0.45); margin-top: 6px;">VIEWS</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 · CTA FINAL ============ -->
+    <section data-screen-label="05 CTA final" style="position: absolute; left: 0; top: 400dvh; width: 100%; height: 100dvh;">
+      <div ref="{{ pane4 }}" style="position: absolute; inset: 0; background: #E8E5DA; color: #11110F; overflow: hidden; will-change: transform, opacity, filter;">
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 44px; padding: 96px 48px;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; color: rgba(17,17,15,0.5);">FIN DE SECUENCIA · 05</span>
+          <p style="margin: 0; max-width: 1040px; text-align: center; font-size: clamp(28px, 4.4vw, 66px); line-height: 1.08; font-weight: 800; letter-spacing: -0.04em; text-wrap: pretty;">¿Listo para el siguiente nivel? Llevemos a tu audiencia actual hacia un crecimiento exponencial. Empecemos a iterar tus contenidos hoy mismo.</p>
+          <button style="padding: 22px 46px; background: #11110F; color: #E8E5DA; border: none; font-family: Archivo, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), background 0.3s;" style-hover="transform: translateY(-3px);">Empecemos a iterar →</button>
+          <div style="position: absolute; left: 48px; right: 48px; bottom: 34px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(17,17,15,0.5);">
+            <span>MARTÍN REYES · EDITOR</span>
+            <span>hola@martinreyes.tv</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- scanlines + grano -->
+  <div style="position: absolute; inset: 0; pointer-events: none; z-index: 40; background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.055) 0 1px, rgba(0,0,0,0) 1px 3px); mix-blend-mode: overlay;"></div>
+  <div style="{{ grainStyle }}"></div>
+
+  <!-- indicador de secciones -->
+  <div style="position: absolute; right: 22px; top: 50%; transform: translateY(-50%); z-index: 70; display: flex; flex-direction: column; gap: 14px; align-items: flex-end;">
+    <sc-for list="{{ dots }}" as="d" hint-placeholder-count="5">
+      <div onClick="{{ d.go }}" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+        <span style="{{ d.label }}">{{ d.name }}</span>
+        <span style="{{ d.dot }}"></span>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- botones flotantes -->
+  <div style="position: absolute; inset: 0; z-index: 80; pointer-events: none;">
+    <button onClick="{{ goPortfolio }}" style="{{ verStyle }}">VER TRABAJOS</button>
+    <button onClick="{{ goContact }}" style="{{ contactStyle }}">
+      <span style="display: block;">CONTACTAR</span>
+      <span style="{{ contactSubStyle }}">Hablemos de tu próximo proyecto →</span>
+    </button>
+  </div>
+
+  <div ref="{{ cursorRef }}" style="position: absolute; z-index: 95; left: 0; top: 0; width: 26px; height: 26px; margin: -13px 0 0 -13px; border: 1px solid rgba(232,229,218,0.7); border-radius: 50%; pointer-events: none; mix-blend-mode: difference;"></div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;snapMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:950,&quot;min&quot;:500,&quot;max&quot;:1600,&quot;step&quot;:50,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Movimiento&quot;},&quot;transitionFx&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Slide + blur&quot;,&quot;options&quot;:[&quot;Slide + blur&quot;,&quot;Fade puro&quot;,&quot;Parallax&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Movimiento&quot;},&quot;vipMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5200,&quot;min&quot;:2500,&quot;max&quot;:9000,&quot;step&quot;:100,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Clientes VIP&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Textura&quot;}}">
+class Component extends DCLogic {
+  state = { idx: 0, vip: 0, tab: 0, w: 1440, h: 900, ready: false, paused: false };
+
+  trackRef = React.createRef();
+  spotRef = React.createRef();
+  tcRef = React.createRef();
+  playRef = React.createRef();
+  photoRef = React.createRef();
+  cursorRef = React.createRef();
+  panes = [React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef()];
+  barRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
+
+  names = ['HERO', 'CLIENTES', 'TRABAJOS', 'SOBRE MÍ', 'CONTACTO'];
+  vipData = [
+    { tag: 'CLIENTE 01 · MÚSICA', name: 'Nova Records', desc: 'Videoclips y lanzamientos para el roster completo del sello. Cinco años de colaboración continua.', metric: '120M' },
+    { tag: 'CLIENTE 02 · DEPORTE', name: 'Atlas Sport', desc: 'Campañas de temporada, aftermovies y contenido social de alta rotación para su audiencia global.', metric: '86M' },
+    { tag: 'CLIENTE 03 · TECH', name: 'Hélice Studio', desc: 'Lanzamientos de producto: guion, montaje y motion. Piezas cortas con lectura editorial.', metric: '54M' },
+    { tag: 'CLIENTE 04 · MODA', name: 'Casa Duval', desc: 'Films de colección y backstage con tratamiento cinematográfico y grading propio.', metric: '31M' }
+  ];
+
+  componentDidMount() {
+    this.prog = 0;
+    this.vp = 0;
+    this.last = performance.now();
+    this.acc = 0;
+    this.resize();
+    window.addEventListener('resize', this.resize);
+    window.addEventListener('wheel', this.onWheel, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('touchstart', this.onTS, { passive: true });
+    window.addEventListener('touchend', this.onTE, { passive: true });
+    window.addEventListener('mousemove', this.onMove);
+    this.raf = requestAnimationFrame(this.loop);
+    setTimeout(() => {
+      this.setState({ ready: true });
+      if (this.panes[0].current) this.panes[0].current.style.setProperty('--rev', '0%');
+    }, 140);
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener('resize', this.resize);
+    window.removeEventListener('wheel', this.onWheel);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('touchstart', this.onTS);
+    window.removeEventListener('touchend', this.onTE);
+    window.removeEventListener('mousemove', this.onMove);
+  }
+
+  resize = () => this.setState({ w: window.innerWidth, h: window.innerHeight });
+
+  dur() { return this.props.snapMs ?? 950; }
+
+  goTo = (i) => {
+    const t = Math.max(0, Math.min(4, i));
+    if (t === this.state.idx && !this.anim) return;
+    this.anim = { from: this.prog, to: t, start: performance.now(), dur: this.dur() };
+    this.setState({ idx: t });
+  };
+
+  onWheel = (e) => {
+    e.preventDefault();
+    if (this.anim) return;
+    this.acc += e.deltaY;
+    if (Math.abs(this.acc) > 28) {
+      this.goTo(this.state.idx + (this.acc > 0 ? 1 : -1));
+      this.acc = 0;
+    }
+    clearTimeout(this.accT);
+    this.accT = setTimeout(() => { this.acc = 0; }, 180);
+  };
+  onKey = (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); this.goTo(this.state.idx + 1); }
+    if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); this.goTo(this.state.idx - 1); }
+  };
+  onTS = (e) => { this.ty = e.touches[0].clientY; };
+  onTE = (e) => {
+    if (this.ty == null) return;
+    const d = this.ty - e.changedTouches[0].clientY;
+    if (Math.abs(d) > 44) this.goTo(this.state.idx + (d > 0 ? 1 : -1));
+    this.ty = null;
+  };
+  onMove = (e) => {
+    this.mx = e.clientX; this.my = e.clientY;
+    if (this.cursorRef.current) this.cursorRef.current.style.transform = `translate3d(${e.clientX}px,${e.clientY}px,0)`;
+  };
+
+  loop = (t) => {
+    const dt = Math.min(48, t - this.last); this.last = t;
+    if (this.anim) {
+      const a = this.anim;
+      let p = Math.min(1, (t - a.start) / a.dur);
+      const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      this.prog = a.from + (a.to - a.from) * e;
+      if (p >= 1) { this.prog = a.to; this.anim = null; }
+    }
+    const H = this.state.h;
+    if (this.trackRef.current) this.trackRef.current.style.transform = `translate3d(0,${-this.prog * H}px,0)`;
+
+    const fx = this.props.transitionFx ?? 'Slide + blur';
+    this.panes.forEach((r, i) => {
+      const el = r.current; if (!el) return;
+      const d = i - this.prog, ad = Math.abs(d);
+      if (ad > 1.25) { el.style.visibility = 'hidden'; return; }
+      el.style.visibility = 'visible';
+      let op = 1, y = 0, bl = 0, sc = 1;
+      if (fx === 'Fade puro') { op = 1 - Math.min(1, ad * 1.5); }
+      else if (fx === 'Parallax') { y = -d * 150; op = 1 - Math.min(1, ad * 0.9); sc = 1 - ad * 0.12; }
+      else { op = 1 - Math.min(1, ad * 1.05); y = -d * 62; bl = ad * 7; sc = 1 - ad * 0.06; }
+      el.style.opacity = op.toFixed(3);
+      el.style.filter = bl > 0.05 ? `blur(${bl.toFixed(2)}px)` : 'none';
+      el.style.transform = `translate3d(0,${y.toFixed(1)}px,0) scale(${sc.toFixed(4)})`;
+    });
+
+    // timecode + playhead (hero)
+    const frames = Math.floor(t / 41.7);
+    if (this.tcRef.current) {
+      const ff = frames % 24, ss = Math.floor(frames / 24) % 60, mm = Math.floor(frames / 1440) % 60, hh = Math.floor(frames / 86400) % 24;
+      const p2 = (n) => String(n).padStart(2, '0');
+      this.tcRef.current.textContent = `${p2(hh)}:${p2(mm)}:${p2(ss)}:${p2(ff)}`;
+    }
+    if (this.playRef.current) this.playRef.current.style.left = ((t / 90) % 100).toFixed(2) + '%';
+    if (this.spotRef.current && this.mx != null) this.spotRef.current.style.transform = `translate3d(${this.mx}px,${this.my}px,0)`;
+    if (this.photoRef.current) this.photoRef.current.style.transform = `translate3d(0,${((this.prog - 3) * -46).toFixed(1)}px,0)`;
+
+    // autoplay VIP
+    if (this.state.idx === 1 && !this.state.paused) {
+      this.vp += dt / (this.props.vipMs ?? 5200);
+      if (this.vp >= 1) { this.vp = 0; this.setState((s) => ({ vip: (s.vip + 1) % 4 })); }
+    }
+    this.barRefs.forEach((r, i) => {
+      if (!r.current) return;
+      const s = i < this.state.vip ? 1 : i === this.state.vip ? Math.min(1, this.vp) : 0;
+      r.current.style.transform = `scaleX(${s.toFixed(3)})`;
+    });
+    this.raf = requestAnimationFrame(this.loop);
+  };
+
+  btn(active) {
+    const dark = this.state.idx === 2 || this.state.idx === 4;
+    return {
+      position: 'absolute', pointerEvents: 'auto', border: 'none', cursor: 'pointer',
+      fontFamily: 'Archivo, sans-serif', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase',
+      display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-start', gap: '10px',
+      background: dark ? '#11110F' : '#E8E5DA', color: dark ? '#E8E5DA' : '#11110F',
+      transition: 'left ' + this.dur() + 'ms cubic-bezier(0.76,0,0.24,1), top ' + this.dur() + 'ms cubic-bezier(0.76,0,0.24,1), width ' + this.dur() + 'ms cubic-bezier(0.76,0,0.24,1), height ' + this.dur() + 'ms cubic-bezier(0.76,0,0.24,1), opacity 520ms ease, font-size ' + this.dur() + 'ms ease, background 600ms ease, color 600ms ease, padding ' + this.dur() + 'ms ease',
+      willChange: 'left, top, width, height'
+    };
+  }
+
+  renderVals() {
+    const { w, h, idx, ready, vip, tab } = this.state;
+    const mob = w < 760;
+    const pad = mob ? 18 : 48;
+    const H = mob ? 48 : 56, WC = mob ? 132 : 180, WV = mob ? 140 : 190;
+    const WM = mob ? w - pad * 2 : Math.min(600, w * 0.44), HM = mob ? 130 : 230;
+
+    let c, v;
+    if (idx === 0) {
+      const ty = h - (mob ? 210 : 250) - H;
+      c = { left: w - pad - WC, top: ty, width: WC, height: H, opacity: 1 };
+      v = { left: w - pad - WC - 10 - WV, top: ty, width: WV, height: H, opacity: 1 };
+    } else if (idx === 1) {
+      v = { left: pad, top: pad, width: WV, height: H, opacity: 1 };
+      c = { left: pad + WV + 10, top: pad, width: WC, height: H, opacity: 1 };
+    } else if (idx === 2) {
+      c = { left: w - pad - WM, top: h - pad - HM, width: WM, height: HM, opacity: 1 };
+      v = { left: w - pad - WM + WM / 2 - 20, top: h - pad - HM + HM / 2 - 10, width: 40, height: 20, opacity: 0 };
+    } else if (idx === 3) {
+      c = { left: pad, top: h - pad - H, width: WC, height: H, opacity: 1 };
+      v = { left: pad, top: h - pad - H, width: WC, height: H, opacity: 0 };
+    } else {
+      c = { left: w / 2 - WC / 2, top: h * 0.66, width: WC, height: H, opacity: 0 };
+      v = { left: w / 2 - WC / 2, top: h * 0.66, width: WC, height: H, opacity: 0 };
+    }
+    const merged = idx === 2;
+    const px = (o) => ({ left: o.left + 'px', top: o.top + 'px', width: o.width + 'px', height: o.height + 'px', opacity: o.opacity });
+
+    const contactStyle = Object.assign(this.btn(), this.btn(), px(c), {
+      fontSize: merged ? (mob ? '22px' : '40px') : '12px',
+      padding: merged ? (mob ? '18px' : '26px 30px') : '0 18px',
+      letterSpacing: merged ? '-0.02em' : '0.16em',
+      fontWeight: merged ? 900 : 700,
+      justifyContent: merged ? 'flex-end' : 'center',
+      alignItems: merged ? 'flex-start' : 'center',
+      pointerEvents: idx === 4 ? 'none' : 'auto'
+    });
+    const verStyle = Object.assign(this.btn(), px(v), {
+      fontSize: '12px', padding: '0 18px', justifyContent: 'center', alignItems: 'center',
+      pointerEvents: v.opacity < 0.5 ? 'none' : 'auto',
+      transform: v.opacity < 0.5 ? 'scale(0.86)' : 'scale(1)'
+    });
+    const contactSubStyle = {
+      display: 'block', fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', fontWeight: 400,
+      letterSpacing: '0.14em', textTransform: 'none', opacity: merged ? 0.6 : 0,
+      maxHeight: merged ? '20px' : '0px', overflow: 'hidden', transition: 'opacity 500ms ease ' + (merged ? '380ms' : '0ms') + ', max-height 500ms ease'
+    };
+
+    const tabCell = (on) => ({
+      position: 'relative', zIndex: 2, padding: '13px 26px', fontFamily: "'JetBrains Mono', monospace",
+      fontSize: '11px', letterSpacing: '0.18em', transition: 'color 420ms ease',
+      color: on ? '#E8E5DA' : 'rgba(17,17,15,0.55)'
+    });
+    const gridBase = (on, delay) => ({
+      position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)',
+      gridTemplateRows: '1fr 1fr', gap: '10px',
+      opacity: on ? 1 : 0, transform: on ? 'scale(1)' : 'scale(0.985)',
+      filter: on ? 'blur(0px)' : 'blur(6px)', pointerEvents: on ? 'auto' : 'none',
+      transition: 'opacity 520ms ease ' + delay + ', transform 620ms cubic-bezier(0.22,1,0.36,1) ' + delay + ', filter 520ms ease',
+      '--in': on && idx === 2 ? 1 : 0, '--y': on && idx === 2 ? '0px' : '32px'
+    });
+
+    this.vipEls = this.vipEls || [];
+    return {
+      trackRef: this.trackRef, spotRef: this.spotRef, tcRef: this.tcRef, playRef: this.playRef,
+      photoRef: this.photoRef, cursorRef: this.cursorRef,
+      pane0: this.panes[0], pane1: this.panes[1], pane2: this.panes[2], pane3: this.panes[3], pane4: this.panes[4],
+      ticks: Array.from({ length: 44 }, (_, i) => i),
+      wave: Array.from({ length: 64 }, (_, i) => ({ h: 22 + Math.round(78 * Math.abs(Math.sin(i * 0.7) * Math.cos(i * 0.23))), d: (0.7 + (i % 7) * 0.16).toFixed(2) })),
+      heroRev: { position: 'absolute', left: pad + 'px', right: pad + 'px', top: '46%', transform: 'translateY(-58%)', '--rev': ready ? '0%' : '100%' },
+      contactStyle, verStyle, contactSubStyle,
+      goContact: () => this.goTo(4),
+      goPortfolio: () => this.goTo(2),
+      grainStyle: {
+        position: 'absolute', inset: '-40%', zIndex: 41, pointerEvents: 'none',
+        opacity: (this.props.grain ?? true) ? 0.5 : 0,
+        backgroundImage: 'repeating-conic-gradient(rgba(255,255,255,0.035) 0% 25%, rgba(0,0,0,0.035) 0% 50%)',
+        backgroundSize: '3px 3px', animation: 'grainshift 0.7s steps(4) infinite', mixBlendMode: 'overlay'
+      },
+      dots: this.names.map((n, i) => ({
+        name: n, go: () => this.goTo(i),
+        label: {
+          fontFamily: "'JetBrains Mono', monospace", fontSize: '9px', letterSpacing: '0.16em',
+          color: idx === 2 || idx === 4 ? '#11110F' : '#E8E5DA',
+          opacity: idx === i ? 0.8 : 0, transition: 'opacity 400ms ease'
+        },
+        dot: {
+          display: 'block', width: idx === i ? '22px' : '8px', height: '2px',
+          background: idx === 2 || idx === 4 ? '#11110F' : '#E8E5DA',
+          opacity: idx === i ? 1 : 0.32, transition: 'width 520ms cubic-bezier(0.76,0,0.24,1), opacity 400ms ease'
+        }
+      })),
+      vips: this.vipData.map((d, i) => Object.assign({}, d, {
+        card: {
+          position: 'absolute', inset: 0, display: 'grid',
+          gridTemplateColumns: mob ? '1fr' : '0.85fr 1.15fr', gap: mob ? '20px' : '54px',
+          opacity: vip === i ? 1 : 0,
+          transform: vip === i ? 'translateY(0) scale(1)' : 'translateY(18px) scale(0.99)',
+          filter: vip === i ? 'blur(0px)' : 'blur(8px)',
+          pointerEvents: vip === i ? 'auto' : 'none',
+          transition: 'opacity 720ms ease, transform 860ms cubic-bezier(0.22,1,0.36,1), filter 720ms ease'
+        }
+      })),
+      vipBars: this.vipData.map((_, i) => ({
+        ref: this.barRefs[i],
+        fill: { display: 'block', width: '100%', height: '100%', background: '#E8E5DA', transformOrigin: 'left', transform: 'scaleX(0)' }
+      })),
+      vipCounter: `0${vip + 1} / 0${this.vipData.length}`,
+      prevVip: () => { this.vp = 0; this.setState((s) => ({ vip: (s.vip + 3) % 4 })); },
+      nextVip: () => { this.vp = 0; this.setState((s) => ({ vip: (s.vip + 1) % 4 })); },
+      pauseVip: () => this.setState({ paused: true }),
+      resumeVip: () => this.setState({ paused: false }),
+      toggleTab: () => this.setState((s) => ({ tab: s.tab === 0 ? 1 : 0 })),
+      tabAStyle: tabCell(tab === 0),
+      tabBStyle: tabCell(tab === 1),
+      knobStyle: {
+        position: 'absolute', zIndex: 1, top: 0, bottom: 0, left: tab === 0 ? '0%' : '50%', width: '50%',
+        background: '#11110F', transition: 'left 520ms cubic-bezier(0.76,0,0.24,1)'
+      },
+      tabCount: tab === 0 ? '04 PIEZAS · CORTOS' : '03 PIEZAS · LARGOS',
+      gridAStyle: gridBase(tab === 0, '80ms'),
+      gridBStyle: gridBase(tab === 1, '80ms'),
+      revStyle: ready ? 1 : 0
+    };
+  }
+}
+
+</script>
+</body>
+</html>

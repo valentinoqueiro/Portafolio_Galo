@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Space+Grotesk:wght@400;500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #11110F; overscroll-behavior: none; }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { opacity: 0.6; }
+  ::selection { background: #11110F; color: #E8E5DA; }
+  @keyframes wf { from { transform: scaleY(0.3); } to { transform: scaleY(1); } }
+  @keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0.12; } }
+  @keyframes caret { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+
+  <div ref="{{ trackRef }}" style="position: absolute; inset: 0; will-change: transform;">
+
+    <!-- ============ 1 · HERO ============ -->
+    <section data-screen-label="01 Hero" style="position: absolute; left: 0; top: 0; width: 100%; height: 100dvh;">
+      <div ref="{{ pane0 }}" style="{{ pane0Style }}">
+        <div ref="{{ spotRef }}" style="position: absolute; width: 820px; height: 820px; left: -410px; top: -410px; border-radius: 50%; background: radial-gradient(circle, var(--f08) 0%, var(--f04) 42%, transparent 70%); pointer-events: none;"></div>
+
+        <div style="{{ heroTopStyle }}">
+          <span style="display: flex; align-items: center; gap: 9px; padding: 8px 16px; border-radius: 999px; background: var(--surf);">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--fg); animation: blink 1.3s steps(1) infinite;"></span>
+            GALO · EDITOR DE VIDEO
+          </span>
+          <span ref="{{ tcRef }}" style="color: var(--f70);">00:00:00:00</span>
+        </div>
+
+        <div style="{{ heroRev }}">
+          <h1 style="margin: 0; font-size: clamp(30px, min(6.4vw, 8.4vh), 100px); line-height: 0.98; font-weight: 800; letter-spacing: -0.045em; text-transform: uppercase; max-width: 17ch;">
+            <span style="display: block; clip-path: inset(0 var(--rev, 100%) 0 0); transition: clip-path 1s cubic-bezier(0.76,0,0.24,1) 0.15s;">Cada corte</span>
+            <span style="display: block; clip-path: inset(0 var(--rev, 100%) 0 0); transition: clip-path 1s cubic-bezier(0.76,0,0.24,1) 0.32s;">empuja el crecimiento</span>
+            <span style="display: block; clip-path: inset(0 var(--rev, 100%) 0 0); transition: clip-path 1s cubic-bezier(0.76,0,0.24,1) 0.48s;">de tu <span style="font-weight: 800; letter-spacing: -0.045em; color: var(--acc);">{{ word }}</span><span style="display: inline-block; width: 3px; height: 0.78em; margin-left: 6px; vertical-align: -0.04em; background: var(--acc); animation: caret 1s steps(1) infinite;"></span></span>
+          </h1>
+          <p style="margin: 22px 0 0; max-width: 460px; font-size: clamp(13px, 1.6vh, 16px); line-height: 1.6; color: var(--f55); clip-path: inset(0 var(--rev, 100%) 0 0); transition: clip-path 0.9s cubic-bezier(0.76,0,0.24,1) 0.66s; text-wrap: pretty;">Transformo tus grabaciones en contenido listo para publicar en 48hs, pensado para captar atención y generar resultados.</p>
+        </div>
+
+        <div style="{{ barStyle }}">
+          <div style="display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--f40); margin-bottom: 12px;">
+            <span style="display: flex; align-items: center; gap: 12px;">
+              <span style="display: flex; gap: 4px; align-items: center;">
+                <span style="width: 0; height: 0; border-left: 7px solid var(--acc); border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent;"></span>
+                <span style="color: var(--f55);">V1 · TIMELINE</span>
+              </span>
+              <span ref="{{ tc2Ref }}" style="color: var(--acc);">00:00:00:00</span>
+            </span>
+            <span>SCROLL PARA CORTAR ↓</span>
+          </div>
+          <div style="position: relative;">
+            <div style="display: flex; gap: 6px; height: 46px;">
+              <sc-for list="{{ clips }}" as="c" hint-placeholder-count="6">
+                <div ref="{{ c.ref }}" style="{{ c.style }}">
+                  <span style="{{ c.labelStyle }}">{{ c.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; align-items: flex-end; gap: 3px; height: 26px; margin-top: 10px;">
+              <sc-for list="{{ wave }}" as="b" hint-placeholder-count="52">
+                <div ref="{{ b.ref }}" style="{{ b.style }}"></div>
+              </sc-for>
+            </div>
+            <div ref="{{ playRef }}" style="position: absolute; top: -8px; bottom: -8px; left: 0; width: 2px; border-radius: 999px; background: var(--acc); box-shadow: 0 0 14px var(--acc);">
+              <span style="position: absolute; top: -7px; left: -5px; width: 12px; height: 12px; border-radius: 3px; background: var(--acc);"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · CLIENTES VIP ============ -->
+    <section data-screen-label="02 Clientes VIP" style="position: absolute; left: 0; top: calc(100dvh - 34px); width: 100%; height: 100dvh;">
+      <div ref="{{ pane1 }}" style="{{ pane1Style }}">
+        <div style="position: absolute; left: 40px; right: 40px; top: 122px; display: flex; align-items: baseline; justify-content: space-between; gap: 20px;">
+          <h2 style="margin: 0; font-size: clamp(24px, 3vw, 40px); font-weight: 800; letter-spacing: -0.035em; text-transform: uppercase;">Clientes <span style="font-family: var(--mono); font-weight: 500; font-size: 0.62em; letter-spacing: 0.06em; vertical-align: 0.16em;">VIP</span></h2>
+          <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--f40);">CURADURÍA AUTOMÁTICA</span>
+        </div>
+
+        <div style="position: absolute; left: 40px; right: 40px; top: 178px; display: flex; gap: 6px;">
+          <sc-for list="{{ vipBars }}" as="s" hint-placeholder-count="4">
+            <div style="flex: 1; height: 3px; border-radius: 999px; background: var(--f14); overflow: hidden;">
+              <div ref="{{ s.ref }}" style="{{ s.fill }}"></div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div onMouseEnter="{{ pauseVip }}" onMouseLeave="{{ resumeVip }}" style="position: absolute; left: 40px; right: 40px; top: 210px; bottom: 132px;">
+          <sc-for list="{{ vips }}" as="v" hint-placeholder-count="1">
+            <div style="{{ v.card }}">
+              <div style="position: relative; overflow: hidden; border-radius: 30px; background: repeating-linear-gradient(135deg, var(--f08) 0 9px, var(--f04) 9px 18px);">
+                <img src="{{ v.foto }}" alt="{{ v.name }}" style="{{ fotoStyle }}" />
+              </div>
+              <div style="display: flex; flex-direction: column; justify-content: center; gap: 20px; padding: 8px 0 8px 6px;">
+                <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; color: var(--f40);">{{ v.tag }}</span>
+                <h3 style="margin: 0; font-size: clamp(30px, 4.4vw, 62px); line-height: 0.92; font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase;">{{ v.name }}</h3>
+                <p style="margin: 0; max-width: 430px; font-size: 16px; line-height: 1.55; color: var(--f55); text-wrap: pretty;">{{ v.desc }}</p>
+                <div style="display: inline-flex; align-items: baseline; gap: 14px; align-self: flex-start; padding: 16px 24px; border-radius: 999px; background: var(--surf);">
+                  <span style="font-family: var(--mono); font-size: clamp(24px, 3.2vw, 40px); font-weight: 700; letter-spacing: -0.03em;">{{ v.metric }}</span>
+                  <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--f40);">{{ v.metricLabel }}</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="position: absolute; left: 40px; bottom: 62px; display: flex; align-items: center; gap: 10px;">
+          <button onClick="{{ prevVip }}" data-hover="1" style="-webkit-appearance: none; appearance: none; width: 46px; height: 46px; border-radius: 999px; border: none; background: var(--surf); color: var(--fg); font-size: 15px; transition: background 0.3s, transform 0.3s;" style-hover="transform: translateY(-2px);">←</button>
+          <button onClick="{{ nextVip }}" data-hover="1" style="-webkit-appearance: none; appearance: none; width: 46px; height: 46px; border-radius: 999px; border: none; background: var(--surf); color: var(--fg); font-size: 15px; transition: background 0.3s, transform 0.3s;" style-hover="transform: translateY(-2px);">→</button>
+          <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--f40); margin-left: 8px;">{{ vipCounter }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3 · PORTFOLIO ============ -->
+    <section data-screen-label="03 Portfolio" style="position: absolute; left: 0; top: calc(200dvh - 68px); width: 100%; height: 100dvh;">
+      <div ref="{{ pane2 }}" style="{{ pane2Style }}">
+        <div style="{{ worksHeadStyle }}">
+          <h2 style="margin: 0; font-size: clamp(20px, 3vw, 40px); font-weight: 800; letter-spacing: -0.035em; text-transform: uppercase;">Trabajos</h2>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--f40);">{{ tabCount }}</span>
+            <div onClick="{{ toggleTab }}" data-hover="1" style="position: relative; display: flex; padding: 5px; border-radius: 999px; background: var(--surf); user-select: none;">
+              <div style="{{ knobStyle }}"></div>
+              <div style="{{ tabAStyle }}">CORTOS</div>
+              <div style="{{ tabBStyle }}">LARGOS</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="{{ worksAreaStyle }}">
+          <div style="{{ gridAStyle }}">
+            <sc-for list="{{ reels }}" as="r" hint-placeholder-count="4">
+              <div style="{{ r.card }}">
+                <div style="{{ r.media }}" onClick="{{ r.openModal }}" data-hover="1">
+                  <img src="{{ r.poster }}" alt="{{ r.title }}" style="{{ videoStyle }}" />
+                  <div style="{{ playBtn }}">
+                    <span style="{{ playIcon }}">
+                      <span style="{{ playTriStyle }}"></span>
+                    </span>
+                  </div>
+                  <span style="{{ r.badge }}">{{ r.badge_text }}</span>
+                </div>
+                <div style="{{ r.meta }}">
+                  <span style="font-weight: 700; letter-spacing: -0.02em; font-size: 14px;">{{ r.title }}</span>
+                  <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--f40);">{{ r.tag }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="{{ gridBStyle }}">
+            <sc-for list="{{ largos }}" as="l" hint-placeholder-count="3">
+              <div style="{{ l.card }}">
+                <div style="{{ l.media }}">
+                  <sc-if value="{{ l.embedSrc }}">
+                    <iframe src="{{ l.embedSrc }}" style="{{ iframeStyle }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                  </sc-if>
+                  <span style="{{ l.badge }}">{{ l.badge_text }}</span>
+                </div>
+                <div style="{{ l.meta }}">
+                  <span style="font-weight: 700; letter-spacing: -0.02em; font-size: 14px;">{{ l.title }}</span>
+                  <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--f40);">{{ l.tag }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · SOBRE MÍ ============ -->
+    <section data-screen-label="04 Sobre mí" style="position: absolute; left: 0; top: calc(300dvh - 102px); width: 100%; height: 100dvh;">
+      <div ref="{{ pane3 }}" style="{{ pane3Style }}">
+        <div style="{{ aboutStyle }}">
+          <div style="{{ aboutPhotoStyle }}">
+            <img ref="{{ photoRef }}" src="uploads/galo.jpg" alt="Galo" style="position: absolute; left: 0; right: 0; top: -12%; height: 124%; width: 100%; object-fit: cover;" />
+          </div>
+          <div style="display: flex; flex-direction: column; justify-content: center; gap: clamp(12px, 2.4vh, 24px);">
+            <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; color: var(--f40);">SOBRE MÍ / 04</span>
+            <h2 style="margin: 0; font-size: clamp(24px, min(3.8vw, 6.4vh), 54px); line-height: 1; font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase;">Galo</h2>
+            <p style="margin: 0; max-width: 520px; font-size: clamp(13px, 1.8vh, 17px); line-height: 1.55; color: var(--f55); text-wrap: pretty;">Desarrollo estrategias de video vertical pensadas exclusivamente para hackear la atención. No hago simples recortes; analizo analíticas, construyo narrativas retentivas y utilizo edición de alto impacto para convertir views en conversiones reales.</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; max-width: 480px; font-family: var(--mono); font-size: 12px;">
+              <div style="display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--f14);"><span style="color: var(--f40); letter-spacing: 0.1em;">ROL_</span><span style="text-align: right;">Video Editor &amp; Content Strategist</span></div>
+              <div style="display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--f14);"><span style="color: var(--f40); letter-spacing: 0.1em;">ESPECIALIDAD_</span><span style="text-align: right;">Retención &amp; Crecimiento Orgánico</span></div>
+              <div style="display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--f14);"><span style="color: var(--f40); letter-spacing: 0.1em;">FORMATO PPAL_</span><span style="text-align: right;">9:16 (Shorts, Reels, TikTok)</span></div>
+              <div style="display: flex; justify-content: space-between; gap: 16px;"><span style="color: var(--f40); letter-spacing: 0.1em;">STATUS_</span><span style="text-align: right; color: #27ae60;">Aceptando Proyectos Selectos</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 · CTA FINAL ============ -->
+    <section data-screen-label="05 CTA final" style="position: absolute; left: 0; top: calc(400dvh - 136px); width: 100%; height: 100dvh;">
+      <div ref="{{ pane4 }}" style="{{ pane4Style }}">
+        <div style="{{ ctaPanelStyle }}">
+          <span style="font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; color: var(--f40);">FIN DE SECUENCIA · 05</span>
+          <p style="margin: 0; max-width: 960px; text-align: center; font-size: clamp(21px, min(3.6vw, 5.6vh), 52px); line-height: 1.12; font-weight: 800; letter-spacing: -0.04em; text-wrap: pretty;">¿Listo para el siguiente nivel? Llevemos a tu audiencia actual hacia un crecimiento exponencial. Empecemos a iterar tus contenidos hoy mismo.</p>
+          <div style="position: absolute; left: 34px; right: 34px; bottom: 26px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--f40);">
+            <span>GALO · EDITOR DE VIDEO</span>
+            <span>BUENOS AIRES · REMOTO</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div style="{{ grainStyle }}"></div>
+
+  <!-- toggle claro / oscuro -->
+  <button onClick="{{ toggleTheme }}" data-hover="1" style="{{ themeBtnStyle }}" style-hover="transform: translateY(-2px);">
+    <span style="{{ themeIconWrap }}">
+      <sc-if value="{{ dark }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </sc-if>
+      <sc-if value="{{ !dark }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </sc-if>
+    </span>
+    {{ themeLabel }}
+  </button>
+
+  <!-- indicador de secciones -->
+  <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); z-index: 70; display: flex; flex-direction: column; gap: 12px; align-items: flex-end;">
+    <sc-for list="{{ dots }}" as="d" hint-placeholder-count="5">
+      <div onClick="{{ d.go }}" data-hover="1" style="display: flex; align-items: center; gap: 10px;">
+        <span style="{{ d.label }}">{{ d.name }}</span>
+        <span style="{{ d.dot }}"></span>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- grupo de botones flotantes -->
+  <div style="position: absolute; inset: 0; z-index: 80; pointer-events: none;">
+    <div style="{{ groupStyle }}">
+      <button onClick="{{ goContact }}" data-hover="1" style="{{ contactStyle }}">
+        <span style="{{ contactColStyle }}">
+          <span style="display: flex; align-items: center; gap: 12px;">
+            <span style="{{ playStyle }}"></span>
+            <span>{{ ctaLabel }}</span>
+          </span>
+        </span>
+      </button>
+      <button onClick="{{ goPortfolio }}" data-hover="1" style="{{ verStyle }}">Ver trabajos</button>
+    </div>
+  </div>
+
+  <sc-if value="{{ openReelData }}">
+    <div style="{{ lightboxBackdropStyle }}" onClick="{{ closeReelBackdrop }}">
+      <video ref="{{ openReelData.mountVideo }}" src="{{ openReelData.src }}" style="{{ lightboxVideoStyle }}" loop playsinline controls></video>
+      <button onClick="{{ closeReelModal }}" data-hover="1" style="{{ lightboxCloseStyle }}">✕</button>
+    </div>
+  </sc-if>
+
+  <div ref="{{ cursorRef }}" style="{{ cursorStyle }}"></div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;typeface&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Archivo&quot;,&quot;options&quot;:[&quot;Archivo&quot;,&quot;Bricolage Grotesque&quot;,&quot;Space Grotesk&quot;,&quot;DM Sans&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tipografía&quot;},&quot;startTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Oscuro&quot;,&quot;options&quot;:[&quot;Oscuro&quot;,&quot;Claro&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tema&quot;},&quot;snapMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:950,&quot;min&quot;:500,&quot;max&quot;:1600,&quot;step&quot;:50,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Movimiento&quot;},&quot;transitionFx&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Reveal&quot;,&quot;options&quot;:[&quot;Reveal&quot;,&quot;Parallax&quot;,&quot;Fade puro&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Movimiento&quot;},&quot;vipMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5200,&quot;min&quot;:2500,&quot;max&quot;:9000,&quot;step&quot;:100,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Clientes VIP&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Textura&quot;}}">
+class Component extends DCLogic {
+  state = { idx: 0, vip: 0, tab: 0, w: 1440, h: 900, ready: false, paused: false, theme: 'dark', word: '', openReel: null, cursorHover: false };
+
+  trackRef = React.createRef();
+  spotRef = React.createRef();
+  tcRef = React.createRef();
+  playRef = React.createRef();
+  photoRef = React.createRef();
+  cursorRef = React.createRef();
+  panes = [React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef()];
+  barRefs = [React.createRef(), React.createRef(), React.createRef()];
+  tc2Ref = React.createRef();
+  clipRefs = Array.from({ length: 6 }, () => React.createRef());
+  waveRefs = Array.from({ length: 52 }, () => React.createRef());
+  clipDefs = [
+    { f: 2.2, label: 'A_ROLL_01' }, { f: 1.1, label: '' }, { f: 3.4, label: 'B_ROLL_04' },
+    { f: 0.7, label: '' }, { f: 2.6, label: 'SFX_MIX' }, { f: 1.5, label: '' }
+  ];
+  reelData = [
+    { title: 'Lanzamiento cápsula', tag: '00:00:22 · REEL', src: 'uploads/AD 1.webm', poster: 'uploads/AD 1-poster.jpg' },
+    { title: 'Serie · 6 piezas', tag: '00:00:15 · SOCIAL', src: 'uploads/AD-_6-Hook-_3.webm', poster: 'uploads/AD-_6-Hook-_3-poster.jpg' },
+    { title: 'Behind the scenes', tag: '00:00:38 · REEL', src: 'uploads/DA-R015.webm', poster: 'uploads/DA-R015-poster.jpg' },
+    { title: 'Teaser producto', tag: '00:00:12 · ADS', src: 'uploads/Organico 12.webm', poster: 'uploads/Organico 12-poster.jpg' }
+  ];
+  largoData = [
+    { title: 'Backstage Margarita 2', tag: 'MICHELLE MASSON · BACKSTAGE', embedSrc: 'https://www.youtube.com/embed/0jFWJ89D4_8' },
+    { title: 'Branded doc', tag: '00:12:40 · MARCA' },
+    { title: 'Concierto en vivo', tag: '00:26:05 · MÚSICA' }
+  ];
+
+  names = ['HERO', 'CLIENTES', 'TRABAJOS', 'SOBRE MÍ', 'CONTACTO'];
+  words = ['negocio', 'marca', 'audiencia', 'comunidad'];
+  vipData = [
+    { tag: 'CLIENTE 01 · EMPRENDEDOR & E-COMMERCE', name: 'Marcos Razzetti', desc: 'Modelos de negocio de e-commerce a escala global y funnels de conversión avanzados. Optimización de rentabilidad máxima mediante estrategias de marketing automatizadas y logística eficiente.', metric: '35M', metricLabel: 'VISUALIZACIONES', foto: 'uploads/marcos-razzetti.jpg' },
+    { tag: 'CLIENTE 02 · MARKETING DIGITAL', name: 'Oscar Hinojosa', desc: 'Estrategias de posicionamiento y lanzamientos digitales de alta conversión. Experto en captación de clientes, storytelling y ventas high-ticket, transformando influencia en negocios escalables.', metric: '+$1M', metricLabel: 'FACTURACIÓN', foto: 'uploads/oscar-hinojosa.jpg' },
+    { tag: 'CLIENTE 03 · MODELO & CONTENIDO', name: 'Michelle Masson', desc: 'Modelo, actriz y creadora de contenido. Edición de piezas para TikTok e Instagram mostrando el detrás de escena de su trabajo, con ritmo y ganchos pensados para retención y viralidad.', metric: '1.9M', metricLabel: 'SEGUIDORES', foto: 'uploads/michelle-masson.jpg' }
+  ];
+
+  componentDidMount() {
+    this.prog = 0; this.vp = 0; this.acc = 0; this.last = performance.now();
+    this.tw = { i: 0, n: 0, dir: 1, hold: 0, t: 0 };
+    this.setState({ theme: (this.props.startTheme ?? 'Oscuro') === 'Claro' ? 'light' : 'dark' });
+    this.resize();
+    window.addEventListener('resize', this.resize);
+    window.addEventListener('wheel', this.onWheel, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('touchstart', this.onTS, { passive: true });
+    window.addEventListener('touchend', this.onTE, { passive: true });
+    window.addEventListener('mousemove', this.onMove);
+    this.raf = requestAnimationFrame(this.loop);
+    setTimeout(() => this.setState({ ready: true }), 150);
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener('resize', this.resize);
+    window.removeEventListener('wheel', this.onWheel);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('touchstart', this.onTS);
+    window.removeEventListener('touchend', this.onTE);
+    window.removeEventListener('mousemove', this.onMove);
+  }
+
+  resize = () => this.setState({ w: window.innerWidth, h: window.innerHeight });
+  dur() { return this.props.snapMs ?? 950; }
+
+  goTo = (i) => {
+    const t = Math.max(0, Math.min(4, i));
+    if (t === this.state.idx && !this.anim) return;
+    this.anim = { from: this.prog, to: t, start: performance.now(), dur: this.dur() };
+    this.setState({ idx: t });
+  };
+
+  closeReelModal = () => this.setState({ openReel: null });
+
+  onWheel = (e) => {
+    e.preventDefault();
+    if (this.state.openReel != null) { this.closeReelModal(); return; }
+    if (this.anim) return;
+    this.acc += e.deltaY;
+    if (Math.abs(this.acc) > 28) { this.goTo(this.state.idx + (this.acc > 0 ? 1 : -1)); this.acc = 0; }
+    clearTimeout(this.accT);
+    this.accT = setTimeout(() => { this.acc = 0; }, 180);
+  };
+  onKey = (e) => {
+    if (this.state.openReel != null) {
+      if (e.key === 'Escape') this.closeReelModal();
+      return;
+    }
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); this.goTo(this.state.idx + 1); }
+    if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); this.goTo(this.state.idx - 1); }
+  };
+  onTS = (e) => { if (this.state.openReel != null) return; this.ty = e.touches[0].clientY; };
+  onTE = (e) => {
+    if (this.state.openReel != null) return;
+    if (this.ty == null) return;
+    const d = this.ty - e.changedTouches[0].clientY;
+    if (Math.abs(d) > 44) this.goTo(this.state.idx + (d > 0 ? 1 : -1));
+    this.ty = null;
+  };
+  onMove = (e) => {
+    this.mx = e.clientX; this.my = e.clientY;
+    if (this.cursorRef.current) this.cursorRef.current.style.transform = `translate3d(${e.clientX}px,${e.clientY}px,0)`;
+    const isHoverable = !!e.target.closest('[data-hover]');
+    if (isHoverable !== this.state.cursorHover) this.setState({ cursorHover: isHoverable });
+  };
+
+  loop = (t) => {
+    const dt = Math.min(48, t - this.last); this.last = t;
+    if (this.anim) {
+      const a = this.anim;
+      const p = Math.min(1, (t - a.start) / a.dur);
+      const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      this.prog = a.from + (a.to - a.from) * e;
+      if (p >= 1) { this.prog = a.to; this.anim = null; }
+    }
+    const H = this.state.h - 34;
+    if (this.trackRef.current) this.trackRef.current.style.transform = `translate3d(0,${-this.prog * H}px,0)`;
+
+    const fx = this.props.transitionFx ?? 'Reveal';
+    this.panes.forEach((r, i) => {
+      const el = r.current; if (!el) return;
+      const d = i - this.prog, ad = Math.abs(d);
+      if (ad > 1.25) { el.style.visibility = 'hidden'; return; }
+      el.style.visibility = 'visible';
+      let op = 1, y = 0, bl = 0, sc = 1, br = 1;
+      if (fx === 'Fade puro') { op = 1 - Math.min(1, ad * 1.5); }
+      else if (fx === 'Parallax') { y = -d * 120; sc = 1 - ad * 0.07; br = 1 - ad * 0.34; bl = ad * 2.5; }
+      else { y = -d * 26; sc = 1 - ad * 0.035; br = 1 - ad * 0.3; bl = ad * 2; }
+      el.style.opacity = op.toFixed(3);
+      el.style.filter = (bl > 0.05 ? `blur(${bl.toFixed(2)}px) ` : '') + `brightness(${Math.max(0.35, br).toFixed(3)})`;
+      el.style.transform = `translate3d(0,${y.toFixed(1)}px,0) scale(${sc.toFixed(4)})`;
+    });
+
+    const frames = Math.floor(t / 41.7);
+    if (this.tcRef.current) {
+      const p2 = (n) => String(n).padStart(2, '0');
+      this.tcRef.current.textContent = `${p2(Math.floor(frames / 86400) % 24)}:${p2(Math.floor(frames / 1440) % 60)}:${p2(Math.floor(frames / 24) % 60)}:${p2(frames % 24)}`;
+    }
+    if (this.ph == null) { this.ph = 0; this.phMode = 'play'; this.phT = 1200; }
+    this.phT -= dt;
+    if (this.phT <= 0) {
+      if (this.phMode === 'play') {
+        this.phMode = Math.random() < 0.6 ? 'rew' : 'hold';
+        this.phT = this.phMode === 'rew' ? 200 + Math.random() * 360 : 220 + Math.random() * 320;
+      } else { this.phMode = 'play'; this.phT = 1500 + Math.random() * 2800; }
+    }
+    if (this.phMode === 'play') this.ph += dt * 0.028;
+    else if (this.phMode === 'rew') this.ph -= dt * 0.07;
+    if (this.ph > 100) this.ph = 0;
+    if (this.ph < 0) this.ph = 0;
+    const ph = this.ph;
+    if (this.playRef.current) {
+      this.playRef.current.style.left = ph.toFixed(2) + '%';
+      this.playRef.current.style.opacity = this.phMode === 'hold' ? '0.45' : '1';
+    }
+    if (this.tc2Ref.current) {
+      const fr = Math.floor(ph / 100 * 60 * 24), p2 = (n) => String(n).padStart(2, '0');
+      this.tc2Ref.current.textContent = '00:0' + Math.floor(fr / 1440) + ':' + p2(Math.floor(fr / 24) % 60) + ':' + p2(fr % 24);
+    }
+    if (this.clipRanges) this.clipRefs.forEach((r, i) => {
+      const el = r.current, cr = this.clipRanges[i]; if (!el || !cr) return;
+      const on = ph >= cr[0] && ph <= cr[1];
+      el.style.background = on ? 'var(--f40)' : cr[2];
+      el.style.transform = on ? 'scaleY(1.06)' : 'scaleY(1)';
+    });
+    this.waveRefs.forEach((r, i) => {
+      const el = r.current; if (!el) return;
+      const c = (i + 0.5) / this.waveRefs.length * 100;
+      const near = Math.max(0, 1 - Math.abs(c - ph) / 7);
+      const idle = 0.72 + 0.28 * Math.sin(t / 320 + i * 0.9);
+      el.style.transform = 'scaleY(' + (idle * (1 + near * 1.5)).toFixed(3) + ')';
+      el.style.background = near > 0.15 ? 'var(--acc)' : 'var(--f20)';
+      el.style.opacity = (0.55 + near * 0.45).toFixed(2);
+    });
+    if (this.spotRef.current && this.mx != null) this.spotRef.current.style.transform = `translate3d(${this.mx}px,${this.my}px,0)`;
+    if (this.photoRef.current) this.photoRef.current.style.transform = `translate3d(0,${((this.prog - 3) * -46).toFixed(1)}px,0)`;
+
+    // máquina de escribir
+    if (this.state.idx === 0 && this.state.ready) {
+      const tw = this.tw;
+      tw.t += dt;
+      const w = this.words[tw.i];
+      if (tw.hold > 0) { tw.hold -= dt; }
+      else if (tw.dir > 0 && tw.t > 78) {
+        tw.t = 0; tw.n++;
+        if (tw.n >= w.length) { tw.n = w.length; tw.dir = -1; tw.hold = 1900; }
+        this.setState({ word: w.slice(0, tw.n) });
+      } else if (tw.dir < 0 && tw.t > 38) {
+        tw.t = 0; tw.n--;
+        if (tw.n <= 0) { tw.n = 0; tw.dir = 1; tw.i = (tw.i + 1) % this.words.length; tw.hold = 240; }
+        this.setState({ word: w.slice(0, Math.max(0, tw.n)) });
+      }
+    }
+
+    if (this.state.idx === 1 && !this.state.paused) {
+      this.vp += dt / (this.props.vipMs ?? 5200);
+      if (this.vp >= 1) { this.vp = 0; this.setState((s) => ({ vip: (s.vip + 1) % this.vipData.length })); }
+    }
+    this.barRefs.forEach((r, i) => {
+      if (!r.current) return;
+      const s = i < this.state.vip ? 1 : i === this.state.vip ? Math.min(1, this.vp) : 0;
+      r.current.style.transform = `scaleX(${s.toFixed(3)})`;
+    });
+
+    this.raf = requestAnimationFrame(this.loop);
+  };
+
+  toggleTheme = () => this.setState((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' }));
+
+  tokens(inv) {
+    const dark = (this.state.theme === 'dark') !== !!inv;
+    const bg = dark ? '#11110F' : '#E8E5DA';
+    const fg = dark ? '#E8E5DA' : '#11110F';
+    const c = dark ? '232,229,218' : '17,17,15';
+    return {
+      backgroundColor: bg, color: fg, '--bg': bg, '--fg': fg, '--acc': '#F0A559',
+      '--f04': `rgba(${c},0.045)`, '--f08': `rgba(${c},0.09)`, '--f14': `rgba(${c},0.14)`,
+      '--f20': `rgba(${c},0.22)`, '--f40': `rgba(${c},0.45)`, '--f55': `rgba(${c},0.6)`, '--f70': `rgba(${c},0.8)`,
+      '--surf': `rgba(${c},0.06)`
+    };
+  }
+  pane(i, inv) {
+    const t = this.tokens(inv);
+    return Object.assign({
+      position: 'absolute', inset: 0, overflow: 'hidden',
+      borderRadius: i === 0 ? '0px' : '34px 34px 0 0',
+      backgroundImage: 'linear-gradient(' + t['--f08'] + ' 1px, transparent 1px), linear-gradient(90deg, ' + t['--f08'] + ' 1px, transparent 1px)',
+      backgroundSize: '68px 68px',
+      willChange: 'transform, opacity, filter', transition: 'background-color 600ms ease, color 600ms ease'
+    }, t);
+  }
+
+  renderVals() {
+    const { w, h, idx, ready, vip, tab, theme, word, cursorHover } = this.state;
+    const mob = w < 760;
+    const pad = mob ? 16 : 40;
+    const dark = theme === 'dark';
+    const inv2 = idx === 2, inv4 = idx === 4;
+    const invHere = (idx === 2 || idx === 4);
+    const ease = 'cubic-bezier(0.76,0,0.24,1)';
+    const D = this.dur();
+
+    const H = mob ? 50 : 60, WC = mob ? 128 : 168, WV = mob ? 116 : 156, G = 8, P = 7;
+    const GW = WC + WV + G + P * 2, GH = H + P * 2, SW = WC + P * 2;
+    const WM = Math.min(w - pad * 2, mob ? 300 : 440), HM = mob ? 78 : 96;
+
+    let g;
+    const hb = h - 34;
+    const rail = mob ? 0 : 64;
+    if (idx === 0) g = { left: w - pad - rail - GW, top: hb - (mob ? 214 : 240) - GH, width: GW, height: GH, opacity: 1 };
+    else if (idx === 1) g = { left: pad, top: pad, width: GW, height: GH, opacity: 1 };
+    else if (idx === 2) g = { left: w / 2 - SW / 2, top: hb - pad - GH, width: SW, height: GH, opacity: 1 };
+    else if (idx === 3) g = { left: w - pad - rail - SW, top: hb - pad - GH, width: SW, height: GH, opacity: 1 };
+    else g = { left: w / 2 - WM / 2, top: hb * (mob ? 0.7 : 0.63), width: WM, height: HM, opacity: 1 };
+
+    const merged = idx === 4;
+    const soloContact = idx >= 2;
+    const fgc = invHere ? (dark ? '#11110F' : '#E8E5DA') : (dark ? '#E8E5DA' : '#11110F');
+    const bgc = invHere ? (dark ? '#E8E5DA' : '#11110F') : (dark ? '#11110F' : '#E8E5DA');
+    const shellC = invHere ? (dark ? 'rgba(17,17,15,0.07)' : 'rgba(232,229,218,0.1)') : (dark ? 'rgba(232,229,218,0.07)' : 'rgba(17,17,15,0.07)');
+
+    const groupStyle = {
+      position: 'absolute', left: g.left + 'px', top: g.top + 'px', width: g.width + 'px', height: g.height + 'px',
+      opacity: g.opacity, display: 'flex', gap: (merged || soloContact ? 0 : G) + 'px', padding: (merged ? 8 : P) + 'px',
+      borderRadius: merged ? '38px' : '999px', background: shellC, backdropFilter: 'blur(6px)',
+      pointerEvents: 'auto',
+      transition: ['left', 'top', 'width', 'height', 'border-radius', 'padding', 'gap'].map((p) => p + ' ' + D + 'ms ' + ease).join(', ') + ', opacity 520ms ease, background 600ms ease',
+      willChange: 'left, top, width, height'
+    };
+
+    const pillBase = {
+      WebkitAppearance: 'none', appearance: 'none',
+      border: 'none', fontFamily: 'var(--sans)', fontWeight: 700,
+      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
+      transition: ['width', 'flex-grow', 'border-radius', 'font-size', 'padding'].map((p) => p + ' ' + D + 'ms ' + ease).join(', ') + ', opacity 480ms ease, transform 480ms ease, background 600ms ease, color 600ms ease',
+      overflow: 'hidden', whiteSpace: 'nowrap'
+    };
+
+    const contactStyle = Object.assign({}, pillBase, {
+      flex: '1 1 auto', height: '100%', background: fgc, color: bgc,
+      borderRadius: '999px',
+      fontSize: merged ? (mob ? '17px' : '22px') : '15px',
+      letterSpacing: merged ? '-0.02em' : '0.01em',
+      fontWeight: merged ? 800 : 700,
+      padding: merged ? '0 26px' : '0 22px',
+      alignItems: 'center', justifyContent: 'center'
+    });
+    const verStyle = Object.assign({}, pillBase, {
+      height: '100%', background: bgc, color: fgc, borderRadius: '999px', fontSize: '15px',
+      padding: soloContact || merged ? '0px' : '0 22px',
+      width: soloContact || merged ? '0px' : WV + 'px', minWidth: '0px',
+      flex: '0 0 auto',
+      opacity: soloContact || merged ? 0 : 1,
+      transform: soloContact || merged ? 'scale(0.82)' : 'scale(1)',
+      pointerEvents: soloContact || merged ? 'none' : 'auto'
+    });
+    const contactColStyle = {
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      gap: merged ? '3px' : '0px', minWidth: 0
+    };
+    const playStyle = {
+      flex: '0 0 auto', width: 0, height: 0,
+      borderLeft: (merged ? 13 : 10) + 'px solid currentColor',
+      borderTop: (merged ? 8.5 : 6.5) + 'px solid transparent',
+      borderBottom: (merged ? 8.5 : 6.5) + 'px solid transparent',
+      transition: 'border-width ' + D + 'ms ' + ease + ', margin ' + D + 'ms ' + ease
+    };
+    const tabCell = (on) => ({
+      position: 'relative', zIndex: 2, padding: '11px 24px', borderRadius: '999px',
+      fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.16em',
+      color: on ? 'var(--bg)' : 'var(--f40)', transition: 'color 420ms ease'
+    });
+    const gridBase = (on) => ({
+      position: 'absolute', inset: 0, display: 'flex', flexWrap: 'wrap',
+      alignContent: 'center', justifyContent: 'center', alignItems: 'center', gap: '14px',
+      opacity: on ? 1 : 0, transform: on ? 'scale(1)' : 'scale(0.985)',
+      filter: on ? 'blur(0px)' : 'blur(6px)', pointerEvents: on ? 'auto' : 'none',
+      transition: 'opacity 520ms ease 80ms, transform 620ms cubic-bezier(0.22,1,0.36,1) 80ms, filter 520ms ease'
+    });
+    const headH = mob ? 96 : 112, botH = mob ? 112 : 122;
+    const ah = Math.max(150, hb - headH - botH);
+    const GAP = 14;
+    const layout = (n, ar, perRow) => {
+      const rows = Math.ceil(n / perRow);
+      const rh = (ah - GAP * (rows - 1)) / rows;
+      const cw = Math.min((w - pad * 2 - GAP * (perRow - 1)) / perRow, rh * ar);
+      return { w: Math.floor(cw), h: Math.floor(cw / ar) };
+    };
+    const rl = layout(this.reelData.length, 9 / 16, mob ? 2 : 4);
+    const ll = layout(this.largoData.length, 16 / 9, mob ? 1 : 3);
+    const mkCard = (d, i, sz, on) => Object.assign({}, d, {
+      card: {
+        position: 'relative', width: sz.w + 'px', height: sz.h + 'px', borderRadius: '24px',
+        overflow: 'hidden', background: 'var(--f08)',
+        opacity: on && idx === 2 ? 1 : 0,
+        transform: on && idx === 2 ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'opacity 0.7s ease ' + (0.05 + i * 0.09) + 's, transform 0.85s cubic-bezier(0.22,1,0.36,1) ' + (0.05 + i * 0.09) + 's'
+      },
+      media: { position: 'absolute', inset: 0, background: 'repeating-linear-gradient(135deg, var(--f08) 0 9px, var(--f04) 9px 18px)', overflow: 'hidden' },
+      badge: { position: 'absolute', left: '14px', top: '14px', padding: '6px 11px', borderRadius: '999px', background: 'var(--surf)', fontFamily: 'var(--mono)', fontSize: '9px', letterSpacing: '0.14em', color: 'var(--f40)' },
+      meta: { position: 'absolute', left: '14px', right: '14px', bottom: '13px', display: 'flex', flexDirection: 'column', gap: '4px' }
+    });
+
+
+    let acc = 0; const tot = this.clipDefs.reduce((a, c) => a + c.f, 0);
+    this.clipRanges = this.clipDefs.map((c, i) => { const s0 = acc / tot * 100; acc += c.f; return [s0, acc / tot * 100, i % 2 ? 'var(--f08)' : 'var(--f14)']; });
+    return {
+      trackRef: this.trackRef, spotRef: this.spotRef, tcRef: this.tcRef, playRef: this.playRef,
+      photoRef: this.photoRef, cursorRef: this.cursorRef,
+      cursorStyle: {
+        position: 'absolute', zIndex: 95, left: 0, top: 0,
+        width: (cursorHover ? 46 : 22) + 'px', height: (cursorHover ? 46 : 22) + 'px',
+        marginTop: (cursorHover ? -23 : -11) + 'px', marginLeft: (cursorHover ? -23 : -11) + 'px',
+        borderRadius: '50%', pointerEvents: 'none',
+        border: '1.5px solid ' + (this.state.openReel != null ? '#E8E5DA' : fgc),
+        background: cursorHover ? (this.state.openReel != null ? '#E8E5DA' : fgc) : 'transparent',
+        opacity: cursorHover ? 0.85 : 1,
+        transition: 'width 320ms cubic-bezier(0.22,1,0.36,1), height 320ms cubic-bezier(0.22,1,0.36,1), margin 320ms cubic-bezier(0.22,1,0.36,1), background 240ms ease, border-color 500ms ease, opacity 240ms ease'
+      },
+      pane0: this.panes[0], pane1: this.panes[1], pane2: this.panes[2], pane3: this.panes[3], pane4: this.panes[4],
+      rootStyle: Object.assign({
+        position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden',
+        '--sans': ({
+          'Archivo': "Archivo, Helvetica, sans-serif",
+          'Bricolage Grotesque': "'Bricolage Grotesque', Archivo, sans-serif",
+          'Space Grotesk': "'Space Grotesk', Archivo, sans-serif",
+          'DM Sans': "'DM Sans', Archivo, sans-serif"
+        })[this.props.typeface ?? 'Archivo'] || "Archivo, Helvetica, sans-serif",
+        '--mono': (this.props.typeface ?? 'Archivo') === 'DM Sans'
+          ? "'DM Sans', monospace" : "'JetBrains Mono', ui-monospace, monospace",
+        fontFamily: 'var(--sans)', cursor: mob ? 'auto' : 'none',
+        transition: 'background 600ms ease, color 600ms ease'
+      }, this.tokens(false)),
+      pane0Style: this.pane(0, false),
+      pane1Style: this.pane(1, false),
+      pane2Style: this.pane(2, true),
+      pane3Style: this.pane(3, false),
+      pane4Style: this.pane(4, true),
+      heroRev: {
+        position: 'absolute', left: pad + 'px', right: (mob ? pad : 90) + 'px', top: '104px',
+        bottom: (mob ? 232 : 244) + 'px', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        '--rev': ready ? '0%' : '100%'
+      },
+      word: word,
+      wave: this.waveRefs.map((r, i) => ({
+        ref: r,
+        style: { flex: 1, borderRadius: '999px', transformOrigin: 'bottom', height: (20 + Math.round(80 * Math.abs(Math.sin(i * 0.7) * Math.cos(i * 0.23)))) + '%', background: 'var(--f20)', transition: 'background 200ms ease' }
+      })),
+      tc2Ref: this.tc2Ref,
+      groupStyle, contactStyle, verStyle, playStyle, contactColStyle,
+      goContact: () => window.open('https://wa.me/5493812019292', '_blank'),
+      goPortfolio: () => this.goTo(2),
+      toggleTheme: this.toggleTheme,
+      themeLabel: dark ? 'MODO CLARO' : 'MODO OSCURO',
+      dark,
+      themeBtnStyle: {
+        WebkitAppearance: 'none', appearance: 'none',
+        position: 'absolute', zIndex: 90, top: (mob ? 14 : 30) + 'px', right: (mob ? 14 : 34) + 'px',
+        display: 'flex', alignItems: 'center', gap: mob ? '9px' : '11px', padding: mob ? '10px 16px' : '14px 22px',
+        borderRadius: '999px', border: 'none', background: invHere ? 'rgba(17,17,15,0.08)' : 'rgba(232,229,218,0.08)',
+        color: invHere ? (dark ? '#11110F' : '#E8E5DA') : (dark ? '#E8E5DA' : '#11110F'),
+        fontFamily: 'var(--mono)', fontSize: mob ? '10px' : '11px', letterSpacing: '0.16em',
+        backdropFilter: 'blur(6px)', transition: 'background 600ms ease, color 600ms ease, transform 280ms ease',
+        boxShadow: invHere ? '0 1px 0 rgba(17,17,15,0.06) inset' : '0 1px 0 rgba(232,229,218,0.06) inset'
+      },
+      themeIconWrap: {
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        width: mob ? '16px' : '18px', height: mob ? '16px' : '18px'
+      },
+      grainStyle: {
+        position: 'absolute', inset: 0, zIndex: 41, pointerEvents: 'none',
+        opacity: (this.props.grain ?? true) ? 0.35 : 0,
+        backgroundImage: 'repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, rgba(0,0,0,0.03) 0% 50%)',
+        backgroundSize: '3px 3px', mixBlendMode: 'overlay'
+      },
+      dots: this.names.map((n, i) => ({
+        name: n, go: () => this.goTo(i),
+        label: {
+          fontFamily: 'var(--mono)', fontSize: '9px', letterSpacing: '0.16em',
+          color: 'currentColor', opacity: idx === i ? 0.7 : 0, transition: 'opacity 400ms ease',
+          color: invHere ? (dark ? '#11110F' : '#E8E5DA') : (dark ? '#E8E5DA' : '#11110F')
+        },
+        dot: {
+          display: 'block', width: idx === i ? '20px' : '7px', height: '3px', borderRadius: '999px',
+          background: invHere ? (dark ? '#11110F' : '#E8E5DA') : (dark ? '#E8E5DA' : '#11110F'),
+          opacity: idx === i ? 1 : 0.3,
+          transition: 'width 520ms ' + ease + ', opacity 400ms ease, background 600ms ease'
+        }
+      })),
+      vips: this.vipData.map((d, i) => Object.assign({}, d, {
+        card: {
+          position: 'absolute', inset: 0, display: 'grid',
+          gridTemplateColumns: mob ? '1fr' : '0.82fr 1.18fr',
+          gridTemplateRows: mob ? 'minmax(200px, 40vh) 1fr' : '1fr',
+          gap: mob ? '18px' : '44px',
+          opacity: vip === i ? 1 : 0,
+          transform: vip === i ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.99)',
+          filter: vip === i ? 'blur(0px)' : 'blur(8px)',
+          pointerEvents: vip === i ? 'auto' : 'none',
+          transition: 'opacity 720ms ease, transform 860ms cubic-bezier(0.22,1,0.36,1), filter 720ms ease'
+        }
+      })),
+      vipBars: this.vipData.map((_, i) => ({
+        ref: this.barRefs[i],
+        fill: { display: 'block', width: '100%', height: '100%', borderRadius: '999px', background: 'var(--fg)', transformOrigin: 'left', transform: 'scaleX(0)' }
+      })),
+      vipCounter: `0${vip + 1} / 0${this.vipData.length}`,
+      prevVip: () => { this.vp = 0; this.setState((s) => ({ vip: (s.vip + this.vipData.length - 1) % this.vipData.length })); },
+      nextVip: () => { this.vp = 0; this.setState((s) => ({ vip: (s.vip + 1) % this.vipData.length })); },
+      pauseVip: () => this.setState({ paused: true }),
+      resumeVip: () => this.setState({ paused: false }),
+      toggleTab: () => this.setState((s) => ({ tab: s.tab === 0 ? 1 : 0 })),
+      tabAStyle: tabCell(tab === 0),
+      tabBStyle: tabCell(tab === 1),
+      knobStyle: {
+        position: 'absolute', zIndex: 1, top: '5px', bottom: '5px', left: tab === 0 ? '5px' : '50%',
+        width: 'calc(50% - 5px)', borderRadius: '999px', background: 'var(--fg)',
+        transition: 'left 520ms ' + ease
+      },
+      tabCount: tab === 0 ? '04 PIEZAS · CORTOS' : '03 PIEZAS · LARGOS',
+      gridAStyle: gridBase(tab === 0),
+      gridBStyle: gridBase(tab === 1),
+      videoStyle: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' },
+      fotoStyle: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' },
+      iframeStyle: { position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' },
+      playTriStyle: { width: 0, height: 0, marginLeft: '4px', borderLeft: '16px solid #11110F', borderTop: '10px solid transparent', borderBottom: '10px solid transparent' },
+      playBtn: {
+        position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        pointerEvents: 'none', background: 'rgba(0,0,0,0.18)'
+      },
+      playIcon: {
+        width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(255,255,255,0.92)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        boxShadow: '0 6px 20px rgba(0,0,0,0.35)'
+      },
+      reels: this.reelData.map((d, i) => Object.assign(mkCard(d, i, rl, tab === 0), {
+        badge_text: '[ REEL 9:16 ]',
+        openModal: () => this.setState({ openReel: i })
+      })),
+      openReelData: this.state.openReel != null ? Object.assign({}, this.reelData[this.state.openReel], {
+        mountVideo: (el) => { if (el) { el.muted = false; el.play().catch(() => {}); } }
+      }) : null,
+      closeReelModal: this.closeReelModal,
+      closeReelBackdrop: (e) => { if (e.target === e.currentTarget) this.closeReelModal(); },
+      lightboxBackdropStyle: {
+        position: 'fixed', inset: 0, zIndex: 94, background: 'rgba(0,0,0,0.94)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center'
+      },
+      lightboxVideoStyle: {
+        maxWidth: mob ? '94vw' : '420px', maxHeight: '88vh', width: 'auto', height: 'auto',
+        borderRadius: '16px', boxShadow: '0 20px 60px rgba(0,0,0,0.6)'
+      },
+      lightboxCloseStyle: {
+        position: 'absolute', top: (mob ? 16 : 28) + 'px', right: (mob ? 16 : 28) + 'px',
+        width: '44px', height: '44px', borderRadius: '50%', border: 'none',
+        background: 'rgba(255,255,255,0.12)', color: '#E8E5DA', fontSize: '18px',
+        display: 'flex', alignItems: 'center', justifyContent: 'center'
+      },
+      largos: this.largoData.map((d, i) => Object.assign(mkCard(d, i, ll, tab === 1), { badge_text: '[ YOUTUBE 16:9 ]' })),
+      worksAreaStyle: { position: 'absolute', left: pad + 'px', right: pad + 'px', top: headH + 'px', bottom: (botH + 34) + 'px' },
+      worksHeadStyle: { position: 'absolute', left: pad + 'px', right: (mob ? pad : 210) + 'px', top: (mob ? 24 : 34) + 'px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '14px', flexWrap: 'wrap' },
+      heroTopStyle: { position: 'absolute', left: pad + 'px', right: (mob ? 128 : 240) + 'px', top: (mob ? 22 : 34) + 'px', display: 'flex', alignItems: 'center', gap: mob ? '10px' : '26px', flexWrap: 'wrap', fontFamily: 'var(--mono)', fontSize: mob ? '9px' : '11px', letterSpacing: '0.16em', color: 'var(--f55)' },
+      barStyle: { position: 'absolute', left: pad + 'px', right: pad + 'px', bottom: (mob ? 40 : 56) + 'px', padding: mob ? '14px 14px 12px' : '20px 22px 18px', borderRadius: mob ? '22px' : '28px', background: 'var(--surf)' },
+      clips: this.clipDefs.map((c, i) => ({
+        ref: this.clipRefs[i], label: c.label,
+        style: { flex: c.f, borderRadius: '12px', background: i % 2 ? 'var(--f08)' : 'var(--f14)', display: 'flex', alignItems: 'center', padding: '0 12px', overflow: 'hidden', transition: 'background 220ms ease, transform 220ms ease' },
+        labelStyle: { fontFamily: 'var(--mono)', fontSize: '9px', letterSpacing: '0.12em', color: 'var(--f55)', whiteSpace: 'nowrap', opacity: mob ? 0 : 1 }
+      })),
+      aboutStyle: { position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: mob ? '1fr' : '0.9fr 1.1fr', gap: mob ? '18px' : '44px', padding: mob ? '76px 16px 116px' : '80px 100px 132px 40px' },
+      aboutPhotoStyle: { position: 'relative', overflow: 'hidden', borderRadius: mob ? '24px' : '34px', display: mob ? 'none' : 'block' },
+      ctaPanelStyle: { position: 'absolute', top: (mob ? 14 : 24) + 'px', left: (mob ? 14 : 24) + 'px', right: (mob ? 14 : 24) + 'px', bottom: (mob ? 40 : 46) + 'px', borderRadius: mob ? '28px' : '40px', background: 'var(--surf)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: mob ? '18px' : '30px', padding: mob ? '48px 20px 170px' : '64px 40px 200px' },
+      ctaLabel: merged ? 'Trabajemos juntos' : 'Contactar'
+    };
+  }
+}
+
+</script>
+</body>
+</html>
